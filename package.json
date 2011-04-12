@@ -1,21 +1,21 @@
 {
-    "name": "echo",
-    "description": "Echo library for node",
-    "version": "0.1.9",
-    "author": "TikiBooth Limited",
-    "contributors": [
-        { "name": "Ed Bosher", "email": "ed@butter.com.hk" }
-    ],
-    "directories": {
-        "lib": "./lib/"
-    },
-    "engines": {
-        "node": "0.2.6"
-    },
-    "repositories": [
+  "name": "echo"
+  , "description": "Echo wrapper for node"
+  , "version": "0.1.9"
+  , "repositories": [
         {
             "type": "git",
             "url": "http://github.com/edbo/node-echo.git"
         }
     ]
+  , "author": "TikiBooth Limited"
+  , "contributors": [
+    "Ed Bosher <ed@tikibooth.com>",
+    "Emmanuel Prochasson <emmanuel@tikibooth.com>"
+  ]
+  , "scripts": {   "test": "node specs.js"   }
+  , "engines": { "node": ">=0.4.0"  }
+  , "dependencies" : ["traits"]
+  , "main": "./lib/"
+  , "directories": { "lib": "./lib/" }
 }

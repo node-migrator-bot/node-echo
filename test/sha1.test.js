@@ -1,5 +1,5 @@
 describe("sha1", function(){
-    var sha1 = require('echo/sha1.js');
+    var sha1 = require('sha1.js');
     describe("HMACSHA1 function test 1", function(){
         var sigBase = 'POST&http%3A%2F%2Fapi.js-kit.com%2Fv1%2Fsubmit&content%3D%26oauth_consumer_key%3Ddev.butter%26oauth_nonce%3D0d71356110f68f63de72ee3643ab54cb%26oauth_signature_method%3DHMAC-SHA1%26oauth_timestamp%3D1296368939%26oauth_version%3D1.0';
         var key = 'du9i3hep129incy12&';

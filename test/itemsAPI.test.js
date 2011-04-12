@@ -1,17 +1,17 @@
 var utils = require('utils.js');
-var sha1 = require('echo/sha1.js');
+var sha1 = require('sha1.js');
 
 var apiHost = 'api.js-kit.com';
 
 describe("EchoConnector Class", function(){
-    var EchoConnector = require('echo/EchoConnector.js');
+    var itemsAPI = require('itemsAPI.js').itemsAPI;
 
     describe("constructor with valid properties", function(){
         var echoConn;
 
         beforeEach(function(){
             spyOn(utils,'mergeOptions');
-            echoConn = new EchoConnector({consumerKey: "I am a key",consumerSecret: "I am a secret"});
+            echoConn = new itemsAPI({consumerKey: "I am a key",consumerSecret: "I am a secret"});
         });
 
         it("should set apiUrl to a default value", function(){
@@ -65,7 +65,7 @@ describe("EchoConnector Class", function(){
 
         beforeEach(function(){
             try{
-                new EchoConnector();
+                new itemsAPI();
             }
             catch(e){
                 excp = e;
@@ -75,7 +75,7 @@ describe("EchoConnector Class", function(){
         it("should throw and exception", function(){
             expect(excp).toBeDefined();
             expect(excp.name).toEqual("Echo: Option not set exception");
-            expect(excp.message).toEqual("EchoConnector requires the consumerKey option to be defined");
+            expect(excp.message).toEqual("itemsAPI requires the consumerKey option to be defined");
         });
     });
 
@@ -85,7 +85,7 @@ describe("EchoConnector Class", function(){
 
         beforeEach(function(){
             try{
-                new EchoConnector({consumerSecret: "I am a secret"});
+                new itemsAPI({consumerSecret: "I am a secret"});
             }
             catch(e){
                 excp = e;
@@ -95,7 +95,7 @@ describe("EchoConnector Class", function(){
         it("should throw and exception", function(){
             expect(excp).toBeDefined();
             expect(excp.name).toEqual("Echo: Option not set exception");
-            expect(excp.message).toEqual("EchoConnector requires the consumerKey option to be defined");
+            expect(excp.message).toEqual("itemsAPI requires the consumerKey option to be defined");
         });
     });
 
@@ -104,7 +104,7 @@ describe("EchoConnector Class", function(){
 
         beforeEach(function(){
             try{
-                new EchoConnector({consumerKey: "I am a key"});
+                new itemsAPI({consumerKey: "I am a key"});
             }
             catch(e){
                 excp = e;
@@ -114,7 +114,7 @@ describe("EchoConnector Class", function(){
         it("should throw and exception", function(){
             expect(excp).toBeDefined();
             expect(excp.name).toEqual("Echo: Option not set exception");
-            expect(excp.message).toEqual("EchoConnector requires the consumerKey option to be defined");
+            expect(excp.message).toEqual("itemsAPI requires the consumerKey option to be defined");
         });
     });
 });

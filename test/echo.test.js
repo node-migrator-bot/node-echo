@@ -1,9 +1,9 @@
 var sys = require('sys');
 var fs = require('fs');
-var tmpl = require('echo/tmpl.js');
+var tmpl = require('tmpl.js');
 
 describe("echo library", function(){
-    var echo = require('echo/echo.js');
+    var echo = require('echo.js');
 
     describe("responseHandler function", function(){
         beforeEach(function(){
