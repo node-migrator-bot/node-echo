@@ -5,7 +5,7 @@
   , "repositories": [
         {
             "type": "git",
-            "url": "http://github.com/edbo/node-echo.git"
+            "url": "http://github.com/digitalbutter/node-echo.git"
         }
     ]
   , "author": "TikiBooth Limited"
