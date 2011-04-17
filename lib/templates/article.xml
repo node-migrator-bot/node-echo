@@ -4,5 +4,5 @@
   <summary type="text"><%= article.summary%></summary>
   <content type="text"><%= article.content%></content>
   <link rel="alternate" type="text/html" href="<%= article.url%>"/>
-  <id><%= article.url%></id>
+  <id><%= article.permalink%></id>
 </activity:object>

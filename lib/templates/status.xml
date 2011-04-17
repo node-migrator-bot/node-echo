@@ -1,0 +1,6 @@
+<activity:object>
+  <activity:object-type>http://activitystrea.ms/schema/1.0/status</activity:object-type>
+  <content type="text"><%= status.content %></content>
+  <link rel="alternate" type="text/html" href="<%= status.url %>"/>
+  <id><%= status.url %></id>
+</activity:object>
