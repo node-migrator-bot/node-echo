@@ -95,6 +95,9 @@
             <div id="moduleList" class="module">
               <h4>Modules</h4>
               <ul>
+                  <li >
+                    <a href="module_activityobjects.html">activityObjects</a>
+                  </li>
                   <li  class="selected" >
                     <a href="module_itemsapi.html">itemsAPI</a>
                   </li>
@@ -108,16 +111,7 @@
               <h4>Classes</h4>
               <ul>
                   <li >
-                    <a href="ActivityObject.html">ActivityObject</a>
-                  </li>
-                  <li >
-                    <a href="FeedsAPI.html">FeedsAPI</a>
-                  </li>
-                  <li >
                     <a href="ItemsAPI.html">ItemsAPI</a>
-                  </li>
-                  <li >
-                    <a href="ItemsAPICore.html">ItemsAPICore</a>
                   </li>
                   <li  class="selected" >
                     <a href="KvsAPI.html">KvsAPI</a>
@@ -131,24 +125,6 @@
             <div id="fileList" class="module">
               <h4>Files</h4>
               <ul>
-                  <li >
-                    <a href="activityObjects.js.html">activityObjects.js</a>
-                  </li>
-                  <li >
-                    <a href="Class.js.html">Class.js</a>
-                  </li>
-                  <li >
-                    <a href="feedsAPI.js.html">feedsAPI.js</a>
-                  </li>
-                  <li >
-                    <a href="index.js.html">index.js</a>
-                  </li>
-                  <li >
-                    <a href="itemsAPI.js.html">itemsAPI.js</a>
-                  </li>
-                  <li >
-                    <a href="ItemsAPICore.js.html">ItemsAPICore.js</a>
-                  </li>
                   <li >
                     <a href="kvsAPI.js.html">kvsAPI.js</a>
                   </li>
@@ -168,6 +144,20 @@
             </div>
 
 
+            <div id="methodsList" class="module">
+              <h4>Methods</h4>
+              <ul>
+                  <li class=" ">
+                    <a href="#method_del">del</a>
+                  </li>
+                  <li class=" ">
+                    <a href="#method_get">get</a>
+                  </li>
+                  <li class=" ">
+                    <a href="#method_put">put</a>
+                  </li>
+              </ul>
+            </div>
 
 
 
@@ -205,10 +195,254 @@
         <div class="clear"></div>
 
 
+          <div class="section constructor" resource="#constructor">
+            <h3>Constructor</h3>
+            
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    Constructor
+                  </th>
+                  <th>
+                    Parameters
+                  </th>
+                  <th>
+                    Returns
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  
+                  <td class="names">
+                    <code>
+                      <span>KvsAPI</span>(
+                      options
+                      )
+                    </code>
+                  </td>
+                  
+                  <td class="parameters">
+                      <p>Parameters:</p>
+                      <ul>
+                          <li>
+                            <code>
+                              options
+                              &lt;Object&gt;
+                            </code>
+                             object for options<br/>
+<ul>
+<li>options.consumerKey</li>
+<li>options.consumerSecret</li>
+</ul>
+                          </li>
+                      </ul>
+                  </td>
+                  
+                  <td class="returns">
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
 
 
 
+          <div class="section methods" resource="#methods">
+              <h3>Methods</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>
+                      Methods
+                    </th>
+                    <th>
+                      Returns
+                    </th>
+                    <th>
+                      Description
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                    <tr class=" " resource="#method_del">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_del">del</a>(
+                          key, ispublic, callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Delete KV pair
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  key
+                                  &lt;string&gt;
+                                </code>
+                                 of the pair to delete
+                              </li>
+                              <li>
+                                <code>
+                                  ispublic
+                                  &lt;boolean&gt;
+                                </code>
+                                 indicates if the pair to delete is public or private
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_get">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_get">get</a>(
+                          kvs, ispublic, callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Fetch data from the Echo Key-Value Store.
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  kvs
+                                  &lt;object&gt;
+                                </code>
+                                 Key to value to retrieve. Specify:
+<ul>
+<li>kvs.key : key of the value to retrieve</li>
+<li>kvs.appkey : customer application key</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  ispublic
+                                  &lt;boolean&gt;
+                                </code>
+                                 indicate if data to retrieve is public or not.
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_put">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_put">put</a>(
+                          ), callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Put data into the Echo Key-Value database to store the third-party widgets' arbitrary data elements permanently.
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  )
+                                  &lt;object} kvs Key-Value pair to store. Specify:
+<ul>
+<li>kvs.key : key</li>
+<li>kvs.value : value</li>
+<li>kvs.public : (optional, in {true,false&gt;
+                                </code>
+                                 indicates if value is public or not (default: false)</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+
+                </tbody>
+              </table>
+
+
+
+          </div>
 
 
 

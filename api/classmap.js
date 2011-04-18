@@ -1,4 +1,4 @@
-YAHOO.env.classMap = {"KvsAPI": "itemsAPI", "ItemsAPICore": "itemsAPI", "render": "itemsAPI", "FeedsAPI": "itemsAPI", "UsersAPI": "itemsAPI", "ActivityObject": "itemsAPI", "TBind": "utils", "ItemsAPI": "itemsAPI"};
+YAHOO.env.classMap = {"KvsAPI": "itemsAPI", "ItemsAPICore": "activityObjects", "render": "itemsAPI", "FeedsAPI": "activityObjects", "UsersAPI": "itemsAPI", "ActivityObject": "activityObjects", "TBind": "utils", "ItemsAPI": "itemsAPI"};
 
 YAHOO.env.resolveClass = function(className) {
     var a=className.split('.'), ns=YAHOO.env.classMap;

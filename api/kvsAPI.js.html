@@ -95,6 +95,9 @@
             <div id="moduleList" class="module">
               <h4>Modules</h4>
               <ul>
+                  <li >
+                    <a href="module_activityobjects.html">activityObjects</a>
+                  </li>
                   <li  class="selected" >
                     <a href="module_itemsapi.html">itemsAPI</a>
                   </li>
@@ -108,16 +111,7 @@
               <h4>Classes</h4>
               <ul>
                   <li >
-                    <a href="ActivityObject.html">ActivityObject</a>
-                  </li>
-                  <li >
-                    <a href="FeedsAPI.html">FeedsAPI</a>
-                  </li>
-                  <li >
                     <a href="ItemsAPI.html">ItemsAPI</a>
-                  </li>
-                  <li >
-                    <a href="ItemsAPICore.html">ItemsAPICore</a>
                   </li>
                   <li >
                     <a href="KvsAPI.html">KvsAPI</a>
@@ -131,24 +125,6 @@
             <div id="fileList" class="module">
               <h4>Files</h4>
               <ul>
-                  <li >
-                    <a href="activityObjects.js.html">activityObjects.js</a>
-                  </li>
-                  <li >
-                    <a href="Class.js.html">Class.js</a>
-                  </li>
-                  <li >
-                    <a href="feedsAPI.js.html">feedsAPI.js</a>
-                  </li>
-                  <li >
-                    <a href="index.js.html">index.js</a>
-                  </li>
-                  <li >
-                    <a href="itemsAPI.js.html">itemsAPI.js</a>
-                  </li>
-                  <li >
-                    <a href="ItemsAPICore.js.html">ItemsAPICore.js</a>
-                  </li>
                   <li  class="selected" >
                     <a href="kvsAPI.js.html">kvsAPI.js</a>
                   </li>
@@ -186,18 +162,13 @@
             file <strong>kvsAPI.js</strong>
           </h2>
 
-          <div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * Key-Value Store API for Echo</span>
-<span class="cm"> * @class KvsAPI</span>
-<span class="cm"> */</span>
-
-<span class="kd">var</span> <span class="nx">sha1</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./sha1.js&#39;</span><span class="p">);</span>
+          <div class="highlight"><pre><span class="kd">var</span> <span class="nx">sha1</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./sha1.js&#39;</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">KvsAPI</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">){</span>
     <span class="cm">/**</span>
-<span class="cm">     * Implements the 4 method for itemAPI (submit, seach, count, mux)</span>
-<span class="cm">     * @class FeedsAPI</span>
+<span class="cm">     * Key-Value Store API for Echo</span>
+<span class="cm">     * @class KvsAPI</span>
 <span class="cm">     * @param {Object} options object for options&lt;br/&gt;</span>
 <span class="cm">     * &lt;ul&gt;</span>
 <span class="cm">     *     &lt;li&gt;options.consumerKey&lt;/li&gt;</span>
