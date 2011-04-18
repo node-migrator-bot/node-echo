@@ -1,0 +1,1417 @@
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width; initial-scale=1.0">
+
+  <title>
+    API: itemsAPI
+    
+    
+      &rarr; itemsAPI.js (file)
+    
+  </title>
+
+  <link rel="stylesheet" type="text/css" href="css/960fluid.min.css">
+  <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.8.4.custom.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/navigation.css">
+  <link rel="stylesheet" type="text/css" href="css/content.css">
+  <link rel="stylesheet" type="text/css" href="css/codeview.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Droid+Sans+Mono">
+  
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+</head>
+
+<body>
+  <div id="container" class="container_16">
+    <a name="top"></a>
+
+    <!-- HEADER -->
+    <header>
+      <div id="hd" class="grid_10">
+        <h1>
+          <a href="http://digitalbutter.github.com/node-echo/" title="node-echo">node-echo</a> v0.1.9
+        </h1>
+      </div> <!--! end of #hd -->
+    </header>
+
+    <div id="filters" class="grid_6">
+      <form action="#" method="get" id="show-toggles">
+        <fieldset>
+          <legend>Display Filters</legend>
+          <span class="classopts">
+            <input type="checkbox" name="show_private" id="show_private">
+            <label for="show_private">Show private</label>
+          </span>
+          <span class="classopts">
+            <input type="checkbox" name="show_protected" id="show_protected">
+            <label for="show_protected">Show protected</label>
+          </span>
+          <span class="classopts">
+            <input type="checkbox" name="show_deprecated" id="show_deprecated">
+            <label for="show_deprecated">Show deprecated</label>
+          </span>
+        </fieldset>
+      </form>
+
+    </div> <!--! end of #hd -->
+
+
+    <!-- SUB-HEADER w/ BREADCRUMBS -->
+
+    <div id="sub-hd" class="grid_16">
+      <div id="breadcrumbs">
+        <form id="search-form" method="get" action="#">
+          <label for="search">Search:</label>
+          <input type="text" id="search" title="Find documentation">
+        </form>
+
+        <a href="./index.html" title="node-echo">node-echo</a>
+          &rarr; module <a href="./module_itemsapi.html" title="itemsAPI">itemsAPI</a>
+          
+          
+            &rarr; file itemsAPI.js
+          
+      </div>
+    </div> <!--! end of #sub-hd -->
+    
+    <div class="clear"></div>
+    
+
+    <!-- SIDEBAR NAVIGATION -->
+    <nav>
+      <div id="navigation" class="grid_4">
+        <div>
+
+            <div id="moduleList" class="module">
+              <h4>Modules</h4>
+              <ul>
+                  <li  class="selected" >
+                    <a href="module_itemsapi.html">itemsAPI</a>
+                  </li>
+                  <li >
+                    <a href="module_render.html">render</a>
+                  </li>
+                  <li >
+                    <a href="module_utils.html">utils</a>
+                  </li>
+              </ul>
+            </div>
+
+            <div id="classList" class="module">
+              <h4>Classes</h4>
+              <ul>
+                  <li >
+                    <a href="ActivityObject.html">ActivityObject</a>
+                  </li>
+                  <li >
+                    <a href="FeedAPI.html">FeedAPI</a>
+                  </li>
+                  <li >
+                    <a href="ItemsAPI.html">ItemsAPI</a>
+                  </li>
+                  <li >
+                    <a href="ItemsAPICore.html">ItemsAPICore</a>
+                  </li>
+                  <li >
+                    <a href="itemsAPImethod.html">itemsAPImethod</a>
+                  </li>
+              </ul>
+            </div>
+
+            <div id="fileList" class="module">
+              <h4>Files</h4>
+              <ul>
+                  <li >
+                    <a href="activityObjects.js.html">activityObjects.js</a>
+                  </li>
+                  <li >
+                    <a href="Class.js.html">Class.js</a>
+                  </li>
+                  <li >
+                    <a href="feedsAPI.js.html">feedsAPI.js</a>
+                  </li>
+                  <li >
+                    <a href="index.js.html">index.js</a>
+                  </li>
+                  <li  class="selected" >
+                    <a href="itemsAPI.js.html">itemsAPI.js</a>
+                  </li>
+                  <li >
+                    <a href="ItemsAPICore.js.html">ItemsAPICore.js</a>
+                  </li>
+                  <li >
+                    <a href="render.js.html">render.js</a>
+                  </li>
+              </ul>
+            </div>
+
+
+
+
+
+        </div>
+      </div>  <!-- end of #navigation -->
+    </nav>
+
+
+    <div id="content" class="grid_12">
+      
+
+
+        <!--! source code view -->
+        <div id="srcout">
+          <h2>
+            file <strong>itemsAPI.js</strong>
+          </h2>
+
+          <div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Glue all the different modules together and expose them to the user in a convenient way.</span>
+<span class="cm"> * Basically : give you access to all the things you can do with the items API of Echo.</span>
+<span class="cm"> * @module itemsAPI</span>
+<span class="cm"> */</span>
+
+<span class="kd">var</span> <span class="nx">activityObjects</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./activityObjects.js&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ItemsAPICore</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./itemsAPICore.js&quot;</span><span class="p">).</span><span class="nx">ItemsAPICore</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">ItemsAPI</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">consumerKey</span><span class="p">,</span> <span class="nx">consumerSecret</span><span class="p">,</span> <span class="nx">feed</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * @class ItemsAPI</span>
+<span class="cm">     * @param {string} consumerKey your Echo API key</span>
+<span class="cm">     * @param {string} consumerSecret your Echo API secret</span>
+<span class="cm">     * @param {string} feed the feed you want to interact wth (retrieve from/post to)</span>
+<span class="cm">     */</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">consumerKey</span> <span class="o">&amp;&amp;</span> <span class="nx">consumerSecret</span> <span class="o">&amp;&amp;</span> <span class="nx">feed</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Invalid initialisation exception&quot;</span><span class="p">,</span> <span class="nx">error</span> <span class="o">:</span> <span class="s2">&quot;Specify API Key, secret and feed&quot;</span><span class="p">}</span>
+    <span class="p">}</span>  <span class="k">else</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">=</span> <span class="nx">consumerKey</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">consumerSecret</span> <span class="o">=</span> <span class="nx">consumerSecret</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">feed</span> <span class="o">=</span> <span class="nx">feed</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ItemsAPI</span><span class="p">({</span><span class="nx">consumerKey</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">consumerSecret</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">});</span>
+<span class="p">};</span>
+
+
+<span class="cm">/****************************************</span>
+<span class="cm"> *            Search methods            *</span>
+<span class="cm"> ****************************************/</span>
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">search</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Search for query</span>
+<span class="cm">     * @method search</span>
+<span class="cm">     * @param {string} query Query to perform</span>
+<span class="cm">     * @param {function} callback callback</span>
+<span class="cm">     */</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+    
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Count how many answer match the query</span>
+<span class="cm">     * @method count</span>
+<span class="cm">     * @param {string} query Query to perform</span>
+<span class="cm">     * @param {function} callback callback</span>
+<span class="cm">     */</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">count</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">mux</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Perform multiple, parallel query</span>
+<span class="cm">     * @method count</span>
+<span class="cm">     * @param {string} query Array of queries (JSON object)</span>
+<span class="cm">     * @param {function} callback callback</span>
+<span class="cm">     */</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">mux</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+<span class="p">};</span>
+
+<span class="cm">/******************************************************</span>
+<span class="cm"> *                  Submit methods                    *</span>
+<span class="cm"> ******************************************************/</span>
+
+<span class="cm">/******************************************************</span>
+<span class="cm"> *          Submit methods for item Article       </span>
+<span class="cm"> */</span>
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">submitArticle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">article</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Submit an article (typically : a blog entry)</span>
+<span class="cm">     * @method submitArticle</span>
+<span class="cm">     * @param {object} article Article to be submitted. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.title : title of the article&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.summary : a short summary. &lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.content : main content of the article&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.permalink : permanent link for this article&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user user submitting the content. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.id : unique id for this user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.name : name of the user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.avatarURL : avatar of the user&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="c1">// Creating article</span>
+    <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+
+    <span class="c1">// Rendering article then post it.</span>
+    <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderPost</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">tagArticle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">article</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Tag an article</span>
+<span class="cm">     * @method tagArticle</span>
+<span class="cm">     * @param {object} article Article to update. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.permalink : reference to the existing article&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} tag Tag to apply to the article. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.id : id for that update&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">article_</span> <span class="o">=</span> <span class="nx">article</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;tag&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering article then post it.</span>
+    <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">untagArticle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">article</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * remove a tag on an article</span>
+<span class="cm">     * @method untagArticle</span>
+<span class="cm">     * @param {object} article Article to untag. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.permalink : reference to the existing article&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} tag Tag to remove from the article. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.id : id for that tag&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">article_</span> <span class="o">=</span> <span class="nx">article</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;untag&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering article then post it.</span>
+    <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">markArticle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">article</span><span class="p">,</span><span class="nx">mark</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Add a mark to an article</span>
+<span class="cm">     * @method markArticle</span>
+<span class="cm">     * @param {object} article Article to mark. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.permalink : reference to the existing article&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} mark Marker to apply to the article. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.id : id for that update&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">article_</span> <span class="o">=</span> <span class="nx">article</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;mark&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering article then post it.</span>
+    <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unmarkArticle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">article</span><span class="p">,</span><span class="nx">mark</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Remove a mark from an article</span>
+<span class="cm">     * @method unmarkArticle</span>
+<span class="cm">     * @param {object} article Article to unmark. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.permalink : reference to the existing article&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} mark Marker to remove from the article. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.id : id for that update&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">article_</span> <span class="o">=</span> <span class="nx">article</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unmark&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering article then post it.</span>
+    <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">likeArticle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">article</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to &quot;like&quot; an article</span>
+<span class="cm">     * @method likeArticle</span>
+<span class="cm">     * @param {object} article Article to like. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.permalink : reference to the existing article&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">article_</span> <span class="o">=</span> <span class="nx">article</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;like&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering article then post it.</span>
+    <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unlikeArticle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">article</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to remove a previous &quot;like&quot; to an article</span>
+<span class="cm">     * @method unlikeArticle</span>
+<span class="cm">     * @param {object} article Article to unlike. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.permalink : reference to the existing article&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">article_</span> <span class="o">=</span> <span class="nx">article</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unlike&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering article then post it.</span>
+    <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">flagArticle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">article</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to flag an article (for example : offensive article)</span>
+<span class="cm">     * @method flagArticle</span>
+<span class="cm">     * @param {object} article Article to flag. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.permalink : reference to the existing article&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">article_</span> <span class="o">=</span> <span class="nx">article</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;flag&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering article then post it.</span>
+    <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unflagArticle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">article</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to unflag an article (for example : offensive article)</span>
+<span class="cm">     * @method unflagArticle</span>
+<span class="cm">     * @param {object} article Article to unflag. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.permalink : reference to the existing article&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">article_</span> <span class="o">=</span> <span class="nx">article</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unflag&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering article then post it.</span>
+    <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">updateArticle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">article</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to update an article</span>
+<span class="cm">     * @method updateArticle</span>
+<span class="cm">     * @param {object} article Article to be updated. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.title : title of the article&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.summary : a short summary. &lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.content : main content of the article&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;article.permalink : permanent link for this article&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user user submitting the content. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.id : unique id for this user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.name : name of the user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.avatarURL : avatar of the user&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="c1">// Creating article</span>
+    <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;update&#39;</span><span class="p">;</span>
+    <span class="c1">// Rendering article then post it.</span>
+    <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+
+<span class="cm">/******************************************************</span>
+<span class="cm"> *          Submit methods for item Comment           *</span>
+<span class="cm"> */</span>
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">submitComment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">comment</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Submit a comment (typically : a response related to a blog entry)</span>
+<span class="cm">     * @method submitComment</span>
+<span class="cm">     * @param {object} comment Comment to be submitted. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.subject : subject of the comment&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.content : main content of the comment&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.permalink : permanent link for this comment&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user user submitting the content. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.id : unique id for this user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.name : name of the user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.avatarURL : avatar of the user&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+
+<span class="cm">     */</span>
+    <span class="c1">// Creating comment</span>
+    <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+
+    <span class="c1">// Rendering article then post it.</span>
+    <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderPost</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">tagComment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">comment</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Tag an comment</span>
+<span class="cm">     * @method tagComment</span>
+<span class="cm">     * @param {object} comment Comment to update. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.permalink : reference to the existing comment&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} tag Tag to apply to the comment. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.id : id for that update&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">comment_</span> <span class="o">=</span> <span class="nx">comment</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;tag&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering comment then post it.</span>
+    <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">untagComment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">comment</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * remove a tag on an comment</span>
+<span class="cm">     * @method untagComment</span>
+<span class="cm">     * @param {object} comment Comment to untag. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.permalink : reference to the existing comment&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} tag Tag to remove from the comment. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.id : id for that tag&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">comment_</span> <span class="o">=</span> <span class="nx">comment</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;untag&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering comment then post it.</span>
+    <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">markComment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">comment</span><span class="p">,</span><span class="nx">mark</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Add a mark to an comment</span>
+<span class="cm">     * @method markComment</span>
+<span class="cm">     * @param {object} comment Comment to mark. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.permalink : reference to the existing comment&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} mark Marker to apply to the comment. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.id : id for that update&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">comment_</span> <span class="o">=</span> <span class="nx">comment</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;mark&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering comment then post it.</span>
+    <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unmarkComment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">comment</span><span class="p">,</span><span class="nx">mark</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Remove a mark from an comment</span>
+<span class="cm">     * @method unmarkComment</span>
+<span class="cm">     * @param {object} comment Comment to unmark. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.permalink : reference to the existing comment&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} mark Marker to remove from the comment. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.id : id for that update&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">comment_</span> <span class="o">=</span> <span class="nx">comment</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unmark&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering comment then post it.</span>
+    <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">likeComment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">comment</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to &quot;like&quot; an comment</span>
+<span class="cm">     * @method likeComment</span>
+<span class="cm">     * @param {object} comment Comment to like. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.permalink : reference to the existing comment&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">comment_</span> <span class="o">=</span> <span class="nx">comment</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;like&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering comment then post it.</span>
+    <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unlikeComment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">comment</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to remove a previous &quot;like&quot; to an comment</span>
+<span class="cm">     * @method unlikeComment</span>
+<span class="cm">     * @param {object} comment Comment to unlike. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.permalink : reference to the existing comment&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">comment_</span> <span class="o">=</span> <span class="nx">comment</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unlike&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering comment then post it.</span>
+    <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">flagComment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">comment</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to flag an comment (for example : offensive comment)</span>
+<span class="cm">     * @method flagComment</span>
+<span class="cm">     * @param {object} comment Comment to flag. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.permalink : reference to the existing comment&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">comment_</span> <span class="o">=</span> <span class="nx">comment</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;flag&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering comment then post it.</span>
+    <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unflagComment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">comment</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to unflag an comment (for example : offensive comment)</span>
+<span class="cm">     * @method unflagComment</span>
+<span class="cm">     * @param {object} comment Comment to unflag. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.permalink : reference to the existing comment&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">comment_</span> <span class="o">=</span> <span class="nx">comment</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unflag&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering comment then post it.</span>
+    <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">updateComment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">comment</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to update an comment</span>
+<span class="cm">     * @method updateComment</span>
+<span class="cm">     * @param {object} comment Comment to be updated. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.title : title of the comment&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.summary : a short summary. &lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.content : main content of the comment&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;comment.permalink : permanent link for this comment&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user user submitting the content. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.id : unique id for this user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.name : name of the user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.avatarURL : avatar of the user&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="c1">// Creating comment</span>
+    <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;update&#39;</span><span class="p">;</span>
+    <span class="c1">// Rendering comment then post it.</span>
+    <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+
+<span class="cm">/******************************************************</span>
+<span class="cm"> *          Submit methods for item Note              *</span>
+<span class="cm"> */</span>
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">submitNote</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">note</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Submit a note</span>
+<span class="cm">     * @method submitNote</span>
+<span class="cm">     * @param {object} note Note to be submitted. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;note.content : main content of the note&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;note.permalink : permanent link for this note&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user user submitting the content. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.id : unique id for this user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.name : name of the user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.avatarURL : avatar of the user&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="c1">// Creating note</span>
+    <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+
+    <span class="c1">// Rendering note then post it.</span>
+    <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderPost</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">tagNote</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">note</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Tag an note</span>
+<span class="cm">     * @method tagNote</span>
+<span class="cm">     * @param {object} note Note to update. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;note.permalink : reference to the existing note&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} tag Tag to apply to the note. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.id : id for that update&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">note_</span> <span class="o">=</span> <span class="nx">note</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;tag&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering note then post it.</span>
+    <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">untagNote</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">note</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * remove a tag on an note</span>
+<span class="cm">     * @method untagNote</span>
+<span class="cm">     * @param {object} note Note to untag. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;note.permalink : reference to the existing note&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} tag Tag to remove from the note. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.id : id for that tag&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">note_</span> <span class="o">=</span> <span class="nx">note</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;untag&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering note then post it.</span>
+    <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">markNote</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">note</span><span class="p">,</span><span class="nx">mark</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Add a mark to an note</span>
+<span class="cm">     * @method markNote</span>
+<span class="cm">     * @param {object} note Note to mark. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;note.permalink : reference to the existing note&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} mark Marker to apply to the note. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.id : id for that update&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">note_</span> <span class="o">=</span> <span class="nx">note</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;mark&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering note then post it.</span>
+    <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unmarkNote</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">note</span><span class="p">,</span><span class="nx">mark</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Remove a mark from an note</span>
+<span class="cm">     * @method unmarkNote</span>
+<span class="cm">     * @param {object} note Note to unmark. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;note.permalink : reference to the existing note&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} mark Marker to remove from the note. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.id : id for that update&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">note_</span> <span class="o">=</span> <span class="nx">note</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unmark&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering note then post it.</span>
+    <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">likeNote</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">note</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to &quot;like&quot; an note</span>
+<span class="cm">     * @method likeNote</span>
+<span class="cm">     * @param {object} note Note to like. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;note.permalink : reference to the existing note&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">note_</span> <span class="o">=</span> <span class="nx">note</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;like&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering note then post it.</span>
+    <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unlikeNote</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">note</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to remove a previous &quot;like&quot; to an note</span>
+<span class="cm">     * @method unlikeNote</span>
+<span class="cm">     * @param {object} note Note to unlike. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;note.permalink : reference to the existing note&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">note_</span> <span class="o">=</span> <span class="nx">note</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unlike&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering note then post it.</span>
+    <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">flagNote</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">note</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to flag an note (for example : offensive note)</span>
+<span class="cm">     * @method flagNote</span>
+<span class="cm">     * @param {object} note Note to flag. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;note.permalink : reference to the existing note&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">note_</span> <span class="o">=</span> <span class="nx">note</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;flag&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering note then post it.</span>
+    <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unflagNote</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">note</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to unflag an note (for example : offensive note)</span>
+<span class="cm">     * @method unflagNote</span>
+<span class="cm">     * @param {object} note Note to unflag. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;note.permalink : reference to the existing note&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">note_</span> <span class="o">=</span> <span class="nx">note</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unflag&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering note then post it.</span>
+    <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">updateNote</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">note</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to update an note</span>
+<span class="cm">     * @method updateNote</span>
+<span class="cm">     * @param {object} note Note to be updated. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;note.title : title of the note&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;note.summary : a short summary. &lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;note.content : main content of the note&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;note.permalink : permanent link for this note&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user user submitting the content. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.id : unique id for this user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.name : name of the user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.avatarURL : avatar of the user&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="c1">// Creating note</span>
+    <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;update&#39;</span><span class="p">;</span>
+    <span class="c1">// Rendering note then post it.</span>
+    <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+
+
+
+<span class="cm">/******************************************************</span>
+<span class="cm"> *          Submit methods for item Status            *</span>
+<span class="cm"> */</span>
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">submitStatus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Submit a status</span>
+<span class="cm">     * @method submitStatus</span>
+<span class="cm">     * @param {object} status Status to be submitted. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;status.content : main content of the status&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;status.permalink : permanent link for this status&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user user submitting the content. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.id : unique id for this user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.name : name of the user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.avatarURL : avatar of the user&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="c1">// Creating status</span>
+    <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+
+    <span class="c1">// Rendering article then post it.</span>
+    <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderPost</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">tagStatus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Tag an status</span>
+<span class="cm">     * @method tagStatus</span>
+<span class="cm">     * @param {object} status Status to update. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;status.permalink : reference to the existing status&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} tag Tag to apply to the status. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.id : id for that update&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">status_</span> <span class="o">=</span> <span class="nx">status</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;tag&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering status then post it.</span>
+    <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">untagStatus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * remove a tag on an status</span>
+<span class="cm">     * @method untagStatus</span>
+<span class="cm">     * @param {object} status Status to untag. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;status.permalink : reference to the existing status&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} tag Tag to remove from the status. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;tag.id : id for that tag&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">status_</span> <span class="o">=</span> <span class="nx">status</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;untag&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering status then post it.</span>
+    <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">markStatus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span><span class="nx">mark</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Add a mark to an status</span>
+<span class="cm">     * @method markStatus</span>
+<span class="cm">     * @param {object} status Status to mark. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;status.permalink : reference to the existing status&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} mark Marker to apply to the status. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.id : id for that update&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">status_</span> <span class="o">=</span> <span class="nx">status</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;mark&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering status then post it.</span>
+    <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unmarkStatus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span><span class="nx">mark</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Remove a mark from an status</span>
+<span class="cm">     * @method unmarkStatus</span>
+<span class="cm">     * @param {object} status Status to unmark. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;status.permalink : reference to the existing status&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} mark Marker to remove from the status. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.title : title/content of your tag/mark&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;marker.id : id for that update&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">status_</span> <span class="o">=</span> <span class="nx">status</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unmark&quot;</span><span class="p">;</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering status then post it.</span>
+    <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">likeStatus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to &quot;like&quot; an status</span>
+<span class="cm">     * @method likeStatus</span>
+<span class="cm">     * @param {object} status Status to like. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;status.permalink : reference to the existing status&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">status_</span> <span class="o">=</span> <span class="nx">status</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;like&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering status then post it.</span>
+    <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unlikeStatus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to remove a previous &quot;like&quot; to an status</span>
+<span class="cm">     * @method unlikeStatus</span>
+<span class="cm">     * @param {object} status Status to unlike. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;status.permalink : reference to the existing status&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">status_</span> <span class="o">=</span> <span class="nx">status</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unlike&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering status then post it.</span>
+    <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">flagStatus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to flag an status (for example : offensive status)</span>
+<span class="cm">     * @method flagStatus</span>
+<span class="cm">     * @param {object} status Status to flag. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;status.permalink : reference to the existing status&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">status_</span> <span class="o">=</span> <span class="nx">status</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;flag&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering status then post it.</span>
+    <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unflagStatus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to unflag an status (for example : offensive status)</span>
+<span class="cm">     * @method unflagStatus</span>
+<span class="cm">     * @param {object} status Status to unflag. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;status.permalink : reference to the existing status&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user User submitting the update</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">status_</span> <span class="o">=</span> <span class="nx">status</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unflag&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="c1">// Rendering status then post it.</span>
+    <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+<span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">updateStatus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Allow a user to update an status</span>
+<span class="cm">     * @method updateStatus</span>
+<span class="cm">     * @param {object} status Status to be updated. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;status.title : title of the status&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;status.summary : a short summary. &lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;status.content : main content of the status&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;status.permalink : permanent link for this status&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {object} user user submitting the content. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.id : unique id for this user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.name : name of the user&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.avatarURL : avatar of the user&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {function} callback callback called after submission</span>
+<span class="cm">     */</span>
+    <span class="c1">// Creating status</span>
+    <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
+    <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;update&#39;</span><span class="p">;</span>
+    <span class="c1">// Rendering status then post it.</span>
+    <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">})</span>
+<span class="p">};</span>
+
+
+<span class="c1">// Expose the ItemsAPI class</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">ItemsAPI</span> <span class="o">=</span> <span class="nx">ItemsAPI</span><span class="p">;</span>
+
+<span class="c1">//That&#39;s all folks</span>
+</pre></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="clear"></div>
+
+    
+    <footer>
+      <div id="footer" class="grid_16">
+        <p>
+          Copyright &copy; 2011 Digital Butter Limited. All rights reserved.
+          &middot;
+          Docs generated using <a href="http://developer.yahoo.com/yui/yuidoc/">YUIDoc</a> sporting the <a href="http://github.com/carlo/yuidoc-theme-dana">Dana theme</a>.
+        </p>
+      </div> <!--! end of #footer -->
+    </footer>
+
+
+    <div class="clear"></div>
+
+  </div>
+
+  <!-- Javascript at the bottom for fast page loading -->
+  <script src="js/jquery-1.4.2.min.js" type="text/javascript"></script>
+  <script src="js/jquery-ui-1.8.4.custom.min.js" type="text/javascript"></script>
+  <script src="js/jquery.cookie.min.js" type="text/javascript"></script>
+  <script src="js/main.js" type="text/javascript"></script>
+  
+</body>
+</html>
