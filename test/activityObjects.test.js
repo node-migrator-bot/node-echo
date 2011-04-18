@@ -79,7 +79,7 @@ describe("parent class ActivityObject",function(){
                             }
                         };
                         myItem.renderUpdate(update,callback);
-                    })
+                    });
                     it("should raise an exception",function(){
                         expect(callback).toHaveBeenCalledWith({name:"Illegal update exception", error:"illegal type: not recognized as a valid update"},"")
                     })
@@ -235,6 +235,161 @@ describe("parent class ActivityObject",function(){
 
                         })
                     })
+                })
+                describe("like",function(){
+                    beforeEach(function(){
+                        callback = jasmine.createSpy();
+                        update = {
+                             type: "like"
+                            ,content : { }
+                        };
+                        spyOn(render,"renderTemplate");
+                        myItem.renderUpdate(update,callback);
+                        first_cb = render.renderTemplate.mostRecentCall.args[2] //Get the callback
+                    });
+                    it("should have call renderTemplate",function(){
+                        expect(render.renderTemplate).toHaveBeenCalled();
+                        expect(render.renderTemplate.mostRecentCall.args[1]).toEqual({});
+                    });
+                    describe("callback of renderTemplate",function(){
+                        beforeEach(function(){
+                            first_cb("",""); // This is the default render of renderItem anyway.
+                            second_cb = render.renderTemplate.mostRecentCall.args[2]
+                        });
+                        it("should have called renderTemplate, again",function(){
+                            expect(render.renderTemplate).toHaveBeenCalled();
+                            expect(render.renderTemplate.callCount).toEqual(2)
+                        });
+                        describe("callback of renderTemplate",function(){
+                            beforeEach(function(){
+                                second_cb("","Hello World!")
+                            });
+                            it("should have called the callback",function(){
+                                expect(callback).toHaveBeenCalledWith("",{content:"Hello World!"})
+                            })
+
+                        })
+                    })
+                })
+                describe("unlike",function(){
+                    beforeEach(function(){
+                        callback = jasmine.createSpy();
+                        update = {
+                             type: "unlike"
+                            ,content : { }
+                        };
+                        spyOn(render,"renderTemplate");
+                        myItem.renderUpdate(update,callback);
+                        first_cb = render.renderTemplate.mostRecentCall.args[2] //Get the callback
+                    });
+                    it("should have call renderTemplate",function(){
+                        expect(render.renderTemplate).toHaveBeenCalled();
+                        expect(render.renderTemplate.mostRecentCall.args[1]).toEqual({});
+                    });
+                    describe("callback of renderTemplate",function(){
+                        beforeEach(function(){
+                            first_cb("",""); // This is the default render of renderItem anyway.
+                            second_cb = render.renderTemplate.mostRecentCall.args[2]
+                        });
+                        it("should have called renderTemplate, again",function(){
+                            expect(render.renderTemplate).toHaveBeenCalled();
+                            expect(render.renderTemplate.callCount).toEqual(2)
+                        });
+                        describe("callback of renderTemplate",function(){
+                            beforeEach(function(){
+                                second_cb("","Hello World!")
+                            });
+                            it("should have called the callback",function(){
+                                expect(callback).toHaveBeenCalledWith("",{content:"Hello World!"})
+                            })
+
+                        })
+                    })
+                })
+                describe("flag",function(){
+                    beforeEach(function(){
+                        callback = jasmine.createSpy();
+                        update = {
+                             type: "flag"
+                            ,content : { }
+                        };
+                        spyOn(render,"renderTemplate");
+                        myItem.renderUpdate(update,callback);
+                        first_cb = render.renderTemplate.mostRecentCall.args[2] //Get the callback
+                    });
+                    it("should have call renderTemplate",function(){
+                        expect(render.renderTemplate).toHaveBeenCalled();
+                        expect(render.renderTemplate.mostRecentCall.args[1]).toEqual({});
+                    });
+                    describe("callback of renderTemplate",function(){
+                        beforeEach(function(){
+                            first_cb("",""); // This is the default render of renderItem anyway.
+                            second_cb = render.renderTemplate.mostRecentCall.args[2]
+                        });
+                        it("should have called renderTemplate, again",function(){
+                            expect(render.renderTemplate).toHaveBeenCalled();
+                            expect(render.renderTemplate.callCount).toEqual(2)
+                        });
+                        describe("callback of renderTemplate",function(){
+                            beforeEach(function(){
+                                second_cb("","Hello World!")
+                            });
+                            it("should have called the callback",function(){
+                                expect(callback).toHaveBeenCalledWith("",{content:"Hello World!"})
+                            })
+
+                        })
+                    })
+                })
+                describe("unflag",function(){
+                    beforeEach(function(){
+                        callback = jasmine.createSpy();
+                        update = {
+                             type: "unflag"
+                            ,content : { }
+                        };
+                        spyOn(render,"renderTemplate");
+                        myItem.renderUpdate(update,callback);
+                        first_cb = render.renderTemplate.mostRecentCall.args[2] //Get the callback
+                    });
+                    it("should have call renderTemplate",function(){
+                        expect(render.renderTemplate).toHaveBeenCalled();
+                        expect(render.renderTemplate.mostRecentCall.args[1]).toEqual({});
+                    });
+                    describe("callback of renderTemplate",function(){
+                        beforeEach(function(){
+                            first_cb("",""); // This is the default render of renderItem anyway.
+                            second_cb = render.renderTemplate.mostRecentCall.args[2]
+                        });
+                        it("should have called renderTemplate, again",function(){
+                            expect(render.renderTemplate).toHaveBeenCalled();
+                            expect(render.renderTemplate.callCount).toEqual(2)
+                        });
+                        describe("callback of renderTemplate",function(){
+                            beforeEach(function(){
+                                second_cb("","Hello World!")
+                            });
+                            it("should have called the callback",function(){
+                                expect(callback).toHaveBeenCalledWith("",{content:"Hello World!"})
+                            })
+
+                        })
+                    })
+                });
+                describe("update",function(){
+                    beforeEach(function(){
+
+                        update = {
+                             type: "update"
+                            ,content : { }
+                        };
+                        spyOn(myItem,"renderPost");
+                        callback = jasmine.createSpy();
+                        myItem.renderUpdate(update,callback);
+                    });
+                    it("should have call renderPost",function(){
+                        expect(myItem.renderPost).toHaveBeenCalledWith(callback);
+                    });
                 })
 
             })

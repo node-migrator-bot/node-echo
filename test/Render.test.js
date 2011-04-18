@@ -16,7 +16,6 @@ describe("Render",function(){
             spyOn(fs,'readFile').andReturn('template');
             spyOn(render,'getFileCallback').andReturn('callback');
         });
-
         describe("with cached template",function(){
             beforeEach(function(){
                 spyOn(render,'render').andReturn("Rendered template");
