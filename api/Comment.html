@@ -12,7 +12,7 @@
   <title>
     API: utils
     
-      &rarr; UsersAPI class
+      &rarr; Comment class
     
     
   </title>
@@ -78,7 +78,7 @@
         <a href="./index.html" title="node-echo">node-echo</a>
           &rarr; module <a href="./module_utils.html" title="utils">utils</a>
           
-            &rarr; class UsersAPI
+            &rarr; class Comment
           
           
       </div>
@@ -110,7 +110,7 @@
                   <li >
                     <a href="Article.html">Article</a>
                   </li>
-                  <li >
+                  <li  class="selected" >
                     <a href="Comment.html">Comment</a>
                   </li>
                   <li >
@@ -134,7 +134,7 @@
                   <li >
                     <a href="TBind.html">TBind</a>
                   </li>
-                  <li  class="selected" >
+                  <li >
                     <a href="UsersAPI.html">UsersAPI</a>
                   </li>
               </ul>
@@ -179,23 +179,7 @@
               </ul>
             </div>
 
-            <div id="propertyList" class="module">
-              <h4>Properties</h4>
-              <ul>
-                  <li class=" ">
-                    <a href="#property_url">url</a>
-                  </li>
-              </ul>
-            </div>
 
-            <div id="methodsList" class="module">
-              <h4>Methods</h4>
-              <ul>
-                  <li class=" ">
-                    <a href="#method_get">get</a>
-                  </li>
-              </ul>
-            </div>
 
 
 
@@ -215,7 +199,7 @@
 
           
 
-          class <strong>UsersAPI</strong>
+          class <strong>Comment</strong>
           
         </h2>
 
@@ -224,7 +208,8 @@
 
 
         <div class="summary description">
-          Users API for Echo
+          constructor
+extends ActivityObject
         </div>
         
 
@@ -233,187 +218,10 @@
         <div class="clear"></div>
 
 
-          <div class="section constructor" resource="#constructor">
-            <h3>Constructor</h3>
-            
-            <table>
-              <thead>
-                <tr>
-                  <th>
-                    Constructor
-                  </th>
-                  <th>
-                    Parameters
-                  </th>
-                  <th>
-                    Returns
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  
-                  <td class="names">
-                    <code>
-                      <span>UsersAPI</span>(
-                      options
-                      )
-                    </code>
-                  </td>
-                  
-                  <td class="parameters">
-                      <p>Parameters:</p>
-                      <ul>
-                          <li>
-                            <code>
-                              options
-                              &lt;Object&gt;
-                            </code>
-                             object for options<br/>
-<ul>
-<li>options.consumerKey</li>
-<li>options.consumerSecret</li>
-</ul>
-                          </li>
-                      </ul>
-                  </td>
-                  
-                  <td class="returns">
-                  </td>
-                  
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-
-          <div class="section properties" resource="#properties">
-              <h3>Properties</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>
-                      Properties
-                    </th>
-                    <th>
-                      Type
-                    </th>
-                    <th>
-                      Description
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                
-                    <tr class=" " resource="#property_url">
-                  
-                      <td class="names">
-                        <code>
-                          <a name="property_url">url</a>
-                        </code>
-                      </td>
-
-                      <td class="type">
-                        <code>
-                          object
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-                        <div>
-
-                          Retrive currently logged in user information by session ID
-
-                        </div>
-                      </td>
-
-                    </tr>
-              
-                </tbody>
-              </table>
-
-          </div>
-
-
-          <div class="section methods" resource="#methods">
-              <h3>Methods</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>
-                      Methods
-                    </th>
-                    <th>
-                      Returns
-                    </th>
-                    <th>
-                      Description
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                    <tr class=" " resource="#method_get">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_get">get</a>(
-                          id, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Fetch user information
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  id
-                                  &lt;string&gt;
-                                </code>
-                                 user identityURL
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-
-                </tbody>
-              </table>
 
 
 
-          </div>
+
 
 
 
