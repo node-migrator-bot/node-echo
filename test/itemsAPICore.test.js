@@ -1,4 +1,3 @@
-
 var ItemsAPI = require("ItemsAPICore.js").ItemsAPICore;
 var itemsAPI;
 var apiHost = "api.echoenabled.com";
@@ -19,16 +18,6 @@ describe("ItemsAPI",function(){
         it("should set consumerSecret to the passed value",function(){
             expect(itemsAPI.consumerSecret).toEqual("I am a secret");
         });
-
-        describe("submit",function(){
-
-        })
-        describe("search",function(){
-
-        })
-        describe("count",function(){
-
-        })
     })
     describe("constructor with no options", function(){
         var excp;
@@ -41,7 +30,6 @@ describe("ItemsAPI",function(){
                 excp = e;
             }
         });
-
         it("should throw and exception", function(){
             expect(excp).toBeDefined();
             expect(excp.name).toEqual("node-echo: Option not set exception");
