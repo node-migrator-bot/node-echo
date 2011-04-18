@@ -205,7 +205,7 @@
           </h2>
 
           <div class="highlight"><pre><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">sha1</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;sha1&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">sha1</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./sha1.js&quot;</span><span class="p">);</span>
 
 <span class="nx">exports</span><span class="p">.</span><span class="nx">req</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
     <span class="cm">/**</span>
@@ -282,7 +282,9 @@
             <span class="nx">response</span><span class="p">.</span><span class="nx">setEncoding</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
             <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
         <span class="p">});</span>
-    <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="k">return</span> <span class="nx">my</span><span class="p">;</span>
 <span class="p">}();</span>
 </pre></div>
 
