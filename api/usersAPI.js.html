@@ -13,7 +13,7 @@
     API: itemsAPI
     
     
-      &rarr; feedsAPI.js (file)
+      &rarr; usersAPI.js (file)
     
   </title>
 
@@ -79,7 +79,7 @@
           &rarr; module <a href="./module_itemsapi.html" title="itemsAPI">itemsAPI</a>
           
           
-            &rarr; file feedsAPI.js
+            &rarr; file usersAPI.js
           
       </div>
     </div> <!--! end of #sub-hd -->
@@ -137,7 +137,7 @@
                   <li >
                     <a href="Class.js.html">Class.js</a>
                   </li>
-                  <li  class="selected" >
+                  <li >
                     <a href="feedsAPI.js.html">feedsAPI.js</a>
                   </li>
                   <li >
@@ -158,7 +158,7 @@
                   <li >
                     <a href="sha1.js.html">sha1.js</a>
                   </li>
-                  <li >
+                  <li  class="selected" >
                     <a href="usersAPI.js.html">usersAPI.js</a>
                   </li>
                   <li >
@@ -183,24 +183,25 @@
         <!--! source code view -->
         <div id="srcout">
           <h2>
-            file <strong>feedsAPI.js</strong>
+            file <strong>usersAPI.js</strong>
           </h2>
 
           <div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * Feeds API for Echo</span>
-<span class="cm"> * @class FeedsAPI</span>
+<span class="cm"> * Users API for Echo</span>
+<span class="cm"> * @class UsersAPI</span>
 <span class="cm"> */</span>
 
 <span class="kd">var</span> <span class="nx">sha1</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./sha1.js&#39;</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
 
-<span class="kd">var</span> <span class="nx">FeedsAPI</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">){</span>
+<span class="kd">var</span> <span class="nx">UsersAPI</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">){</span>
     <span class="cm">/**</span>
 <span class="cm">     * Implements the 4 method for itemAPI (submit, seach, count, mux)</span>
 <span class="cm">     * @class FeedsAPI</span>
 <span class="cm">     * @param {Object} options object for options&lt;br/&gt;</span>
-<span class="cm">     * &lt;ul&gt;&lt;li&gt;options.consumerKey&lt;/li&gt;</span>
-<span class="cm">     * &lt;li&gt;options.consumerSecret&lt;/li&gt;</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;options.consumerKey&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;options.consumerSecret&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     * @constructor</span>
 <span class="cm">     */</span>
@@ -215,15 +216,16 @@
 <span class="p">};</span>
 
 
-<span class="nx">FeedsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">list</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
+<span class="nx">UsersAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">get</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
     <span class="cm">/**</span>
-<span class="cm">     * list all feeds attached to this consumer key</span>
-<span class="cm">     * @method list</span>
+<span class="cm">     * Fetch user information</span>
+<span class="cm">     * @method get</span>
+<span class="cm">     * @param {string} id user identityURL</span>
 <span class="cm">     * @param {function} callback callback</span>
 <span class="cm">     */</span>
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/feeds/list&#39;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/users/get&#39;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="nx">identityURL</span><span class="o">:</span><span class="nx">id</span><span class="p">};</span>
     <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;http://&quot;</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">+</span> <span class="nx">url</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span><span class="nx">data</span><span class="p">);</span>
     <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">sortIntoString</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
 
@@ -238,27 +240,52 @@
         <span class="nx">response</span><span class="p">.</span><span class="nx">setEncoding</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
         <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
     <span class="p">});</span>
-    
 <span class="p">};</span>
 
-<span class="nx">FeedsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">register</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feed</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+<span class="nx">UsersAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">update</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
     <span class="cm">/**</span>
-<span class="cm">     * Register a new feed for a consumer key</span>
-<span class="cm">     * @method register</span>
-<span class="cm">     * @param {object} feed feed to register. Specify:</span>
+<span class="cm">     * Update user information</span>
+<span class="cm">     * @method get</span>
+<span class="cm">     * @param {object} user user to update. Need to specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
-<span class="cm">     *     &lt;li&gt;feed.url : (mandatory) url of the new feed&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;feed.interval : (optional) interval for polling the feed&lt;li&lt;</span>
+<span class="cm">     *     &lt;li&gt;user.identityURL : User identity URL&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.subject : show which parameters should be updated&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.content : contains data to be used for user update&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     * @param {function} callback callback</span>
 <span class="cm">     */</span>
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/feeds/register&#39;</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">feed</span><span class="p">.</span><span class="nx">interval</span><span class="p">){</span>
-        <span class="nx">feed</span><span class="p">.</span><span class="nx">interval</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
-    <span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/users/update&#39;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span><span class="s2">&quot;http://&quot;</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">+</span> <span class="nx">url</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span><span class="nx">user</span><span class="p">);</span>
+    <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">sortIntoString</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
 
-    <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;http://&quot;</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">+</span> <span class="nx">url</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span><span class="nx">feed</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">echoApi</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createClient</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">echoApi</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span>
+    <span class="p">{</span><span class="s1">&#39;host&#39;</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">,</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/x-www-urlencoded&#39;</span><span class="p">,</span> <span class="s1">&#39;Content-Length&#39;</span><span class="o">:</span> <span class="nx">postData</span><span class="p">.</span><span class="nx">length</span><span class="p">});</span>
+    <span class="nx">request</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
+    <span class="nx">request</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;STATUS: &#39;</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;HEADERS: &#39;</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">));</span>
+        <span class="nx">response</span><span class="p">.</span><span class="nx">setEncoding</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
+        <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">chunk</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;BODY: &#39;</span> <span class="o">+</span> <span class="nx">chunk</span><span class="p">);</span>
+        <span class="p">});</span>
+        <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="nx">UsersAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">whoAmI</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Retrive currently logged in user information by session ID</span>
+<span class="cm">     * @param {object} user : info for the user. Need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.appKey : customer appKey&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;user.sessionID : Backplane sessions ID for this user&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     */</span>
+    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/users/whoami&#39;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;http://&quot;</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">+</span> <span class="nx">url</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span><span class="nx">user</span><span class="p">);</span>
     <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">sortIntoString</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
 
     <span class="kd">var</span> <span class="nx">echoApi</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createClient</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">);</span>
@@ -275,38 +302,7 @@
 <span class="p">};</span>
 
 
-<span class="nx">FeedsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unregister</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feed</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
-    <span class="cm">/**</span>
-<span class="cm">     * Unregister a feed for a consumer key</span>
-<span class="cm">     * @method unregister</span>
-<span class="cm">     * @param {object} feed feed to unregister. Specify:</span>
-<span class="cm">     * &lt;ul&gt;</span>
-<span class="cm">     *     &lt;li&gt;feed.url : (mandatory) url of the feed&lt;/li&gt;</span>
-<span class="cm">     * &lt;/ul&gt;</span>
-<span class="cm">     * @param {function} callback callback</span>
-<span class="cm">     */</span>
-
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/feeds/unregister&#39;</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-
-    <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;http://&quot;</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">+</span> <span class="nx">url</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span><span class="nx">feed</span><span class="p">);</span>
-    <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">sortIntoString</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
-
-    <span class="kd">var</span> <span class="nx">echoApi</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createClient</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">url</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="nx">postData</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">echoApi</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="nx">url</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="nx">postData</span><span class="p">,</span>
-    <span class="p">{</span><span class="s1">&#39;host&#39;</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">,</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/x-www-urlencoded&#39;</span><span class="p">,</span> <span class="s1">&#39;Content-Length&#39;</span><span class="o">:</span> <span class="nx">postData</span><span class="p">.</span><span class="nx">length</span><span class="p">});</span>
-    <span class="nx">request</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
-    <span class="nx">request</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;STATUS: &#39;</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;HEADERS: &#39;</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">));</span>
-        <span class="nx">response</span><span class="p">.</span><span class="nx">setEncoding</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
-        <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
-    <span class="p">});</span>
-
-<span class="p">};</span>
-
-<span class="nx">exports</span><span class="p">.</span><span class="nx">FeedsAPI</span> <span class="o">=</span> <span class="nx">FeedsAPI</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">UsersAPI</span> <span class="o">=</span> <span class="nx">UsersAPI</span><span class="p">;</span>
 </pre></div>
 
         </div>

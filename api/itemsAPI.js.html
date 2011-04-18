@@ -99,9 +99,6 @@
                     <a href="module_itemsapi.html">itemsAPI</a>
                   </li>
                   <li >
-                    <a href="module_render.html">render</a>
-                  </li>
-                  <li >
                     <a href="module_utils.html">utils</a>
                   </li>
               </ul>
@@ -114,7 +111,7 @@
                     <a href="ActivityObject.html">ActivityObject</a>
                   </li>
                   <li >
-                    <a href="FeedAPI.html">FeedAPI</a>
+                    <a href="FeedsAPI.html">FeedsAPI</a>
                   </li>
                   <li >
                     <a href="ItemsAPI.html">ItemsAPI</a>
@@ -123,7 +120,10 @@
                     <a href="ItemsAPICore.html">ItemsAPICore</a>
                   </li>
                   <li >
-                    <a href="itemsAPImethod.html">itemsAPImethod</a>
+                    <a href="KvsAPI.html">KvsAPI</a>
+                  </li>
+                  <li >
+                    <a href="UsersAPI.html">UsersAPI</a>
                   </li>
               </ul>
             </div>
@@ -150,7 +150,19 @@
                     <a href="ItemsAPICore.js.html">ItemsAPICore.js</a>
                   </li>
                   <li >
+                    <a href="kvsAPI.js.html">kvsAPI.js</a>
+                  </li>
+                  <li >
                     <a href="render.js.html">render.js</a>
+                  </li>
+                  <li >
+                    <a href="sha1.js.html">sha1.js</a>
+                  </li>
+                  <li >
+                    <a href="usersAPI.js.html">usersAPI.js</a>
+                  </li>
+                  <li >
+                    <a href="utils.js.html">utils.js</a>
                   </li>
               </ul>
             </div>
@@ -201,7 +213,7 @@
 <span class="p">};</span>
 
 
-<span class="cm">/****************************************</span>
+<span class="cm">/* **************************************</span>
 <span class="cm"> *            Search                    *</span>
 <span class="cm"> ****************************************/</span>
 <span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">search</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
@@ -235,11 +247,11 @@
     <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPI</span><span class="p">.</span><span class="nx">mux</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
 <span class="p">};</span>
 
-<span class="cm">/******************************************************</span>
+<span class="cm">/* ****************************************************</span>
 <span class="cm"> *                  Submit                            *</span>
 <span class="cm"> ******************************************************/</span>
 
-<span class="cm">/******************************************************</span>
+<span class="cm">/* *****************************************************</span>
 <span class="cm"> *               item Article</span>
 <span class="cm"> */</span>
 <span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">submitArticle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">article</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
@@ -524,7 +536,7 @@
 <span class="p">};</span>
 
 
-<span class="cm">/******************************************************</span>
+<span class="cm">/* ****************************************************</span>
 <span class="cm"> *                             item Comment           *</span>
 <span class="cm"> */</span>
 <span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">submitComment</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">comment</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
@@ -810,7 +822,7 @@
 <span class="p">};</span>
 
 
-<span class="cm">/******************************************************</span>
+<span class="cm">/* ****************************************************</span>
 <span class="cm"> *                             item Note              *</span>
 <span class="cm"> */</span>
 <span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">submitNote</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">note</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
@@ -1095,7 +1107,7 @@
 
 
 
-<span class="cm">/******************************************************</span>
+<span class="cm">/* ****************************************************</span>
 <span class="cm"> *           item Status                              *</span>
 <span class="cm"> */</span>
 <span class="nx">ItemsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">submitStatus</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">status</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>

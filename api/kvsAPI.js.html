@@ -13,7 +13,7 @@
     API: itemsAPI
     
     
-      &rarr; feedsAPI.js (file)
+      &rarr; kvsAPI.js (file)
     
   </title>
 
@@ -79,7 +79,7 @@
           &rarr; module <a href="./module_itemsapi.html" title="itemsAPI">itemsAPI</a>
           
           
-            &rarr; file feedsAPI.js
+            &rarr; file kvsAPI.js
           
       </div>
     </div> <!--! end of #sub-hd -->
@@ -137,7 +137,7 @@
                   <li >
                     <a href="Class.js.html">Class.js</a>
                   </li>
-                  <li  class="selected" >
+                  <li >
                     <a href="feedsAPI.js.html">feedsAPI.js</a>
                   </li>
                   <li >
@@ -149,7 +149,7 @@
                   <li >
                     <a href="ItemsAPICore.js.html">ItemsAPICore.js</a>
                   </li>
-                  <li >
+                  <li  class="selected" >
                     <a href="kvsAPI.js.html">kvsAPI.js</a>
                   </li>
                   <li >
@@ -183,24 +183,25 @@
         <!--! source code view -->
         <div id="srcout">
           <h2>
-            file <strong>feedsAPI.js</strong>
+            file <strong>kvsAPI.js</strong>
           </h2>
 
           <div class="highlight"><pre><span class="cm">/**</span>
-<span class="cm"> * Feeds API for Echo</span>
-<span class="cm"> * @class FeedsAPI</span>
+<span class="cm"> * Key-Value Store API for Echo</span>
+<span class="cm"> * @class KvsAPI</span>
 <span class="cm"> */</span>
 
 <span class="kd">var</span> <span class="nx">sha1</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./sha1.js&#39;</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;http&#39;</span><span class="p">);</span>
 
-<span class="kd">var</span> <span class="nx">FeedsAPI</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">){</span>
+<span class="kd">var</span> <span class="nx">KvsAPI</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">){</span>
     <span class="cm">/**</span>
 <span class="cm">     * Implements the 4 method for itemAPI (submit, seach, count, mux)</span>
 <span class="cm">     * @class FeedsAPI</span>
 <span class="cm">     * @param {Object} options object for options&lt;br/&gt;</span>
-<span class="cm">     * &lt;ul&gt;&lt;li&gt;options.consumerKey&lt;/li&gt;</span>
-<span class="cm">     * &lt;li&gt;options.consumerSecret&lt;/li&gt;</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;options.consumerKey&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;options.consumerSecret&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     * @constructor</span>
 <span class="cm">     */</span>
@@ -214,51 +215,65 @@
     <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">=</span> <span class="s1">&#39;api.echoenabled.com&#39;</span><span class="p">;</span>
 <span class="p">};</span>
 
-
-<span class="nx">FeedsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">list</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
+<span class="nx">KvsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">put</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">kvs</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
     <span class="cm">/**</span>
-<span class="cm">     * list all feeds attached to this consumer key</span>
-<span class="cm">     * @method list</span>
+<span class="cm">     * Put data into the Echo Key-Value database to store the third-party widgets&#39; arbitrary data elements permanently.</span>
+<span class="cm">     * @method put</span>
+<span class="cm">     * @param {object} kvs Key-Value pair to store. Specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;kvs.key : key&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;kvs.value : value&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;kvs.public : (optional, in {true,false}) indicates if value is public or not (default: false)&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     * @param {function} callback callback</span>
 <span class="cm">     */</span>
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/feeds/list&#39;</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">kvs</span><span class="p">.</span><span class="kr">public</span><span class="p">))</span><span class="nx">kvs</span><span class="p">.</span><span class="kr">public</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.echoenabled.com/v1/kvs/put&#39;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{}</span>
-    <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;http://&quot;</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">+</span> <span class="nx">url</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span><span class="nx">data</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span><span class="s2">&quot;http://&quot;</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">+</span> <span class="nx">url</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span><span class="nx">kvs</span><span class="p">);</span>
     <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">sortIntoString</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
 
     <span class="kd">var</span> <span class="nx">echoApi</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createClient</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">url</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="nx">postData</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">echoApi</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="nx">url</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="nx">postData</span><span class="p">,</span>
+    <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">echoApi</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span>
     <span class="p">{</span><span class="s1">&#39;host&#39;</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">,</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/x-www-urlencoded&#39;</span><span class="p">,</span> <span class="s1">&#39;Content-Length&#39;</span><span class="o">:</span> <span class="nx">postData</span><span class="p">.</span><span class="nx">length</span><span class="p">});</span>
-    <span class="nx">request</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
+    <span class="nx">request</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
     <span class="nx">request</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;STATUS: &#39;</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">);</span>
         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;HEADERS: &#39;</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">));</span>
         <span class="nx">response</span><span class="p">.</span><span class="nx">setEncoding</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
-        <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">chunk</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;BODY: &#39;</span> <span class="o">+</span> <span class="nx">chunk</span><span class="p">);</span>
+        <span class="p">});</span>
+        <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">});</span>
-    
 <span class="p">};</span>
 
-<span class="nx">FeedsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">register</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feed</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+<span class="nx">KvsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">get</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">kvs</span><span class="p">,</span><span class="nx">ispublic</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
     <span class="cm">/**</span>
-<span class="cm">     * Register a new feed for a consumer key</span>
-<span class="cm">     * @method register</span>
-<span class="cm">     * @param {object} feed feed to register. Specify:</span>
+<span class="cm">     * Fetch data from the Echo Key-Value Store.</span>
+<span class="cm">     * @method get</span>
+<span class="cm">     * @param {object} kvs Key to value to retrieve. Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
-<span class="cm">     *     &lt;li&gt;feed.url : (mandatory) url of the new feed&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;feed.interval : (optional) interval for polling the feed&lt;li&lt;</span>
+<span class="cm">     *     &lt;li&gt;kvs.key : key of the value to retrieve&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;kvs.appkey : customer application key&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @param {boolean} ispublic indicate if data to retrieve is public or not.</span>
 <span class="cm">     * @param {function} callback callback</span>
 <span class="cm">     */</span>
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/feeds/register&#39;</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">feed</span><span class="p">.</span><span class="nx">interval</span><span class="p">){</span>
-        <span class="nx">feed</span><span class="p">.</span><span class="nx">interval</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">url</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">data</span> <span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">ispublic</span><span class="p">){</span>
+        <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;http://api.echoenabled.com/v1/kvs/get&#39;</span><span class="p">;</span>
+        <span class="nx">data</span> <span class="o">=</span> <span class="p">{};</span>
+        <span class="nx">data</span><span class="p">.</span><span class="nx">key</span> <span class="o">=</span> <span class="nx">kvs</span><span class="p">.</span><span class="nx">key</span><span class="p">;</span> <span class="c1">// We don&#39;t need kvs.appkey for public data</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.echoenabled.com/v1/kvs/get&#39;</span><span class="p">;</span>
+        <span class="nx">data</span> <span class="o">=</span> <span class="nx">kvs</span>
     <span class="p">}</span>
     <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-
-    <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;http://&quot;</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">+</span> <span class="nx">url</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span><span class="nx">feed</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span><span class="nx">data</span><span class="p">);</span>
     <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">sortIntoString</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
 
     <span class="kd">var</span> <span class="nx">echoApi</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createClient</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">);</span>
@@ -274,22 +289,23 @@
     <span class="p">});</span>
 <span class="p">};</span>
 
-
-<span class="nx">FeedsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unregister</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feed</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+<span class="nx">KvsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">del</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="nx">ispublic</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
     <span class="cm">/**</span>
-<span class="cm">     * Unregister a feed for a consumer key</span>
-<span class="cm">     * @method unregister</span>
-<span class="cm">     * @param {object} feed feed to unregister. Specify:</span>
-<span class="cm">     * &lt;ul&gt;</span>
-<span class="cm">     *     &lt;li&gt;feed.url : (mandatory) url of the feed&lt;/li&gt;</span>
-<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * Delete KV pair</span>
+<span class="cm">     * @method del</span>
+<span class="cm">     * @param {string} key of the pair to delete</span>
+<span class="cm">     * @param {boolean} ispublic indicates if the pair to delete is public or private</span>
 <span class="cm">     * @param {function} callback callback</span>
 <span class="cm">     */</span>
-
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/feeds/unregister&#39;</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">ispublic</span><span class="p">){</span>
+        <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;http://api.echoenabled.com/v1/kvs/delete&#39;</span><span class="p">;</span>
+        <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="nx">key</span><span class="o">:</span> <span class="nx">key</span><span class="p">};</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.echoenabled.com/v1/kvs/delete&#39;</span><span class="p">;</span>
+        <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="nx">key</span><span class="o">:</span> <span class="nx">key</span><span class="p">};</span>
+    <span class="p">}</span>
     <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-
-    <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="s2">&quot;http://&quot;</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">+</span> <span class="nx">url</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span><span class="nx">feed</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span><span class="nx">data</span><span class="p">);</span>
     <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">sortIntoString</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
 
     <span class="kd">var</span> <span class="nx">echoApi</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createClient</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">);</span>
@@ -303,10 +319,9 @@
         <span class="nx">response</span><span class="p">.</span><span class="nx">setEncoding</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
         <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
     <span class="p">});</span>
-
 <span class="p">};</span>
 
-<span class="nx">exports</span><span class="p">.</span><span class="nx">FeedsAPI</span> <span class="o">=</span> <span class="nx">FeedsAPI</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">KvsAPI</span> <span class="o">=</span> <span class="nx">KvsAPI</span><span class="p">;</span>
 </pre></div>
 
         </div>

@@ -12,7 +12,7 @@
   <title>
     API: itemsAPI
     
-      &rarr; ItemsAPICore class
+      &rarr; FeedsAPI class
     
     
   </title>
@@ -78,7 +78,7 @@
         <a href="./index.html" title="node-echo">node-echo</a>
           &rarr; module <a href="./module_itemsapi.html" title="itemsAPI">itemsAPI</a>
           
-            &rarr; class ItemsAPICore
+            &rarr; class FeedsAPI
           
           
       </div>
@@ -110,13 +110,13 @@
                   <li >
                     <a href="ActivityObject.html">ActivityObject</a>
                   </li>
-                  <li >
+                  <li  class="selected" >
                     <a href="FeedsAPI.html">FeedsAPI</a>
                   </li>
                   <li >
                     <a href="ItemsAPI.html">ItemsAPI</a>
                   </li>
-                  <li  class="selected" >
+                  <li >
                     <a href="ItemsAPICore.html">ItemsAPICore</a>
                   </li>
                   <li >
@@ -167,21 +167,35 @@
               </ul>
             </div>
 
+            <div id="propertyList" class="module">
+              <h4>Properties</h4>
+              <ul>
+                  <li class=" ">
+                    <a href="#property_url">url</a>
+                  </li>
+              </ul>
+            </div>
 
             <div id="methodsList" class="module">
               <h4>Methods</h4>
               <ul>
                   <li class=" ">
-                    <a href="#method_count">count</a>
+                    <a href="#method_del">del</a>
                   </li>
                   <li class=" ">
-                    <a href="#method_mux">mux</a>
+                    <a href="#method_get">get</a>
                   </li>
                   <li class=" ">
-                    <a href="#method_search">search</a>
+                    <a href="#method_list">list</a>
                   </li>
                   <li class=" ">
-                    <a href="#method_submit">submit</a>
+                    <a href="#method_put">put</a>
+                  </li>
+                  <li class=" ">
+                    <a href="#method_register">register</a>
+                  </li>
+                  <li class=" ">
+                    <a href="#method_unregister">unregister</a>
                   </li>
               </ul>
             </div>
@@ -204,7 +218,7 @@
 
           
 
-          class <strong>ItemsAPICore</strong>
+          class <strong>FeedsAPI</strong>
           
         </h2>
 
@@ -213,7 +227,7 @@
 
 
         <div class="summary description">
-          Implements the 4 methods for ItemsAPI (submit, seach, count, mux)
+          Feeds API for Echo
         </div>
         
 
@@ -244,7 +258,7 @@
                   
                   <td class="names">
                     <code>
-                      <span>ItemsAPICore</span>(
+                      <span>FeedsAPI</span>(
                       options
                       )
                     </code>
@@ -275,6 +289,58 @@
           </div>
 
 
+          <div class="section properties" resource="#properties">
+              <h3>Properties</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>
+                      Properties
+                    </th>
+                    <th>
+                      Type
+                    </th>
+                    <th>
+                      Description
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                
+                    <tr class=" " resource="#property_url">
+                  
+                      <td class="names">
+                        <code>
+                          <a name="property_url">url</a>
+                        </code>
+                      </td>
+
+                      <td class="type">
+                        <code>
+                          object
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+                        <div>
+
+                          Retrive currently logged in user information by session ID
+
+                        </div>
+                      </td>
+
+                    </tr>
+              
+                </tbody>
+              </table>
+
+          </div>
 
 
           <div class="section methods" resource="#methods">
@@ -295,12 +361,12 @@
                 </thead>
                 <tbody>
 
-                    <tr class=" " resource="#method_count">
+                    <tr class=" " resource="#method_del">
 
                       <td class="names">
                         <code>
-                          <a name="method_count">count</a>(
-                          query, callback
+                          <a name="method_del">del</a>(
+                          key, ispublic, callback
                           )
                         </code>
                       </td>
@@ -319,184 +385,286 @@
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        "count" API method. <br /> Returns a number of items that match the specified query in JSON format. <br/> http://wiki.aboutecho.com/w/page/27888212/API-method-count
+                        Delete KV pair
 
                           <p>Parameters:</p>
                           <ul>
                               <li>
                                 <code>
-                                  query
-                                  &lt;Object&gt;
-                                </code>
-                                 Query to perform. Need to specify:
-<ul>
-<li>query.q : Echo Query Language query</li>
-<li>query.appkey : customer appkey</li>
-<li>query.since : optional. Since parameter</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback.
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_mux">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_mux">mux</a>(
-                          query, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        "mux" API method <br/> The API method "mux" allows to "multiplex" requests, i.e. use a single API call to "wrap" several requests. The multiplexed requests are executed concurrently and independently by the Echo server. <br/> http://wiki.aboutecho.com/w/page/32433803/API-method-mux
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  query
-                                  &lt;object&gt;
-                                </code>
-                                 JSON array of queries
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_search">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_search">search</a>(
-                          query, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        "search" API method <br /> Returns information about items that match the specified query in Activity Stream format. <br /> http://wiki.aboutecho.com/w/page/23491639/API-method-search
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  query
-                                  &lt;Object&gt;
-                                </code>
-                                 Query to perform. Need to specify:
-<ul>
-<li>query.q : Echo Query Language query</li>
-<li>query.appkey : customer appkey</li>
-<li>query.since : optional. Since parameter</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_submit">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_submit">submit</a>(
-                          err, data, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        "submit API method" <br /> Endpoint to submit your data into the Echo Platform in the Activity Streams XML format. <br/> http://wiki.aboutecho.com/w/page/35059196/API-method-submit
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  err
+                                  key
                                   &lt;string&gt;
                                 </code>
-                                 hopefully empty error
+                                 of the pair to delete
                               </li>
                               <li>
                                 <code>
-                                  data
-                                  &lt;Object&gt;
+                                  ispublic
+                                  &lt;boolean&gt;
                                 </code>
-                                 data.content MUST contain XML-formatted data to submit
+                                 indicates if the pair to delete is public or private
                               </li>
                               <li>
                                 <code>
                                   callback
                                   &lt;function&gt;
                                 </code>
-                                
+                                 callback
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_get">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_get">get</a>(
+                          kvs, ispublic, callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Fetch data from the Echo Key-Value Store.
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  kvs
+                                  &lt;object&gt;
+                                </code>
+                                 Key to value to retrieve. Specify:
+<ul>
+<li>kvs.key : key of the value to retrieve</li>
+<li>kvs.appkey : customer application key</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  ispublic
+                                  &lt;boolean&gt;
+                                </code>
+                                 indicate if data to retrieve is public or not.
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_list">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_list">list</a>(
+                          callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        list all feeds attached to this consumer key
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_put">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_put">put</a>(
+                          ), callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Put data into the Echo Key-Value database to store the third-party widgets' arbitrary data elements permanently.
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  )
+                                  &lt;object} kvs Key-Value pair to store. Specify:
+<ul>
+<li>kvs.key : key</li>
+<li>kvs.value : value</li>
+<li>kvs.public : (optional, in {true,false&gt;
+                                </code>
+                                 indicates if value is public or not (default: false)</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_register">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_register">register</a>(
+                          feed, callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Register a new feed for a consumer key
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  feed
+                                  &lt;object&gt;
+                                </code>
+                                 feed to register. Specify:
+<ul>
+<li>feed.url : (mandatory) url of the new feed</li>
+<li>feed.interval : (optional) interval for polling the feed<li<
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_unregister">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_unregister">unregister</a>(
+                          feed, callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Unregister a feed for a consumer key
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  feed
+                                  &lt;object&gt;
+                                </code>
+                                 feed to unregister. Specify:
+<ul>
+<li>feed.url : (mandatory) url of the feed</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback
                               </li>
                           <ul>
 
