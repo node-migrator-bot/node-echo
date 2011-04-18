@@ -1,30 +1,82 @@
-var ItemsAPI = require("ItemsAPICore.js").ItemsAPICore;
+var ItemsAPICore = require("ItemsAPICore.js").ItemsAPICore;
 var itemsAPI;
 var apiHost = "api.echoenabled.com";
+var req = require("req.js").req;
+var callback = jasmine.createSpy();
 
-
-describe("ItemsAPI",function(){
+describe("ItemsAPICore",function(){
     describe("constructor with valid options",function(){
         beforeEach(function(){
-            itemsAPI = new ItemsAPI({consumerKey: "I am a key",consumerSecret: "I am a secret"})
+            itemsAPI = new ItemsAPICore({consumerKey: "Key",consumerSecret: "Secret"})
         });
         it("should set apiUrl to a default value", function(){
-            expect(itemsAPI.apiHost).toEqual(apiHost);
+            expect(itemsAPI.options.apiHost).toEqual(apiHost);
         });
 
         it("should set consumerKey to the passed value",function(){
-            expect(itemsAPI.consumerKey).toEqual("I am a key");
+            expect(itemsAPI.options.consumerKey).toEqual("Key");
         });
         it("should set consumerSecret to the passed value",function(){
-            expect(itemsAPI.consumerSecret).toEqual("I am a secret");
+            expect(itemsAPI.options.consumerSecret).toEqual("Secret");
         });
-    })
+        describe("submit",function(){
+            beforeEach(function(){
+                spyOn(req,"post");
+                itemsAPI.submit("",{data:"data"},callback)
+            });
+            it("should have called req.post",function(){
+                expect(req.post).toHaveBeenCalledWith(
+                   { consumerKey:"Key", consumerSecret: "Secret", apiHost:"api.echoenabled.com"},
+                   '/v1/submit',
+                   {data:"data"},
+                   callback)
+            })
+        });
+        describe("search",function(){
+            beforeEach(function(){
+                spyOn(req,"get");
+                itemsAPI.search({query:"query"},callback)
+            });
+            it("should have called req.get",function(){
+                expect(req.get).toHaveBeenCalledWith(
+                   { consumerKey:"Key", consumerSecret: "Secret", apiHost:"api.echoenabled.com"},
+                   '/v1/search',
+                   {query:"query"},
+                   callback)
+            })
+        });
+        describe("count",function(){
+            beforeEach(function(){
+                spyOn(req,"get");
+                itemsAPI.count({query:"query"},callback)
+            });
+            it("should have called req.get",function(){
+                expect(req.get).toHaveBeenCalledWith(
+                   { consumerKey:"Key", consumerSecret: "Secret", apiHost:"api.echoenabled.com"},
+                   '/v1/count',
+                   {query:"query"},
+                   callback)
+            })
+        });
+        describe("mux",function(){
+            beforeEach(function(){
+                spyOn(req,"get");
+                itemsAPI.mux({query:"query"},callback)
+            });
+            it("should have called req.get",function(){
+                expect(req.get).toHaveBeenCalledWith(
+                   { consumerKey:"Key", consumerSecret: "Secret", apiHost:"api.echoenabled.com"},
+                   '/v1/mux',
+                   {query:"query"},
+                   callback)
+            })
+        })
+    });
     describe("constructor with no options", function(){
         var excp;
-
         beforeEach(function(){
             try{
-                new ItemsAPI();
+                new ItemsAPICore();
             }
             catch(e){
                 excp = e;
@@ -32,9 +84,8 @@ describe("ItemsAPI",function(){
         });
         it("should throw and exception", function(){
             expect(excp).toBeDefined();
-            expect(excp.name).toEqual("node-echo: Option not set exception");
-            expect(excp.message).toEqual("ItemsAPI requires the consumerKey option to be defined");
+            expect(excp.name).toEqual("Options not set exception");
+            expect(excp.message).toEqual("ItemsAPICore requires the consumerKey option to be defined");
         });
     });
-
 });

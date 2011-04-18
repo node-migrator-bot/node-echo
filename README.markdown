@@ -1,4 +1,4 @@
-This library implements a [backplane](https://sites.google.com/site/backplanespec/) server and client.
+This library implements an [Echo](http://www.aboutecho.com) wrapper for node.
 
 ## Installation
 
