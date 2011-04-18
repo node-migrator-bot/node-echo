@@ -10,7 +10,7 @@ project:
       name: Ed Bosher
       gh_account: https://github.com/edbo
   contributors:
-    - name: Emmanuel Prochasson
+      name: Emmanuel Prochasson
       gh_account: https://github.com/eprochasson
 npm:
   version: 0.1.9

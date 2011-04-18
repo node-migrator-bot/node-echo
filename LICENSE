@@ -1,16 +1,16 @@
 Some parts of this application use software maintained elsewhere under the following
 conditions
 
-  - JavaScript Micro-Templating, located in lib/echo/tmpls.js, which is
+  - JavaScript Micro-Templating, located in lib/Render.js, which is
     copy righted by John Resig under the MIT license. Original source can be
     found here http://ejohn.org/blog/javascript-micro-templating/
 
-  - getNonce function, located under lib/echo/sha1.js, was created by Ciaran
+  - getNonce function, located under lib/sha1.js, was created by Ciaran
     Jessup and can be found here: https://github.com/ciaranj/node-oauth/blob/ma
     ster/lib/oauth.js
 
-  - encoder library, located in lib/utils.js, created by R Reid. Sourec code can
-    be found here http://www.strictly-software.com/htmlencode
+  - encoder library, located in lib/utils.js, created by R Reid. Source code can
+    be found here: http://www.strictly-software.com/htmlencode
 
 Node-echo's license follows:
 
