@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width; initial-scale=1.0">
 
   <title>
-    API: utils
+    API: echo
     
     
       &rarr; utils.js (file)
@@ -76,7 +76,7 @@
         </form>
 
         <a href="./index.html" title="node-echo">node-echo</a>
-          &rarr; module <a href="./module_utils.html" title="utils">utils</a>
+          &rarr; module <a href="./module_echo.html" title="echo">echo</a>
           
           
             &rarr; file utils.js
@@ -96,7 +96,7 @@
               <h4>Modules</h4>
               <ul>
                   <li  class="selected" >
-                    <a href="module_utils.html">utils</a>
+                    <a href="module_echo.html">echo</a>
                   </li>
               </ul>
             </div>
@@ -201,14 +201,30 @@
           <div class="highlight"><pre><span class="kd">var</span> <span class="nx">Trait</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;traits&#39;</span><span class="p">).</span><span class="nx">Trait</span><span class="p">;</span>
 
 <span class="cm">/**</span>
-<span class="cm"> * A utility module used by this library</span>
-<span class="cm"> * @module utils</span>
+<span class="cm"> * A utility sub-module used by this library</span>
+<span class="cm"> * @submodule utils</span>
 <span class="cm"> */</span>
 
 <span class="cm">/**</span>
 <span class="cm"> * A Trait class for holding helper functions for enforcing scope</span>
 <span class="cm"> * @class TBind</span>
 <span class="cm"> */</span>
+
+
+<span class="cm">/**</span>
+<span class="cm"> * @function ISODateString</span>
+<span class="cm"> * @param {Date} d Format a date to be accepted by Echo</span>
+<span class="cm"> */</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">ISODateString</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span>
+    <span class="kd">function</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span><span class="k">return</span> <span class="nx">n</span><span class="o">&lt;</span><span class="mi">10</span> <span class="o">?</span> <span class="s1">&#39;0&#39;</span><span class="o">+</span><span class="nx">n</span> <span class="o">:</span> <span class="nx">n</span><span class="p">}</span>
+    <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getUTCFullYear</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;-&#39;</span>
+            <span class="o">+</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">getUTCMonth</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;-&#39;</span>
+            <span class="o">+</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">getUTCDate</span><span class="p">())</span><span class="o">+</span><span class="s1">&#39;T&#39;</span>
+            <span class="o">+</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">getUTCHours</span><span class="p">())</span><span class="o">+</span><span class="s1">&#39;:&#39;</span>
+            <span class="o">+</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">getUTCMinutes</span><span class="p">())</span><span class="o">+</span><span class="s1">&#39;:&#39;</span>
+            <span class="o">+</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">getUTCSeconds</span><span class="p">())</span><span class="o">+</span><span class="s1">&#39;Z&#39;</span>
+<span class="p">};</span>
+
 
 <span class="nx">exports</span><span class="p">.</span><span class="nx">mergeOptions</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">objectToSet</span><span class="p">,</span><span class="nx">acceptableOptions</span><span class="p">,</span><span class="nx">newOptions</span><span class="p">){</span>
     <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">key</span> <span class="k">in</span> <span class="nx">newOptions</span><span class="p">){</span>
@@ -225,19 +241,6 @@
     <span class="p">}</span>
 <span class="p">};</span>
 
-<span class="cm">/**</span>
-<span class="cm"> * @function ISODateString</span>
-<span class="cm"> * @param {Date} d Format a date to be accepted by Echo</span>
-<span class="cm"> */</span>
-<span class="nx">exports</span><span class="p">.</span><span class="nx">ISODateString</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span>
-    <span class="kd">function</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span><span class="k">return</span> <span class="nx">n</span><span class="o">&lt;</span><span class="mi">10</span> <span class="o">?</span> <span class="s1">&#39;0&#39;</span><span class="o">+</span><span class="nx">n</span> <span class="o">:</span> <span class="nx">n</span><span class="p">}</span>
-    <span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">getUTCFullYear</span><span class="p">()</span><span class="o">+</span><span class="s1">&#39;-&#39;</span>
-            <span class="o">+</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">getUTCMonth</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;-&#39;</span>
-            <span class="o">+</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">getUTCDate</span><span class="p">())</span><span class="o">+</span><span class="s1">&#39;T&#39;</span>
-            <span class="o">+</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">getUTCHours</span><span class="p">())</span><span class="o">+</span><span class="s1">&#39;:&#39;</span>
-            <span class="o">+</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">getUTCMinutes</span><span class="p">())</span><span class="o">+</span><span class="s1">&#39;:&#39;</span>
-            <span class="o">+</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">getUTCSeconds</span><span class="p">())</span><span class="o">+</span><span class="s1">&#39;Z&#39;</span>
-<span class="p">};</span>
 
 <span class="nx">exports</span><span class="p">.</span><span class="nx">TBind</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
     <span class="k">return</span> <span class="nx">Trait</span><span class="p">({</span>

@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width; initial-scale=1.0">
 
   <title>
-    API: utils
+    API: echo
     
     
       &rarr; usersAPI.js (file)
@@ -76,7 +76,7 @@
         </form>
 
         <a href="./index.html" title="node-echo">node-echo</a>
-          &rarr; module <a href="./module_utils.html" title="utils">utils</a>
+          &rarr; module <a href="./module_echo.html" title="echo">echo</a>
           
           
             &rarr; file usersAPI.js
@@ -96,7 +96,7 @@
               <h4>Modules</h4>
               <ul>
                   <li  class="selected" >
-                    <a href="module_utils.html">utils</a>
+                    <a href="module_echo.html">echo</a>
                   </li>
               </ul>
             </div>
@@ -205,6 +205,7 @@
     <span class="cm">/**</span>
 <span class="cm">     * Users API for Echo</span>
 <span class="cm">     * @class UsersAPI</span>
+<span class="cm">     * @submodule UsersAPI</span>
 <span class="cm">     * @param {Object} options object for options&lt;br/&gt;</span>
 <span class="cm">     * &lt;ul&gt;</span>
 <span class="cm">     *     &lt;li&gt;options.consumerKey&lt;/li&gt;</span>
@@ -283,7 +284,8 @@
 
 <span class="nx">UsersAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">whoAmI</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
     <span class="cm">/**</span>
-<span class="cm">     * Retrive currently logged in user information by session ID</span>
+<span class="cm">     * Retrieve currently logged in user information by session ID</span>
+<span class="cm">     * @method whoAmI</span>
 <span class="cm">     * @param {object} user : info for the user. Need to specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
 <span class="cm">     *     &lt;li&gt;user.appKey : customer appKey&lt;/li&gt;</span>

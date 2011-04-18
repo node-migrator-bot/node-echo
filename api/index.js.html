@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width; initial-scale=1.0">
 
   <title>
-    API: utils
+    API: echo
     
     
       &rarr; index.js (file)
@@ -76,7 +76,7 @@
         </form>
 
         <a href="./index.html" title="node-echo">node-echo</a>
-          &rarr; module <a href="./module_utils.html" title="utils">utils</a>
+          &rarr; module <a href="./module_echo.html" title="echo">echo</a>
           
           
             &rarr; file index.js
@@ -96,7 +96,7 @@
               <h4>Modules</h4>
               <ul>
                   <li  class="selected" >
-                    <a href="module_utils.html">utils</a>
+                    <a href="module_echo.html">echo</a>
                   </li>
               </ul>
             </div>
@@ -198,7 +198,12 @@
             file <strong>index.js</strong>
           </h2>
 
-          <div class="highlight"><pre><span class="nx">exports</span><span class="p">.</span><span class="nx">ItemsAPI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./itemsAPI.js&quot;</span><span class="p">).</span><span class="nx">ItemsAPI</span><span class="p">;</span>
+          <div class="highlight"><pre><span class="cm">/**</span>
+<span class="cm"> * Echo module for nodejs.</span>
+<span class="cm"> * @module echo</span>
+<span class="cm"> */</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">ItemsAPI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./itemsAPI.js&quot;</span><span class="p">).</span><span class="nx">ItemsAPI</span><span class="p">;</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">UsersAPI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./usersAPI.js&quot;</span><span class="p">).</span><span class="nx">UsersAPI</span><span class="p">;</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">FeedsAPI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./feedsAPI.js&quot;</span><span class="p">).</span><span class="nx">FeedsAPI</span><span class="p">;</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">KvsAPI</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./kvsAPI.js&quot;</span><span class="p">).</span><span class="nx">KvsAPI</span><span class="p">;</span>

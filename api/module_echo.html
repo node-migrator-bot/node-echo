@@ -12,8 +12,6 @@
   <title>
     API: echo
     
-      &rarr; UsersAPI class
-    
     
   </title>
 
@@ -78,8 +76,6 @@
         <a href="./index.html" title="node-echo">node-echo</a>
           &rarr; module <a href="./module_echo.html" title="echo">echo</a>
           
-            &rarr; class UsersAPI
-          
           
       </div>
     </div> <!--! end of #sub-hd -->
@@ -134,7 +130,7 @@
                   <li >
                     <a href="TBind.html">TBind</a>
                   </li>
-                  <li  class="selected" >
+                  <li >
                     <a href="UsersAPI.html">UsersAPI</a>
                   </li>
               </ul>
@@ -180,17 +176,6 @@
             </div>
 
 
-            <div id="methodsList" class="module">
-              <h4>Methods</h4>
-              <ul>
-                  <li class=" ">
-                    <a href="#method_get">get</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_whoAmI">whoAmI</a>
-                  </li>
-              </ul>
-            </div>
 
 
 
@@ -202,211 +187,65 @@
     <div id="content" class="grid_12">
       
 
-      
+
         <h2>
-          
-
-          
-
-          
-
-          class <strong>UsersAPI</strong>
-          
-        </h2>
-
-        <!-- class tree goes here -->
-
-
-
-        <div class="summary description">
-          Users API for Echo
-        </div>
+          module <strong>echo</strong>
         
 
+        </h2>
 
+        <div class="summary description">
+          Echo module for nodejs.
 
-        <div class="clear"></div>
+          
+        </div>
+        
+        
+      
+          <div class="section">
 
-
-          <div class="section constructor" resource="#constructor">
-            <h3>Constructor</h3>
-            
-            <table>
-              <thead>
-                <tr>
-                  <th>
-                    Constructor
-                  </th>
-                  <th>
-                    Parameters
-                  </th>
-                  <th>
-                    Returns
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  
-                  <td class="names">
-                    <code>
-                      <span>UsersAPI</span>(
-                      options
-                      )
-                    </code>
-                  </td>
-                  
-                  <td class="parameters">
-                      <p>Parameters:</p>
-                      <ul>
-                          <li>
-                            <code>
-                              options
-                              &lt;Object&gt;
-                            </code>
-                             object for options<br/>
-<ul>
-<li>options.consumerKey</li>
-<li>options.consumerSecret</li>
-</ul>
-                          </li>
-                      </ul>
-                  </td>
-                  
-                  <td class="returns">
-                  </td>
-                  
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-
-
-
-          <div class="section methods" resource="#methods">
-              <h3>Methods</h3>
-              <table>
-                <thead>
-                  <tr>
-                    <th>
-                      Methods
-                    </th>
-                    <th>
-                      Returns
-                    </th>
-                    <th>
-                      Description
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                    <tr class=" " resource="#method_get">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_get">get</a>(
-                          id, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Fetch user information
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  id
-                                  &lt;string&gt;
-                                </code>
-                                 user identityURL
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_whoAmI">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_whoAmI">whoAmI</a>(
-                          user
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Retrieve currently logged in user information by session ID
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 : info for the user. Need to specify:
-<ul>
-<li>user.appKey : customer appKey</li>
-<li>user.sessionID : Backplane sessions ID for this user</li>
-</ul>
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-
-                </tbody>
-              </table>
+              <div class="containedclasses grid_8 alpha" resource="#containedclasses">
+                <h3>Contained Classes</h3>
+                <ul>
+                    <li>
+                      <a href="ActivityObject.html" title="ActivityObject">ActivityObject</a>
+                    </li>
+                    <li>
+                      <a href="Article.html" title="Article">Article</a>
+                    </li>
+                    <li>
+                      <a href="Comment.html" title="Comment">Comment</a>
+                    </li>
+                    <li>
+                      <a href="FeedsAPI.html" title="FeedsAPI">FeedsAPI</a>
+                    </li>
+                    <li>
+                      <a href="ItemsAPI.html" title="ItemsAPI">ItemsAPI</a>
+                    </li>
+                    <li>
+                      <a href="ItemsAPICore.html" title="ItemsAPICore">ItemsAPICore</a>
+                    </li>
+                    <li>
+                      <a href="KvsAPI.html" title="KvsAPI">KvsAPI</a>
+                    </li>
+                    <li>
+                      <a href="Note.html" title="Note">Note</a>
+                    </li>
+                    <li>
+                      <a href="Status.html" title="Status">Status</a>
+                    </li>
+                    <li>
+                      <a href="TBind.html" title="TBind">TBind</a>
+                    </li>
+                    <li>
+                      <a href="UsersAPI.html" title="UsersAPI">UsersAPI</a>
+                    </li>
+                </ul>
+              </div>
 
 
 
           </div>
-
-
-
-
-
 
     </div>
 

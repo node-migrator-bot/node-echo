@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width; initial-scale=1.0">
 
   <title>
-    API: utils
+    API: echo
     
       &rarr; ItemsAPI class
     
@@ -76,7 +76,7 @@
         </form>
 
         <a href="./index.html" title="node-echo">node-echo</a>
-          &rarr; module <a href="./module_utils.html" title="utils">utils</a>
+          &rarr; module <a href="./module_echo.html" title="echo">echo</a>
           
             &rarr; class ItemsAPI
           
@@ -96,7 +96,7 @@
               <h4>Modules</h4>
               <ul>
                   <li  class="selected" >
-                    <a href="module_utils.html">utils</a>
+                    <a href="module_echo.html">echo</a>
                   </li>
               </ul>
             </div>
@@ -371,7 +371,7 @@
                   <td class="names">
                     <code>
                       <span>ItemsAPI</span>(
-                      consumerKey, consumerSecret, feed
+                      options
                       )
                     </code>
                   </td>
@@ -381,24 +381,15 @@
                       <ul>
                           <li>
                             <code>
-                              consumerKey
-                              &lt;string&gt;
+                              options
+                              &lt;object&gt;
                             </code>
-                             your Echo API key
-                          </li>
-                          <li>
-                            <code>
-                              consumerSecret
-                              &lt;string&gt;
-                            </code>
-                             your Echo API secret
-                          </li>
-                          <li>
-                            <code>
-                              feed
-                              &lt;string&gt;
-                            </code>
-                             the feed you want to interact wth (retrieve from/post to)
+                             Options, need to specify:
+<ul>
+<li>options.consumerKey : Echo API Key</li>
+<li>options.consumerSecret : Echo API Secret</li>
+<li>options.feed : Feed to communicate with
+</ul>
                           </li>
                       </ul>
                   </td>

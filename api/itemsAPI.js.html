@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width; initial-scale=1.0">
 
   <title>
-    API: utils
+    API: echo
     
     
       &rarr; itemsAPI.js (file)
@@ -76,7 +76,7 @@
         </form>
 
         <a href="./index.html" title="node-echo">node-echo</a>
-          &rarr; module <a href="./module_utils.html" title="utils">utils</a>
+          &rarr; module <a href="./module_echo.html" title="echo">echo</a>
           
           
             &rarr; file itemsAPI.js
@@ -96,7 +96,7 @@
               <h4>Modules</h4>
               <ul>
                   <li  class="selected" >
-                    <a href="module_utils.html">utils</a>
+                    <a href="module_echo.html">echo</a>
                   </li>
               </ul>
             </div>
@@ -201,16 +201,20 @@
           <div class="highlight"><pre><span class="kd">var</span> <span class="nx">activityObjects</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./activityObjects.js&quot;</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">ItemsAPICore</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./itemsAPICore.js&quot;</span><span class="p">).</span><span class="nx">ItemsAPICore</span><span class="p">;</span>
 
-<span class="kd">var</span> <span class="nx">ItemsAPI</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">consumerKey</span><span class="p">,</span> <span class="nx">consumerSecret</span><span class="p">,</span> <span class="nx">feed</span><span class="p">){</span>
+<span class="kd">var</span> <span class="nx">ItemsAPI</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">){</span>
     <span class="cm">/**</span>
 <span class="cm">     * Gives access to all the things you can do with the items API of Echo.</span>
 <span class="cm">     * @class ItemsAPI</span>
+<span class="cm">     * @submodule ItemsAPI</span>
 <span class="cm">     * @constructor</span>
-<span class="cm">     * @param {string} consumerKey your Echo API key</span>
-<span class="cm">     * @param {string} consumerSecret your Echo API secret</span>
-<span class="cm">     * @param {string} feed the feed you want to interact wth (retrieve from/post to)</span>
+<span class="cm">     * @param {object} options Options, need to specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;options.consumerKey : Echo API Key&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;options.consumerSecret : Echo API Secret&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;options.feed : Feed to communicate with</span>
+<span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     */</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">consumerKey</span> <span class="o">&amp;&amp;</span> <span class="nx">consumerSecret</span> <span class="o">&amp;&amp;</span> <span class="nx">feed</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">feed</span><span class="p">))</span> <span class="p">{</span>
       <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Invalid initialisation exception&quot;</span><span class="p">,</span> <span class="nx">error</span> <span class="o">:</span> <span class="s2">&quot;Specify API Key, secret and feed&quot;</span><span class="p">}</span>
     <span class="p">}</span>  <span class="k">else</span> <span class="p">{</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">=</span> <span class="nx">consumerKey</span><span class="p">;</span>

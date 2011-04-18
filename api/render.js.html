@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width; initial-scale=1.0">
 
   <title>
-    API: utils
+    API: echo
     
     
       &rarr; render.js (file)
@@ -76,7 +76,7 @@
         </form>
 
         <a href="./index.html" title="node-echo">node-echo</a>
-          &rarr; module <a href="./module_utils.html" title="utils">utils</a>
+          &rarr; module <a href="./module_echo.html" title="echo">echo</a>
           
           
             &rarr; file render.js
@@ -96,7 +96,7 @@
               <h4>Modules</h4>
               <ul>
                   <li  class="selected" >
-                    <a href="module_utils.html">utils</a>
+                    <a href="module_echo.html">echo</a>
                   </li>
               </ul>
             </div>
@@ -201,7 +201,7 @@
           <div class="highlight"><pre><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">);</span>
 
 <span class="nx">exports</span><span class="p">.</span><span class="nx">Render</span> <span class="o">=</span> <span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-    <span class="cm">/**</span>
+    <span class="cm">/*</span>
 <span class="cm">     * Convert Items and Activity Objects into proper XML Activity Streams</span>
 <span class="cm">     * http://activitystrea.ms/schema/1.0/activity-schema-01.html</span>
 <span class="cm">     */</span>
@@ -211,7 +211,7 @@
     <span class="nx">my</span><span class="p">.</span><span class="nx">cache</span> <span class="o">=</span> <span class="p">{};</span>
 
     <span class="nx">my</span><span class="p">.</span><span class="nx">renderTemplate</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">){</span>
-        <span class="cm">/**</span>
+        <span class="cm">/*</span>
 <span class="cm">         * Generate proper XML Activity Streams from data and a template</span>
 <span class="cm">         * @param {file} filename file containing the XML template</span>
 <span class="cm">         * @param {Object} data Data to render (format depend on the template)</span>
@@ -226,7 +226,7 @@
     <span class="p">};</span>
 
     <span class="nx">my</span><span class="p">.</span><span class="nx">getFileCallback</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">filename</span><span class="p">,</span><span class="nx">templateData</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
-        <span class="cm">/**</span>
+        <span class="cm">/*</span>
 <span class="cm">         * Load template into cache (and render)</span>
 <span class="cm">         */</span>
 
@@ -240,7 +240,7 @@
         <span class="p">}</span>
     <span class="p">}</span>
     <span class="kd">var</span> <span class="nx">render</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">tmpl</span><span class="p">(</span><span class="nx">str</span><span class="p">,</span> <span class="nx">data</span><span class="p">){</span>
-        <span class="cm">/**</span>
+        <span class="cm">/*</span>
 <span class="cm">         * Generate the rendering function</span>
 <span class="cm">         */</span>
         <span class="c1">// Figure out if we&#39;re getting a template, or if we need to</span>
