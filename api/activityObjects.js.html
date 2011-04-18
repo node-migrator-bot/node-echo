@@ -207,12 +207,19 @@
     <span class="cm">/**</span>
 <span class="cm">     * Parent class to define all the Activity Objects Echo deals with, and their method for XML rendering.</span>
 <span class="cm">     * http://wiki.aboutecho.com/w/page/24780107/How%20To%20-%20Getting%20us%20your%20Firehose#Supportedactivityobjecttypes</span>
+<span class="cm">     * Creation : var myActivityObject = ActivityObject.spawn(args)</span>
 <span class="cm">     * @class ActivityObject</span>
+<span class="cm">     * @constructor</span>
+<span class="cm">     * @param {object} properties. Specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item : the item you want to create (depends on its kind)&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.user : the user interacting with this item&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.feed : the feed this item belongs to&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     */</span>
-     <span class="c1">// Common to all Items:</span>
-     <span class="nx">renderPost</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
+      <span class="nx">renderPost</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
-<span class="cm">         * Prepare an article for posting.</span>
+<span class="cm">         * Prepare the item for posting.</span>
 <span class="cm">         * @method renderPost</span>
 <span class="cm">         * @param {function} callback callback (should very likely be a call to a &quot;submit&quot; method)</span>
 <span class="cm">         */</span>
@@ -259,9 +266,9 @@
 <span class="cm">         * @method renderUpdate</span>
 <span class="cm">         * @param {Object} update type and content of the update.</span>
 <span class="cm">         * &lt;ul&gt;</span>
-<span class="cm">         *     &lt;li&gt;update.type in {tag,untag,mark,unmark}&lt;/li&gt;</span>
-<span class="cm">         *     &lt;li&gt;update.content.id : id of the update&lt;/li&gt;</span>
-<span class="cm">         *     &lt;li&gt;update.content.title : title/content of the update&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;update.type in {tag,untag,mark,unmark,like,unlike,flag,unflag,update}&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;update.content.id : id of the update (when applicable)&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;update.content.title : title/content of the update (when applicable)&lt;/li&gt;</span>
 <span class="cm">         * &lt;/ul&gt;</span>
 <span class="cm">         * @param {function} callback callback that will be called with the rendered update.</span>
 <span class="cm">         */</span>
@@ -359,6 +366,12 @@
     <span class="p">}</span>
      <span class="c1">// Must be extended:</span>
     <span class="p">,</span><span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Initialised the ActivityObject. Data Check.</span>
+<span class="cm">         * Needs to be extended by Child classes</span>
+<span class="cm">         * Is automatically called at object spawning.</span>
+<span class="cm">         * @method init</span>
+<span class="cm">         */</span>
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">user</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">avatarURL</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">)){</span>
             <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span><span class="s2">&quot;Invalid user exception&quot;</span><span class="p">,</span> <span class="nx">error</span> <span class="o">:</span> <span class="s2">&quot;Invalid user&quot;</span><span class="p">}</span>
         <span class="p">}</span>
@@ -369,17 +382,34 @@
     <span class="p">}</span> <span class="c1">// Mostly common to all items, but must be extended</span>
      <span class="c1">// Must be overwritten:</span>
     <span class="p">,</span><span class="nx">renderItem</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Render the part of the Item that is &lt;i&gt;not&lt;/i&gt; common to all items</span>
+<span class="cm">         * @method renderItem</span>
+<span class="cm">         * @param {function} callback callback</span>
+<span class="cm">         */</span>
         <span class="nx">callback</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
     <span class="p">}</span> <span class="c1">// Different for all items, must be extended</span>
 
     <span class="c1">// Properties (common to all Items):</span>
     <span class="p">,</span><span class="nx">user</span><span class="o">:</span><span class="p">{</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Define the user interacting with this item</span>
+<span class="cm">         * @property user</span>
+<span class="cm">         */</span>
         <span class="nx">enumerable</span><span class="o">:</span> <span class="kc">true</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">feed</span><span class="o">:</span><span class="p">{</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Define the feed this item belongs to</span>
+<span class="cm">         * @property feed</span>
+<span class="cm">         */</span>
         <span class="nx">enumerable</span><span class="o">:</span> <span class="kc">false</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">item</span><span class="o">:</span><span class="p">{</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Define the values for this item.</span>
+<span class="cm">         * @property item</span>
+<span class="cm">         */</span>
         <span class="nx">enumerable</span><span class="o">:</span> <span class="kc">true</span>
     <span class="p">}</span>
 <span class="p">});</span>
@@ -388,9 +418,9 @@
 
 <span class="kd">var</span> <span class="nx">Article</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
-<span class="cm">     * extends ActivityObject</span>
+<span class="cm">     * Article.</span>
+<span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @class Article</span>
-<span class="cm">     * @constructor</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>
@@ -413,7 +443,7 @@
 
 <span class="kd">var</span> <span class="nx">Comment</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
-<span class="cm">     * constructor</span>
+<span class="cm">     * Comment</span>
 <span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @class Comment</span>
 <span class="cm">     */</span>
@@ -436,7 +466,7 @@
 
 <span class="kd">var</span> <span class="nx">Note</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
-<span class="cm">     * constructor</span>
+<span class="cm">     * Note</span>
 <span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @class Note</span>
 <span class="cm">     */</span>
@@ -459,7 +489,7 @@
 <span class="c1">// Interestingly, a &quot;Status&quot; is strictly equivalent to a &quot;Note&quot;. But it&#39;s worth separating both objects.</span>
 <span class="kd">var</span> <span class="nx">Status</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
-<span class="cm">     * constructor</span>
+<span class="cm">     * Status</span>
 <span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @class Status</span>
 <span class="cm">     */</span>
