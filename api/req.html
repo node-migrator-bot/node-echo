@@ -12,7 +12,7 @@
   <title>
     API: echo
     
-      &rarr; UsersAPI class
+      &rarr; req class
     
     
   </title>
@@ -78,7 +78,7 @@
         <a href="./index.html" title="node-echo">node-echo</a>
           &rarr; module <a href="./module_echo.html" title="echo">echo</a>
           
-            &rarr; class UsersAPI
+            &rarr; class req
           
           
       </div>
@@ -128,7 +128,7 @@
                   <li >
                     <a href="Note.html">Note</a>
                   </li>
-                  <li >
+                  <li  class="selected" >
                     <a href="req.html">req</a>
                   </li>
                   <li >
@@ -137,7 +137,7 @@
                   <li >
                     <a href="TBind.html">TBind</a>
                   </li>
-                  <li  class="selected" >
+                  <li >
                     <a href="UsersAPI.html">UsersAPI</a>
                   </li>
               </ul>
@@ -193,7 +193,7 @@
                     <a href="#method_get">get</a>
                   </li>
                   <li class=" ">
-                    <a href="#method_whoAmI">whoAmI</a>
+                    <a href="#method_post">post</a>
                   </li>
               </ul>
             </div>
@@ -216,7 +216,7 @@
 
           
 
-          class <strong>UsersAPI</strong>
+          class <strong>req</strong>
           
         </h2>
 
@@ -225,7 +225,7 @@
 
 
         <div class="summary description">
-          Users API for Echo
+          Post and Get action for Echo.
         </div>
         
 
@@ -234,58 +234,6 @@
         <div class="clear"></div>
 
 
-          <div class="section constructor" resource="#constructor">
-            <h3>Constructor</h3>
-            
-            <table>
-              <thead>
-                <tr>
-                  <th>
-                    Constructor
-                  </th>
-                  <th>
-                    Parameters
-                  </th>
-                  <th>
-                    Returns
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  
-                  <td class="names">
-                    <code>
-                      <span>UsersAPI</span>(
-                      options
-                      )
-                    </code>
-                  </td>
-                  
-                  <td class="parameters">
-                      <p>Parameters:</p>
-                      <ul>
-                          <li>
-                            <code>
-                              options
-                              &lt;Object&gt;
-                            </code>
-                             object for options<br/>
-<ul>
-<li>options.consumerKey</li>
-<li>options.consumerSecret</li>
-</ul>
-                          </li>
-                      </ul>
-                  </td>
-                  
-                  <td class="returns">
-                  </td>
-                  
-                </tr>
-              </tbody>
-            </table>
-          </div>
 
 
 
@@ -313,7 +261,7 @@
                       <td class="names">
                         <code>
                           <a name="method_get">get</a>(
-                          id, callback
+                          options, url, data, callback
                           )
                         </code>
                       </td>
@@ -332,23 +280,42 @@
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Fetch user information
+                        GET method
 
                           <p>Parameters:</p>
                           <ul>
                               <li>
                                 <code>
-                                  id
+                                  options
+                                  &lt;object&gt;
+                                </code>
+                                 Defines:
+<ul>
+<li>options.consumerKey Echo API Key</li>
+<li>options.consumerSecret Echo API Secret</li>
+<li>options.apiHost Echo API Url</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  url
                                   &lt;string&gt;
                                 </code>
-                                 user identityURL
+                                 URL representing the "action" of the get (depends on what is being get-ed)
+                              </li>
+                              <li>
+                                <code>
+                                  data
+                                  &lt;object&gt;
+                                </code>
+                                 Data to get
                               </li>
                               <li>
                                 <code>
                                   callback
                                   &lt;function&gt;
                                 </code>
-                                 callback
+                                 callback called with the response of the GET
                               </li>
                           <ul>
 
@@ -356,12 +323,12 @@
                       </td>
 
                     </tr>
-                    <tr class=" " resource="#method_whoAmI">
+                    <tr class=" " resource="#method_post">
 
                       <td class="names">
                         <code>
-                          <a name="method_whoAmI">whoAmI</a>(
-                          user
+                          <a name="method_post">post</a>(
+                          options, url, data, callback
                           )
                         </code>
                       </td>
@@ -380,20 +347,42 @@
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Retrieve currently logged in user information by session ID
+                        POST method
 
                           <p>Parameters:</p>
                           <ul>
                               <li>
                                 <code>
-                                  user
+                                  options
                                   &lt;object&gt;
                                 </code>
-                                 : info for the user. Need to specify:
+                                 Defines:
 <ul>
-<li>user.appKey : customer appKey</li>
-<li>user.sessionID : Backplane sessions ID for this user</li>
+<li>options.consumerKey Echo API Key</li>
+<li>options.consumerSecret Echo API Secret</li>
+<li>options.apiHost Echo API Url</li>
 </ul>
+                              </li>
+                              <li>
+                                <code>
+                                  url
+                                  &lt;string&gt;
+                                </code>
+                                 URL representing the "action" of the post (depends on what is being posted)
+                              </li>
+                              <li>
+                                <code>
+                                  data
+                                  &lt;object&gt;
+                                </code>
+                                 Data to post
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback called with the response of the POST
                               </li>
                           <ul>
 

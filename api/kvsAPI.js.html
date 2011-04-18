@@ -129,6 +129,9 @@
                     <a href="Note.html">Note</a>
                   </li>
                   <li >
+                    <a href="req.html">req</a>
+                  </li>
+                  <li >
                     <a href="Status.html">Status</a>
                   </li>
                   <li >
@@ -166,6 +169,9 @@
                   </li>
                   <li >
                     <a href="render.js.html">render.js</a>
+                  </li>
+                  <li >
+                    <a href="req.js.html">req.js</a>
                   </li>
                   <li >
                     <a href="sha1.js.html">sha1.js</a>
@@ -217,10 +223,11 @@
 
     <span class="c1">//Get required options</span>
     <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">options</span> <span class="o">||</span> <span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">||</span> <span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">)</span> <span class="k">throw</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;node-echo: Option not set exception&quot;</span><span class="p">,</span> <span class="nx">message</span><span class="o">:</span> <span class="s2">&quot;ItemsAPI requires the consumerKey option to be defined&quot;</span> <span class="p">};</span>
-    <span class="nx">self</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">;</span>
-    <span class="nx">self</span><span class="p">.</span><span class="nx">consumerSecret</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">;</span>
     <span class="c1">//Set defaults</span>
-    <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">=</span> <span class="s1">&#39;api.echoenabled.com&#39;</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">=</span> <span class="s1">&#39;api.echoenabled.com&#39;</span><span class="p">;</span>
 <span class="p">};</span>
 
 <span class="nx">KvsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">put</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">kvs</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
@@ -237,23 +244,7 @@
 <span class="cm">     */</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">kvs</span><span class="p">.</span><span class="kr">public</span><span class="p">))</span><span class="nx">kvs</span><span class="p">.</span><span class="kr">public</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.echoenabled.com/v1/kvs/put&#39;</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span><span class="s2">&quot;POST&quot;</span><span class="p">,</span><span class="s2">&quot;http://&quot;</span> <span class="o">+</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">+</span> <span class="nx">url</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="k">this</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span><span class="nx">kvs</span><span class="p">);</span>
-    <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">sortIntoString</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
-
-    <span class="kd">var</span> <span class="nx">echoApi</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createClient</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">echoApi</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span>
-    <span class="p">{</span><span class="s1">&#39;host&#39;</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">,</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/x-www-urlencoded&#39;</span><span class="p">,</span> <span class="s1">&#39;Content-Length&#39;</span><span class="o">:</span> <span class="nx">postData</span><span class="p">.</span><span class="nx">length</span><span class="p">});</span>
-    <span class="nx">request</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
-    <span class="nx">request</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;STATUS: &#39;</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;HEADERS: &#39;</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">));</span>
-        <span class="nx">response</span><span class="p">.</span><span class="nx">setEncoding</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
-        <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">chunk</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;BODY: &#39;</span> <span class="o">+</span> <span class="nx">chunk</span><span class="p">);</span>
-        <span class="p">});</span>
-        <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;end&#39;</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
-    <span class="p">});</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">kvs</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
 <span class="p">};</span>
 
 <span class="nx">KvsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">get</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">kvs</span><span class="p">,</span><span class="nx">ispublic</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
@@ -280,21 +271,7 @@
         <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.echoenabled.com/v1/kvs/get&#39;</span><span class="p">;</span>
         <span class="nx">data</span> <span class="o">=</span> <span class="nx">kvs</span>
     <span class="p">}</span>
-    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span><span class="nx">data</span><span class="p">);</span>
-    <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">sortIntoString</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
-
-    <span class="kd">var</span> <span class="nx">echoApi</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createClient</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">url</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="nx">postData</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">echoApi</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="nx">url</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="nx">postData</span><span class="p">,</span>
-    <span class="p">{</span><span class="s1">&#39;host&#39;</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">,</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/x-www-urlencoded&#39;</span><span class="p">,</span> <span class="s1">&#39;Content-Length&#39;</span><span class="o">:</span> <span class="nx">postData</span><span class="p">.</span><span class="nx">length</span><span class="p">});</span>
-    <span class="nx">request</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
-    <span class="nx">request</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;STATUS: &#39;</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;HEADERS: &#39;</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">));</span>
-        <span class="nx">response</span><span class="p">.</span><span class="nx">setEncoding</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
-        <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
-    <span class="p">});</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
 <span class="p">};</span>
 
 <span class="nx">KvsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">del</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="nx">ispublic</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
@@ -312,21 +289,7 @@
         <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.echoenabled.com/v1/kvs/delete&#39;</span><span class="p">;</span>
         <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="nx">key</span><span class="o">:</span> <span class="nx">key</span><span class="p">};</span>
     <span class="p">}</span>
-    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span><span class="nx">data</span><span class="p">);</span>
-    <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">sortIntoString</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
-
-    <span class="kd">var</span> <span class="nx">echoApi</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">createClient</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">);</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">url</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="nx">postData</span><span class="p">);</span>
-    <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">echoApi</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="nx">url</span> <span class="o">+</span> <span class="s2">&quot;?&quot;</span> <span class="o">+</span> <span class="nx">postData</span><span class="p">,</span>
-    <span class="p">{</span><span class="s1">&#39;host&#39;</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">,</span> <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/x-www-urlencoded&#39;</span><span class="p">,</span> <span class="s1">&#39;Content-Length&#39;</span><span class="o">:</span> <span class="nx">postData</span><span class="p">.</span><span class="nx">length</span><span class="p">});</span>
-    <span class="nx">request</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
-    <span class="nx">request</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;STATUS: &#39;</span> <span class="o">+</span> <span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;HEADERS: &#39;</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">));</span>
-        <span class="nx">response</span><span class="p">.</span><span class="nx">setEncoding</span><span class="p">(</span><span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
-        <span class="nx">response</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
-    <span class="p">});</span>
+    <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
 <span class="p">};</span>
 
 <span class="nx">exports</span><span class="p">.</span><span class="nx">KvsAPI</span> <span class="o">=</span> <span class="nx">KvsAPI</span><span class="p">;</span>
