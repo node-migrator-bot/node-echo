@@ -1,5 +1,5 @@
 
-var ItemsAPI = require("itemsAPI.js").ItemsAPI;
+var ItemsAPI = require("ItemsAPICore.js").ItemsAPICore;
 var itemsAPI;
 var apiHost = "api.echoenabled.com";
 
@@ -27,7 +27,7 @@ describe("ItemsAPI",function(){
 
         })
         describe("count",function(){
-            
+
         })
     })
     describe("constructor with no options", function(){

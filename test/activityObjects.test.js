@@ -1,5 +1,5 @@
 var utils = require("utils.js");
-var render = require("Render.js").Render;
+var render = require("render.js").Render;
 var fs = require("fs");
 
 
@@ -605,7 +605,7 @@ describe("class Article (old tests)",function(){
         });
         describe("rendering article for post",function(){
             beforeEach(function(){
-                render = require("Render.js").Render;
+                render = require("render.js").Render;
                 spyOn(render,"renderTemplate");
                 myArticle.renderPost(mock_cb);
                 first_cb = render.renderTemplate.mostRecentCall.args[2];

@@ -3,9 +3,9 @@ var fs = require("fs");
 
 
 // Tests mostly copied/pasted from former echo.test.js
-describe("Render",function(){
+describe("render",function(){
     beforeEach(function(){
-        render = require("Render.js").Render;
+        render = require("render.js").Render;
     });
 
     describe("renderTemplate method", function(){
