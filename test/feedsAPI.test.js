@@ -24,7 +24,7 @@ describe("FeedsAPI",function(){
                    expect(req.get).toHaveBeenCalledWith(
                    { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
                    '/v1/feeds/list',
-                   {},
+                   "",
                    callback)
                 })
             });
