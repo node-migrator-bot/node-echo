@@ -218,16 +218,19 @@
 <span class="cm">     *     &lt;li&gt;options.consumerKey : Echo API Key&lt;/li&gt;</span>
 <span class="cm">     *     &lt;li&gt;options.consumerSecret : Echo API Secret&lt;/li&gt;</span>
 <span class="cm">     *     &lt;li&gt;options.feed : Feed to communicate with</span>
+<span class="cm">     *     &lt;li&gt;options.authHandler : optional, in [&#39;oauth&#39;,&#39;basic&#39;]. Default &#39;oauth&#39;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     */</span>
     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">feed</span><span class="p">))</span> <span class="p">{</span>
       <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Invalid initialisation exception&quot;</span><span class="p">,</span> <span class="nx">error</span> <span class="o">:</span> <span class="s2">&quot;Specify API Key, secret and feed&quot;</span><span class="p">}</span>
-    <span class="p">}</span>  <span class="k">else</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">=</span> <span class="nx">consumerKey</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">consumerSecret</span> <span class="o">=</span> <span class="nx">consumerSecret</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">feed</span> <span class="o">=</span> <span class="nx">feed</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span><span class="p">)){</span>
+            <span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span> <span class="o">=</span> <span class="s2">&quot;oauth&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ItemsAPICore</span><span class="p">({</span><span class="nx">consumerKey</span><span class="o">:</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">consumerSecret</span><span class="o">:</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span> <span class="nx">authHandler</span><span class="o">:</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span><span class="p">});</span>
     <span class="p">}</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ItemsAPICore</span><span class="p">({</span><span class="nx">consumerKey</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">consumerSecret</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">});</span>
+
+
 <span class="p">};</span>
 
 
