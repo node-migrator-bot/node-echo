@@ -205,7 +205,7 @@
           </h2>
 
           <div class="highlight"><pre><span class="kd">var</span> <span class="nx">activityObjects</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./activityObjects.js&quot;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">ItemsAPICore</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./itemsAPICore.js&quot;</span><span class="p">).</span><span class="nx">ItemsAPICore</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">ItemsAPICore</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./ItemsAPICore.js&quot;</span><span class="p">).</span><span class="nx">ItemsAPICore</span><span class="p">;</span>
 
 <span class="kd">var</span> <span class="nx">ItemsAPI</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">){</span>
     <span class="cm">/**</span>
@@ -227,7 +227,9 @@
         <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span><span class="p">)){</span>
             <span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span> <span class="o">=</span> <span class="s2">&quot;oauth&quot;</span><span class="p">;</span>
         <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">feed</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">feed</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ItemsAPICore</span><span class="p">({</span><span class="nx">consumerKey</span><span class="o">:</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">consumerSecret</span><span class="o">:</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span> <span class="nx">authHandler</span><span class="o">:</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span><span class="p">});</span>
+
     <span class="p">}</span>
 
 
@@ -295,11 +297,11 @@
 <span class="cm">     * @param {function} callback callback called after submission</span>
 <span class="cm">     */</span>
     <span class="c1">// Creating article</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
-
     <span class="c1">// Rendering article then post it.</span>
     <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderPost</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -327,10 +329,11 @@
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;tag&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering article then post it.</span>
     <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -355,13 +358,15 @@
     <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
 
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;untag&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering article then post it.</span>
     <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -385,14 +390,14 @@
     <span class="nx">article_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;mark&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering article then post it.</span>
     <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -416,14 +421,14 @@
     <span class="nx">article_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unmark&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering article then post it.</span>
     <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -442,13 +447,13 @@
     <span class="nx">article_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;like&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering article then post it.</span>
     <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -467,13 +472,13 @@
     <span class="nx">article_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unlike&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering article then post it.</span>
     <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -492,13 +497,13 @@
     <span class="nx">article_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;flag&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering article then post it.</span>
     <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -517,13 +522,13 @@
     <span class="nx">article_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">article_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">article_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unflag&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering article then post it.</span>
     <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -550,9 +555,10 @@
     <span class="kd">var</span> <span class="nx">myArticle</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Article</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">article</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;update&#39;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="c1">// Rendering article then post it.</span>
     <span class="nx">myArticle</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -581,10 +587,10 @@
 <span class="cm">     */</span>
     <span class="c1">// Creating comment</span>
     <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="c1">// Rendering article then post it.</span>
     <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderPost</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -609,14 +615,14 @@
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;tag&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering comment then post it.</span>
     <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -640,14 +646,14 @@
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;untag&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering comment then post it.</span>
     <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -671,14 +677,14 @@
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;mark&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering comment then post it.</span>
     <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -702,14 +708,14 @@
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unmark&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering comment then post it.</span>
     <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -728,13 +734,13 @@
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;like&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering comment then post it.</span>
     <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -753,13 +759,13 @@
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unlike&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering comment then post it.</span>
     <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -778,13 +784,13 @@
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;flag&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering comment then post it.</span>
     <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -803,13 +809,13 @@
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">comment_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unflag&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering comment then post it.</span>
     <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -835,10 +841,11 @@
     <span class="c1">// Creating comment</span>
     <span class="kd">var</span> <span class="nx">myComment</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Comment</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">comment</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;update&#39;</span><span class="p">;</span>
     <span class="c1">// Rendering comment then post it.</span>
     <span class="nx">myComment</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -865,10 +872,10 @@
 <span class="cm">     */</span>
     <span class="c1">// Creating note</span>
     <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="c1">// Rendering note then post it.</span>
     <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderPost</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -892,14 +899,14 @@
     <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;tag&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering note then post it.</span>
     <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -923,14 +930,14 @@
     <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;untag&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering note then post it.</span>
     <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -954,14 +961,14 @@
     <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;mark&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering note then post it.</span>
     <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -985,14 +992,14 @@
     <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unmark&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering note then post it.</span>
     <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1011,13 +1018,13 @@
     <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;like&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering note then post it.</span>
     <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1036,13 +1043,13 @@
     <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unlike&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering note then post it.</span>
     <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1061,13 +1068,13 @@
     <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;flag&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering note then post it.</span>
     <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1086,13 +1093,13 @@
     <span class="nx">note_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">note_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unflag&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering note then post it.</span>
     <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1118,10 +1125,11 @@
     <span class="c1">// Creating note</span>
     <span class="kd">var</span> <span class="nx">myNote</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Note</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">note</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;update&#39;</span><span class="p">;</span>
     <span class="c1">// Rendering note then post it.</span>
     <span class="nx">myNote</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1150,10 +1158,10 @@
 <span class="cm">     */</span>
     <span class="c1">// Creating status</span>
     <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="c1">// Rendering article then post it.</span>
     <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderPost</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1177,14 +1185,14 @@
     <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;tag&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering status then post it.</span>
     <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1208,14 +1216,14 @@
     <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;untag&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">tag</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering status then post it.</span>
     <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1239,14 +1247,14 @@
     <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;mark&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering status then post it.</span>
     <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1270,14 +1278,14 @@
     <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unmark&quot;</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">mark</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering status then post it.</span>
     <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1296,13 +1304,13 @@
     <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;like&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering status then post it.</span>
     <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1321,13 +1329,13 @@
     <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unlike&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering status then post it.</span>
     <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1346,13 +1354,13 @@
     <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;flag&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering status then post it.</span>
     <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1371,13 +1379,13 @@
     <span class="nx">status_</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
     <span class="nx">status_</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;unflag&quot;</span><span class="p">;</span>
     <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status_</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="c1">// Rendering status then post it.</span>
     <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 
@@ -1403,10 +1411,11 @@
     <span class="c1">// Creating status</span>
     <span class="kd">var</span> <span class="nx">myStatus</span> <span class="o">=</span> <span class="nx">activityObjects</span><span class="p">.</span><span class="nx">Status</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">item</span><span class="o">:</span><span class="nx">status</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span><span class="nx">user</span><span class="p">,</span> <span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">});</span>
     <span class="nx">update</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="nx">update</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;update&#39;</span><span class="p">;</span>
     <span class="c1">// Rendering status then post it.</span>
     <span class="nx">myStatus</span><span class="p">.</span><span class="nx">renderUpdate</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+        <span class="nx">self</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">submit</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
     <span class="p">})</span>
 <span class="p">};</span>
 

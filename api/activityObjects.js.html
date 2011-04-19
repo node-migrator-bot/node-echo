@@ -223,48 +223,49 @@
 <span class="cm">     *     &lt;li&gt;properties.feed : the feed this item belongs to&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     */</span>
-      <span class="nx">renderPost</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
-        <span class="cm">/**</span>
-<span class="cm">         * Prepare the item for posting.</span>
-<span class="cm">         * @method renderPost</span>
-<span class="cm">         * @param {function} callback callback (should very likely be a call to a &quot;submit&quot; method)</span>
-<span class="cm">         */</span>
-
+     <span class="nx">renderPost</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
+       <span class="cm">/**</span>
+<span class="cm">        * Prepare the item for posting.</span>
+<span class="cm">        * @method renderPost</span>
+<span class="cm">        * @param {function} callback callback (should very likely be a call to a &quot;submit&quot; method)</span>
+<span class="cm">        */</span>
         <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">renderItem</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">renderedData</span><span class="p">){</span>
-           <span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">ISODateString</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">());</span>
-           <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span>
-              <span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/base.xml&#39;</span><span class="p">,</span> <span class="c1">// First arg of render.renderTemplate</span>
-              <span class="p">{</span>                                  <span class="c1">// Second arg</span>
-                 <span class="nx">verb</span><span class="o">:</span> <span class="s1">&#39;http://activitystrea.ms/schema/1.0/post&#39;</span><span class="p">,</span>
-                 <span class="nx">feed</span><span class="o">:</span> <span class="p">{</span>
-                    <span class="nx">idUrl</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">feed</span><span class="p">,</span>
-                    <span class="nx">updated</span><span class="o">:</span> <span class="nx">date</span>
+           <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+              <span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">ISODateString</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">());</span>
+              <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span>
+                 <span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/base.xml&#39;</span><span class="p">,</span> <span class="c1">// First arg of render.renderTemplate</span>
+                 <span class="p">{</span>                                  <span class="c1">// Second arg</span>
+                    <span class="nx">verb</span><span class="o">:</span> <span class="s1">&#39;http://activitystrea.ms/schema/1.0/post&#39;</span><span class="p">,</span>
+                    <span class="nx">feed</span><span class="o">:</span> <span class="p">{</span>
+                       <span class="nx">idUrl</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">feed</span><span class="p">,</span>
+                       <span class="nx">updated</span><span class="o">:</span> <span class="nx">date</span>
+                    <span class="p">},</span>
+                    <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+                       <span class="nx">id</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+                       <span class="nx">published</span><span class="o">:</span> <span class="nx">date</span>
+                    <span class="p">},</span>
+                    <span class="nx">actor</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="nx">url</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span>
+                       <span class="p">,</span><span class="nx">name</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span>
+                       <span class="p">,</span><span class="nx">avatar</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">avatarURL</span>
+                    <span class="p">},</span>
+                    <span class="nx">activityObject</span><span class="o">:</span> <span class="nx">renderedData</span><span class="p">,</span>
+                    <span class="nx">target</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="nx">type</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span>
+                       <span class="p">,</span><span class="nx">url</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span>
+                    <span class="p">}</span>
                  <span class="p">},</span>
-                 <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
-                    <span class="nx">id</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
-                    <span class="nx">published</span><span class="o">:</span> <span class="nx">date</span>
-                 <span class="p">},</span>
-                 <span class="nx">actor</span><span class="o">:</span> <span class="p">{</span>
-                     <span class="nx">url</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span>
-                    <span class="p">,</span><span class="nx">name</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span>
-                    <span class="p">,</span><span class="nx">avatar</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">avatarURL</span>
-                 <span class="p">},</span>
-                 <span class="nx">activityObject</span><span class="o">:</span> <span class="nx">renderedData</span><span class="p">,</span>
-                 <span class="nx">target</span><span class="o">:</span> <span class="p">{</span>
-                     <span class="nx">type</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span>
-                    <span class="p">,</span><span class="nx">url</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span>
-                 <span class="p">}</span>
-              <span class="p">},</span>
-              <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="nx">renderedMessage</span><span class="p">){</span> <span class="c1">// Third arg of render.renderTemplate</span>
-                 <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="nx">callback</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
-                 <span class="k">else</span><span class="p">{</span>
-                    <span class="nx">callback</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,{</span> <span class="nx">content</span><span class="o">:</span> <span class="nx">renderedMessage</span> <span class="p">})</span>
-                 <span class="p">}</span>
-              <span class="p">});</span>
+                 <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="nx">renderedMessage</span><span class="p">){</span> <span class="c1">// Third arg of render.renderTemplate</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="nx">callback</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
+                    <span class="k">else</span><span class="p">{</span>
+                       <span class="nx">callback</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,{</span> <span class="nx">content</span><span class="o">:</span> <span class="nx">renderedMessage</span> <span class="p">})</span>
+                    <span class="p">}</span>
+                 <span class="p">});</span>
+              <span class="p">}</span>
            <span class="p">}</span>
         <span class="p">)</span>
-    <span class="p">}</span>
+     <span class="p">}</span>
      <span class="c1">// Common to all Items:</span>
     <span class="p">,</span><span class="nx">renderUpdate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -419,8 +420,6 @@
         <span class="nx">enumerable</span><span class="o">:</span> <span class="kc">true</span>
     <span class="p">}</span>
 <span class="p">});</span>
-
-
 
 <span class="kd">var</span> <span class="nx">Article</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>

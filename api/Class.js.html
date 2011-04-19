@@ -256,6 +256,25 @@
     <span class="c1">// Enforce the constructor to be what we expect</span>
     <span class="nx">Class</span><span class="p">.</span><span class="nx">constructor</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">;</span>
 
+
+    <span class="c1">// Check if that is better ?</span>
+<span class="c1">//    Class.spawn = function(propValues, skipInit){</span>
+<span class="c1">//        // Martial values onto property definitions</span>
+<span class="c1">//        var finalProps = {};</span>
+<span class="c1">//        for(var key in props){</span>
+<span class="c1">//            if(typeof props[key] !== &quot;function&quot;){</span>
+<span class="c1">//                finalProps[key] = props[key];</span>
+<span class="c1">//                finalProps[key].value = propValues[key];</span>
+<span class="c1">//            }</span>
+<span class="c1">//        }</span>
+<span class="c1">//</span>
+<span class="c1">//        // Create, initialize and return the new object</span>
+<span class="c1">//        var newObject = Object.create(Class.prototype,finalProps);</span>
+<span class="c1">//        if(newObject.init &amp;&amp; skipInit)newObject.init();</span>
+<span class="c1">//        return newObject;</span>
+<span class="c1">//    };</span>
+
+
     <span class="nx">Class</span><span class="p">.</span><span class="nx">spawn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">propValues</span><span class="p">){</span>
         <span class="c1">// Martial values onto property definitions</span>
         <span class="kd">var</span> <span class="nx">finalProps</span> <span class="o">=</span> <span class="p">{};</span>

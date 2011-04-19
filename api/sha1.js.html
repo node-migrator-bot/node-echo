@@ -256,10 +256,10 @@
 
 
 
-        <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;fs&#39;</span><span class="p">).</span><span class="nx">writeFile</span><span class="p">(</span><span class="s1">&#39;sign.xml&#39;</span><span class="p">,</span> <span class="nx">stringToSign</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span><span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;It\&#39;s saved!&#39;</span><span class="p">);</span>
-        <span class="p">});</span>
+<span class="c1">//        require(&#39;fs&#39;).writeFile(&#39;sign.xml&#39;, stringToSign, function (err) {</span>
+<span class="c1">//            if(err)callback(err,&quot;&quot;);</span>
+<span class="c1">//            console.log(&#39;It\&#39;s saved!&#39;);</span>
+<span class="c1">//        });</span>
 
         <span class="kd">var</span> <span class="nx">digest</span> <span class="o">=</span> <span class="nx">my</span><span class="p">.</span><span class="nx">getDigest</span><span class="p">(</span><span class="nx">secretWithAmpersand</span><span class="p">,</span> <span class="nx">stringToSign</span><span class="p">);</span>
 
