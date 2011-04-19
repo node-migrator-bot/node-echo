@@ -85,7 +85,7 @@ describe("ItemsAPICore",function(){
         it("should throw and exception", function(){
             expect(excp).toBeDefined();
             expect(excp.name).toEqual("Options not set exception");
-            expect(excp.message).toEqual("ItemsAPICore requires the consumerKey option to be defined");
+            expect(excp.message).toEqual("ItemsAPICore requires a consumerKey and a consumerSecret option to be defined");
         });
     });
 });
