@@ -26,7 +26,7 @@ describe("ItemsAPICore",function(){
             });
             it("should have called req.post",function(){
                 expect(req.post).toHaveBeenCalledWith(
-                   { consumerKey:"Key", consumerSecret: "Secret", apiHost:"api.echoenabled.com"},
+                        { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
                    '/v1/submit',
                    {data:"data"},
                    callback)
@@ -39,7 +39,7 @@ describe("ItemsAPICore",function(){
             });
             it("should have called req.get",function(){
                 expect(req.get).toHaveBeenCalledWith(
-                   { consumerKey:"Key", consumerSecret: "Secret", apiHost:"api.echoenabled.com"},
+                        { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
                    '/v1/search',
                    {query:"query"},
                    callback)
@@ -52,7 +52,7 @@ describe("ItemsAPICore",function(){
             });
             it("should have called req.get",function(){
                 expect(req.get).toHaveBeenCalledWith(
-                   { consumerKey:"Key", consumerSecret: "Secret", apiHost:"api.echoenabled.com"},
+                        { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
                    '/v1/count',
                    {query:"query"},
                    callback)
@@ -65,7 +65,7 @@ describe("ItemsAPICore",function(){
             });
             it("should have called req.get",function(){
                 expect(req.get).toHaveBeenCalledWith(
-                   { consumerKey:"Key", consumerSecret: "Secret", apiHost:"api.echoenabled.com"},
+                        { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
                    '/v1/mux',
                    {query:"query"},
                    callback)

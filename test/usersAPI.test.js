@@ -12,6 +12,7 @@ describe("UsersAPI",function(){
                 expect(UsersAPI.options.consumerSecret).toEqual("Secret");
                 expect(UsersAPI.options.consumerKey).toEqual("Key");
                 expect(UsersAPI.options.apiHost).toEqual('api.echoenabled.com');
+                expect(UsersAPI.options.authHandler).toEqual('oauth');
             });
             describe("get",function(){
                 beforeEach(function(){
@@ -20,7 +21,7 @@ describe("UsersAPI",function(){
                 });
                 it("should have call req.get",function(){
                     expect(req.get).toHaveBeenCalledWith(
-                    { consumerKey:"Key", consumerSecret: "Secret", apiHost:"api.echoenabled.com"},
+                    { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
                     '/v1/users/get',
                     {identityURL:"id"},
                     callback)
@@ -33,7 +34,7 @@ describe("UsersAPI",function(){
                 });
                 it("should have call req.post",function(){
                     expect(req.post).toHaveBeenCalledWith(
-                    { consumerKey:"Key", consumerSecret: "Secret", apiHost:"api.echoenabled.com"},
+                    { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
                     '/v1/users/update',
                     { identityURL : 'id', title : 'title', content : 'content' },
                     callback)
@@ -46,10 +47,10 @@ describe("UsersAPI",function(){
                 });
                 it("should have call req.post",function(){
                     expect(req.get).toHaveBeenCalledWith(
-                    { consumerKey:"Key", consumerSecret: "Secret", apiHost:"api.echoenabled.com"},
-                    '/v1/users/whoami',
-                    {appkey:"appkey",sessionID:"sessionID"},
-                    callback)
+                        { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
+                        '/v1/users/whoami',
+                        {appkey:"appkey",sessionID:"sessionID"},
+                        callback)
                 })
 
             });

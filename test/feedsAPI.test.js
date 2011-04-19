@@ -12,6 +12,7 @@ describe("FeedsAPI",function(){
                 expect(FeedsAPI.options.consumerSecret).toEqual("Secret");
                 expect(FeedsAPI.options.consumerKey).toEqual("Key");
                 expect(FeedsAPI.options.apiHost).toEqual('api.echoenabled.com');
+                expect(FeedsAPI.options.authHandler).toEqual('oauth')
             });
             describe("list",function(){
                 beforeEach(function(){
@@ -21,7 +22,7 @@ describe("FeedsAPI",function(){
                 });
                 it("should have called req.get",function(){
                    expect(req.get).toHaveBeenCalledWith(
-                   { consumerKey:"Key", consumerSecret: "Secret", apiHost:"api.echoenabled.com"},
+                   { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
                    '/v1/feeds/list',
                    {},
                    callback)
@@ -35,7 +36,7 @@ describe("FeedsAPI",function(){
                 });
                 it("should have called req.get",function(){
                    expect(req.get).toHaveBeenCalledWith(
-                   { consumerKey:"Key", consumerSecret: "Secret", apiHost:"api.echoenabled.com"},
+                   { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
                    '/v1/feeds/register',
                    {url:"url",interval:10},
                    callback)
@@ -50,7 +51,7 @@ describe("FeedsAPI",function(){
                     });
                     it("should have called req.get",function(){
                        expect(req.get).toHaveBeenCalledWith(
-                       { consumerKey:"Key", consumerSecret: "Secret", apiHost:"api.echoenabled.com"},
+                       { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
                        '/v1/feeds/unregister',
                        {url:"url"},
                        callback)
