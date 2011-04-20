@@ -6,13 +6,13 @@ describe("FeedsAPI",function(){
     describe("constructor",function(){
         describe("valid properties",function(){
             beforeEach(function(){
-                FeedsAPI = new (require("feedsAPI.js").FeedsAPI)({consumerSecret: "Secret", consumerKey:"Key"});
+                FeedsAPI = require("feedsAPI.js").FeedsAPI.spawn({parameters:{consumerSecret: "Secret", consumerKey:"Key"}});
             });
             it("should be properly initialised",function(){
-                expect(FeedsAPI.options.consumerSecret).toEqual("Secret");
-                expect(FeedsAPI.options.consumerKey).toEqual("Key");
-                expect(FeedsAPI.options.apiHost).toEqual('api.echoenabled.com');
-                expect(FeedsAPI.options.authHandler).toEqual('oauth')
+                expect(FeedsAPI.parameters.consumerSecret).toEqual("Secret");
+                expect(FeedsAPI.parameters.consumerKey).toEqual("Key");
+                expect(FeedsAPI.parameters.apiHost).toEqual('api.echoenabled.com');
+                expect(FeedsAPI.parameters.authMethod).toEqual('oauth')
             });
             describe("list",function(){
                 beforeEach(function(){
@@ -22,7 +22,7 @@ describe("FeedsAPI",function(){
                 });
                 it("should have called req.get",function(){
                    expect(req.get).toHaveBeenCalledWith(
-                   { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
+                   { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"},
                    '/v1/feeds/list',
                    "",
                    callback)
@@ -36,7 +36,7 @@ describe("FeedsAPI",function(){
                 });
                 it("should have called req.get",function(){
                    expect(req.get).toHaveBeenCalledWith(
-                   { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
+                   { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"},
                    '/v1/feeds/register',
                    {url:"url",interval:10},
                    callback)
@@ -51,7 +51,7 @@ describe("FeedsAPI",function(){
                     });
                     it("should have called req.get",function(){
                        expect(req.get).toHaveBeenCalledWith(
-                       { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
+                       { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"},
                        '/v1/feeds/unregister',
                        {url:"url"},
                        callback)
@@ -61,8 +61,8 @@ describe("FeedsAPI",function(){
         });
         describe("invalid properties",function(){
             expect(function(){
-                FeedsAPI = new (require("feedsAPI.js").FeedsAPI)({});
-            }).toThrow({ name: "Options not set exception", message: "FeedsAPI requires the consumerKey option to be defined" })
+                FeedsAPI = FeedsAPI = require("feedsAPI.js").FeedsAPI.spawn({parameters:{}});
+            }).toThrow({ name: "Options not set exception", message: "FeedsAPI requires the consumerKey and consumerSecret options to be defined" })
         })
     })
 });

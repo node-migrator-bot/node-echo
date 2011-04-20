@@ -6,14 +6,16 @@ var callback;
 describe("itemsAPI",function(){
     describe("valid options",function(){
         beforeEach(function(){
-            itemsAPI = new ItemsAPI({
-                 consumerKey:"Key"
-                ,consumerSecret:"Secret"
-                ,feed:"feed"
+            itemsAPI = ItemsAPI.spawn({
+                parameters:{
+                    consumerKey:"Key"
+                   ,consumerSecret:"Secret"
+                   ,feed:"feed"
+                }
             })
         });
         it("should be initialised",function(){
-            expect(itemsAPI.feed).toEqual('feed');
+            expect(itemsAPI.parameters.feed).toEqual('feed');
             expect(itemsAPI.itemsAPICore).toBeDefined();
         });
         describe("search",function(){
@@ -60,23 +62,23 @@ describe("itemsAPI",function(){
 //                    console.log(require("util").inspect(activityObjects.Article.spawn.mostRecentCall.args))
                 });
                 it("should spawn a new article",function(){
-                    expect(activityObjects.Article.spawn).toHaveBeenCalled()
+                    expect(activityObjects.Article.spawn).toHaveBeenCalled();
 //                    With(
 //                        {
 //                              item:{summary:"s",content:"c",title:"t",permalink:"p"} // THIS IS FOOBAR !
 //                            , user:{id:"id",name:"emmanuel",avatarURL:"avatar"}
-//                            , feed:'feed'}
-
-                });
-            })
+//                            , feed:'feed'
+//                        })
+                })
+            });
         })
     });
-    
+
     describe("invalid options",function(){
         it("should throw an exception",function(){
             expect(function(){
-                itemsAPI = new ItemsAPI({
-                    feed:"feed"
+                itemsAPI = ItemsAPI.spawn({
+                    parameters:{feed:"feed"}
                 })
             }).toThrow({name:"Invalid initialisation exception", error : "Specify API Key, secret and feed"})
 

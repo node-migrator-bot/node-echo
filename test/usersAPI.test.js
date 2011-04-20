@@ -6,13 +6,13 @@ describe("UsersAPI",function(){
     describe("constructor",function(){
         describe("valid properties",function(){
             beforeEach(function(){
-                UsersAPI = new (require("usersAPI.js").UsersAPI)({consumerSecret: "Secret", consumerKey:"Key"});
+                UsersAPI = require("usersAPI.js").UsersAPI.spawn({parameters:{consumerSecret: "Secret", consumerKey:"Key"}});
             });
             it("should be properly initialised",function(){
-                expect(UsersAPI.options.consumerSecret).toEqual("Secret");
-                expect(UsersAPI.options.consumerKey).toEqual("Key");
-                expect(UsersAPI.options.apiHost).toEqual('api.echoenabled.com');
-                expect(UsersAPI.options.authHandler).toEqual('oauth');
+                expect(UsersAPI.parameters.consumerSecret).toEqual("Secret");
+                expect(UsersAPI.parameters.consumerKey).toEqual("Key");
+                expect(UsersAPI.parameters.apiHost).toEqual('api.echoenabled.com');
+                expect(UsersAPI.parameters.authMethod).toEqual('oauth');
             });
             describe("get",function(){
                 beforeEach(function(){
@@ -21,7 +21,7 @@ describe("UsersAPI",function(){
                 });
                 it("should have call req.get",function(){
                     expect(req.get).toHaveBeenCalledWith(
-                    { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
+                    { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"},
                     '/v1/users/get',
                     {identityURL:"id"},
                     callback)
@@ -34,7 +34,7 @@ describe("UsersAPI",function(){
                 });
                 it("should have call req.post",function(){
                     expect(req.post).toHaveBeenCalledWith(
-                    { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
+                    { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"},
                     '/v1/users/update',
                     { identityURL : 'id', title : 'title', content : 'content' },
                     callback)
@@ -47,7 +47,7 @@ describe("UsersAPI",function(){
                 });
                 it("should have call req.post",function(){
                     expect(req.get).toHaveBeenCalledWith(
-                        { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
+                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"},
                         '/v1/users/whoami',
                         {appkey:"appkey",sessionID:"sessionID"},
                         callback)
@@ -56,10 +56,9 @@ describe("UsersAPI",function(){
             });
         });
         describe("invalid properties",function(){
-
             expect(function(){
-                UsersAPI = new (require("usersAPI.js").UsersAPI)({});
-            }).toThrow({ name: "Option not set exception", message: "UsersAPI requires the consumerKey option to be defined" })
+                                UsersAPI = require("usersAPI.js").UsersAPI.spawn({parameters:{}});
+            }).toThrow({ name: "UsersAPI: Option not set exception", message: "UsersAPI requires the consumerKey option to be defined" })
         })
     })
 })

@@ -7,17 +7,17 @@ var callback = jasmine.createSpy();
 describe("ItemsAPICore",function(){
     describe("constructor with valid options",function(){
         beforeEach(function(){
-            itemsAPI = new ItemsAPICore({consumerKey: "Key",consumerSecret: "Secret"})
+            itemsAPI = ItemsAPICore.spawn({parameters:{consumerKey: "Key",consumerSecret: "Secret"}})
         });
         it("should set apiUrl to a default value", function(){
-            expect(itemsAPI.options.apiHost).toEqual(apiHost);
+            expect(itemsAPI.parameters.apiHost).toEqual(apiHost);
         });
 
         it("should set consumerKey to the passed value",function(){
-            expect(itemsAPI.options.consumerKey).toEqual("Key");
+            expect(itemsAPI.parameters.consumerKey).toEqual("Key");
         });
         it("should set consumerSecret to the passed value",function(){
-            expect(itemsAPI.options.consumerSecret).toEqual("Secret");
+            expect(itemsAPI.parameters.consumerSecret).toEqual("Secret");
         });
         describe("submit",function(){
             beforeEach(function(){
@@ -26,7 +26,7 @@ describe("ItemsAPICore",function(){
             });
             it("should have called req.post",function(){
                 expect(req.post).toHaveBeenCalledWith(
-                        { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
+                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"},
                    '/v1/submit',
                    {data:"data"},
                    callback)
@@ -39,7 +39,7 @@ describe("ItemsAPICore",function(){
             });
             it("should have called req.get",function(){
                 expect(req.get).toHaveBeenCalledWith(
-                        { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
+                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"},
                    '/v1/search',
                    {query:"query"},
                    callback)
@@ -52,7 +52,7 @@ describe("ItemsAPICore",function(){
             });
             it("should have called req.get",function(){
                 expect(req.get).toHaveBeenCalledWith(
-                        { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
+                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"},
                    '/v1/count',
                    {query:"query"},
                    callback)
@@ -65,7 +65,7 @@ describe("ItemsAPICore",function(){
             });
             it("should have called req.get",function(){
                 expect(req.get).toHaveBeenCalledWith(
-                        { consumerKey:"Key", consumerSecret: "Secret", authHandler : 'oauth', apiHost:"api.echoenabled.com"},
+                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"},
                    '/v1/mux',
                    {query:"query"},
                    callback)
@@ -74,18 +74,10 @@ describe("ItemsAPICore",function(){
     });
     describe("constructor with no options", function(){
         var excp;
-        beforeEach(function(){
-            try{
-                new ItemsAPICore();
-            }
-            catch(e){
-                excp = e;
-            }
-        });
         it("should throw and exception", function(){
-            expect(excp).toBeDefined();
-            expect(excp.name).toEqual("Options not set exception");
-            expect(excp.message).toEqual("ItemsAPICore requires a consumerKey and a consumerSecret option to be defined");
+            expect(function(){
+                ItemsAPICore.spawn({parameters:{}});
+            }).toThrow({ name: "Options not set exception", message: "ItemsAPICore requires a consumerKey and a consumerSecret option to be defined" })
         });
     });
 });
