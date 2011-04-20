@@ -193,6 +193,9 @@
                     <a href="#method_get">get</a>
                   </li>
                   <li class=" ">
+                    <a href="#method_update">update</a>
+                  </li>
+                  <li class=" ">
                     <a href="#method_whoAmI">whoAmI</a>
                   </li>
               </ul>
@@ -343,6 +346,59 @@
                                   &lt;string&gt;
                                 </code>
                                  user identityURL
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_update">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_update">update</a>(
+                          user, callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Update user information
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  user
+                                  &lt;object&gt;
+                                </code>
+                                 user to update. Need to specify:
+<ul>
+<li>user.identityURL : User identity URL</li>
+<li>user.subject : show which parameters should be updated</li>
+<li>user.content : contains data to be used for user update</li>
+</ul>
                               </li>
                               <li>
                                 <code>
