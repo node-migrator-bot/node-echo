@@ -204,95 +204,91 @@
             file <strong>ItemsAPICore.js</strong>
           </h2>
 
-          <div class="highlight"><pre><span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./req.js&quot;</span><span class="p">).</span><span class="nx">req</span><span class="p">;</span>
+          <div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">Class</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="nx">Class</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./Class.js&#39;</span><span class="p">).</span><span class="nx">Class</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./req.js&quot;</span><span class="p">).</span><span class="nx">req</span><span class="p">;</span>
 
-<span class="kd">var</span> <span class="nx">ItemsAPICore</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">){</span>
-    <span class="cm">/**</span>
-<span class="cm">     * Implements the 4 methods for ItemsAPI (submit, search, count, mux)</span>
-<span class="cm">     * @class ItemsAPICore</span>
-<span class="cm">     * @param {Object} options object for options&lt;br/&gt;</span>
-<span class="cm">     * &lt;ul&gt;</span>
-<span class="cm">     *     &lt;li&gt;options.consumerKey&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;options.consumerSecret&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;options.authHandler : optional, in [&#39;oauth&#39;,&#39;basic&#39;]. Default &#39;oauth&#39;</span>
-<span class="cm">     * &lt;/ul&gt;</span>
-<span class="cm">     * @constructor</span>
-<span class="cm">     */</span>
-
-    <span class="c1">//Get required options</span>
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">options</span> <span class="o">||</span> <span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">||</span> <span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">)</span> <span class="k">throw</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Options not set exception&quot;</span><span class="p">,</span> <span class="nx">message</span><span class="o">:</span> <span class="s2">&quot;ItemsAPICore requires a consumerKey and a consumerSecret option to be defined&quot;</span> <span class="p">};</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">;</span>
-    <span class="c1">//Set defaults</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">=</span> <span class="s1">&#39;api.echoenabled.com&#39;</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span> <span class="o">=</span> <span class="s2">&quot;oauth&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">ItemsAPICore</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="nx">parameters</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">enumerable</span><span class="o">:</span><span class="kc">true</span>
     <span class="p">}</span>
-<span class="p">};</span>
-
-
-<span class="nx">ItemsAPICore</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">submit</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
-    <span class="cm">/**</span>
-<span class="cm">     * &quot;submit API method&quot; &lt;br /&gt; Endpoint to submit your data into the Echo Platform in the Activity Streams XML format. &lt;br/&gt; http://wiki.aboutecho.com/w/page/35059196/API-method-submit</span>
-<span class="cm">     * @method submit</span>
-<span class="cm">     * @param {string} err hopefully empty error</span>
-<span class="cm">     * @param {Object} data data.content MUST contain XML-formatted data to submit</span>
-<span class="cm">     * @param {function} callback</span>
-<span class="cm">     */</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">){</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">&quot;/v1/submit&quot;</span><span class="p">;</span>
-        <span class="nx">req</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+    <span class="p">,</span><span class="nx">init</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Implements the 4 methods for ItemsAPI (submit, search, count, mux)</span>
+<span class="cm">         * @class ItemsAPICore</span>
+<span class="cm">         * @param {Object} parameters object for options&lt;br/&gt;</span>
+<span class="cm">         * &lt;ul&gt;</span>
+<span class="cm">         *     &lt;li&gt;parameters.consumerKey&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;parameters.consumerSecret&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;parameters.authMethod : optional, in [&#39;oauth&#39;,&#39;basic&#39;]. Default &#39;oauth&#39;</span>
+<span class="cm">         * &lt;/ul&gt;</span>
+<span class="cm">         * @constructor</span>
+<span class="cm">         */</span>
+      <span class="c1">//Get required options</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">||</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">)</span> <span class="k">throw</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Options not set exception&quot;</span><span class="p">,</span> <span class="nx">message</span><span class="o">:</span> <span class="s2">&quot;ItemsAPICore requires a consumerKey and a consumerSecret option to be defined&quot;</span> <span class="p">};</span>
+        <span class="c1">//Set defaults</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">=</span> <span class="s1">&#39;api.echoenabled.com&#39;</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">authMethod</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">authMethod</span> <span class="o">=</span> <span class="s2">&quot;oauth&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">};</span>
+    <span class="p">,</span><span class="nx">submit</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * &quot;submit API method&quot; &lt;br /&gt; Endpoint to submit your data into the Echo Platform in the Activity Streams XML format. &lt;br/&gt; http://wiki.aboutecho.com/w/page/35059196/API-method-submit</span>
+<span class="cm">         * @method submit</span>
+<span class="cm">         * @param {string} err hopefully empty error</span>
+<span class="cm">         * @param {Object} data data.content MUST contain XML-formatted data to submit</span>
+<span class="cm">         * @param {function} callback</span>
+<span class="cm">         */</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">&quot;/v1/submit&quot;</span><span class="p">;</span>
+            <span class="nx">req</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="p">,</span><span class="nx">search</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">callback</span><span class="p">){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * &quot;search&quot; API method &lt;br /&gt; Returns information about items that match the specified query in Activity Stream format. &lt;br /&gt; http://wiki.aboutecho.com/w/page/23491639/API-method-search</span>
+<span class="cm">         * @method search</span>
+<span class="cm">         * @param {Object} query Query to perform. Need to specify:</span>
+<span class="cm">         * &lt;ul&gt;</span>
+<span class="cm">         *     &lt;li&gt;query.q : Echo Query Language query&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;query.appkey : customer appkey&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;query.since : optional. Since parameter&lt;/li&gt;</span>
+<span class="cm">         * &lt;/ul&gt;</span>
+<span class="cm">         * @param {function} callback callback</span>
+<span class="cm">         */</span>
+        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">&quot;/v1/search&quot;</span><span class="p">;</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">,</span><span class="nx">count</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * &quot;count&quot; API method. &lt;br /&gt; Returns a number of items that match the specified query in JSON format. &lt;br/&gt; http://wiki.aboutecho.com/w/page/27888212/API-method-count</span>
+<span class="cm">         * @method count</span>
+<span class="cm">         * @param {Object} query Query to perform. Need to specify:</span>
+<span class="cm">         * &lt;ul&gt;</span>
+<span class="cm">         *     &lt;li&gt;query.q : Echo Query Language query&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;query.appkey : customer appkey&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;query.since : optional. Since parameter&lt;/li&gt;</span>
+<span class="cm">         * &lt;/ul&gt;</span>
+<span class="cm">         * @param {function} callback callback.</span>
+<span class="cm">         */</span>
+        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">&quot;/v1/count&quot;</span><span class="p">;</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="p">,</span><span class="nx">mux</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * &quot;mux&quot; API method &lt;br/&gt; The API method &quot;mux&quot; allows to &quot;multiplex&quot; requests, i.e. use a single API call to &quot;wrap&quot; several requests. The multiplexed requests are executed concurrently and independently by the Echo server. &lt;br/&gt; http://wiki.aboutecho.com/w/page/32433803/API-method-mux</span>
+<span class="cm">         * @method mux</span>
+<span class="cm">         * @param {object} query JSON array of queries</span>
+<span class="cm">         * @param {function} callback callback</span>
+<span class="cm">         */</span>
+        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">&quot;/v1/mux&quot;</span><span class="p">;</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">});</span>
 
 
-<span class="nx">ItemsAPICore</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">search</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">callback</span><span class="p">){</span>
-    <span class="cm">/**</span>
-<span class="cm">     * &quot;search&quot; API method &lt;br /&gt; Returns information about items that match the specified query in Activity Stream format. &lt;br /&gt; http://wiki.aboutecho.com/w/page/23491639/API-method-search</span>
-<span class="cm">     * @method search</span>
-<span class="cm">     * @param {Object} query Query to perform. Need to specify:</span>
-<span class="cm">     * &lt;ul&gt;</span>
-<span class="cm">     *     &lt;li&gt;query.q : Echo Query Language query&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;query.appkey : customer appkey&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;query.since : optional. Since parameter&lt;/li&gt;</span>
-<span class="cm">     * &lt;/ul&gt;</span>
-<span class="cm">     * @param {function} callback callback</span>
-<span class="cm">     */</span>
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">&quot;/v1/search&quot;</span><span class="p">;</span>
-    <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
-<span class="p">};</span>
-
-<span class="nx">ItemsAPICore</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">count</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
-    <span class="cm">/**</span>
-<span class="cm">     * &quot;count&quot; API method. &lt;br /&gt; Returns a number of items that match the specified query in JSON format. &lt;br/&gt; http://wiki.aboutecho.com/w/page/27888212/API-method-count</span>
-<span class="cm">     * @method count</span>
-<span class="cm">     * @param {Object} query Query to perform. Need to specify:</span>
-<span class="cm">     * &lt;ul&gt;</span>
-<span class="cm">     *     &lt;li&gt;query.q : Echo Query Language query&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;query.appkey : customer appkey&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;query.since : optional. Since parameter&lt;/li&gt;</span>
-<span class="cm">     * &lt;/ul&gt;</span>
-<span class="cm">     * @param {function} callback callback.</span>
-<span class="cm">     */</span>
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">&quot;/v1/count&quot;</span><span class="p">;</span>
-    <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
-<span class="p">};</span>
-
-<span class="nx">ItemsAPICore</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">mux</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
-    <span class="cm">/**</span>
-<span class="cm">     * &quot;mux&quot; API method &lt;br/&gt; The API method &quot;mux&quot; allows to &quot;multiplex&quot; requests, i.e. use a single API call to &quot;wrap&quot; several requests. The multiplexed requests are executed concurrently and independently by the Echo server. &lt;br/&gt; http://wiki.aboutecho.com/w/page/32433803/API-method-mux</span>
-<span class="cm">     * @method mux</span>
-<span class="cm">     * @param {object} query JSON array of queries</span>
-<span class="cm">     * @param {function} callback callback</span>
-<span class="cm">     */</span>
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">&quot;/v1/mux&quot;</span><span class="p">;</span>
-    <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
-<span class="p">}</span>
 
 <span class="nx">exports</span><span class="p">.</span><span class="nx">ItemsAPICore</span> <span class="o">=</span> <span class="nx">ItemsAPICore</span><span class="p">;</span>
 </pre></div>

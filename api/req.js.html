@@ -225,13 +225,13 @@
 <span class="cm">         *     &lt;li&gt;options.consumerKey Echo API Key&lt;/li&gt;</span>
 <span class="cm">         *     &lt;li&gt;options.consumerSecret Echo API Secret&lt;/li&gt;</span>
 <span class="cm">         *     &lt;li&gt;options.apiHost Echo API Url&lt;/li&gt;</span>
-<span class="cm">         *     &lt;li&gt;options.authHandler Authentication method, in [&#39;oauth&#39;,&#39;basic&#39;]&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;options.authMethod Authentication method, in [&#39;oauth&#39;,&#39;basic&#39;]&lt;/li&gt;</span>
 <span class="cm">         * &lt;/ul&gt;</span>
 <span class="cm">         * @param {string} url URL representing the &quot;action&quot; of the post (depends on what is being posted)</span>
 <span class="cm">         * @param {object} data Data to post</span>
 <span class="cm">         * @param {function} callback callback called with the response of the POST</span>
 <span class="cm">         */</span>
-        <span class="k">switch</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span><span class="p">){</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">authMethod</span><span class="p">){</span>
             <span class="k">case</span> <span class="s2">&quot;oauth&quot;</span><span class="o">:</span>
                 <span class="nx">my</span><span class="p">.</span><span class="nx">postOAuth</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
                 <span class="k">break</span><span class="p">;</span>
@@ -239,7 +239,7 @@
                 <span class="nx">my</span><span class="p">.</span><span class="nx">postBasic</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
                 <span class="k">break</span><span class="p">;</span>
             <span class="k">default</span><span class="o">:</span>
-                <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;Illegal auth handler exception&#39;</span><span class="p">,</span><span class="nx">error</span><span class="o">:</span><span class="s1">&#39;auth Handler &#39;</span><span class="o">+</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span><span class="o">+</span><span class="s2">&quot; not valid&quot;</span><span class="p">}</span>
+                <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;Illegal auth handler exception&#39;</span><span class="p">,</span><span class="nx">error</span><span class="o">:</span><span class="s1">&#39;auth Handler &#39;</span><span class="o">+</span><span class="nx">options</span><span class="p">.</span><span class="nx">authMethod</span><span class="o">+</span><span class="s2">&quot; not valid&quot;</span><span class="p">}</span>
         <span class="p">}</span>
     <span class="p">};</span>
 
@@ -252,13 +252,13 @@
 <span class="cm">         *     &lt;li&gt;options.consumerKey Echo API Key&lt;/li&gt;</span>
 <span class="cm">         *     &lt;li&gt;options.consumerSecret Echo API Secret&lt;/li&gt;</span>
 <span class="cm">         *     &lt;li&gt;options.apiHost Echo API Url&lt;/li&gt;</span>
-<span class="cm">         *     &lt;li&gt;options.authHandler Authentication method, in [&#39;oauth&#39;,&#39;basic&#39;]&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;options.authMethod Authentication method, in [&#39;oauth&#39;,&#39;basic&#39;]&lt;/li&gt;</span>
 <span class="cm">         * &lt;/ul&gt;</span>
 <span class="cm">         * @param {string} url URL representing the &quot;action&quot; of the get (depends on what is being get-ed)</span>
 <span class="cm">         * @param {object} data Data to get</span>
 <span class="cm">         * @param {function} callback callback called with the response of the GET</span>
 <span class="cm">         */</span>
-        <span class="k">switch</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span><span class="p">){</span>
+        <span class="k">switch</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">authMethod</span><span class="p">){</span>
             <span class="k">case</span> <span class="s2">&quot;oauth&quot;</span><span class="o">:</span>
                 <span class="nx">my</span><span class="p">.</span><span class="nx">getOAuth</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
                 <span class="k">break</span><span class="p">;</span>
@@ -266,7 +266,7 @@
                 <span class="nx">my</span><span class="p">.</span><span class="nx">getBasic</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
                 <span class="k">break</span><span class="p">;</span>
             <span class="k">default</span><span class="o">:</span>
-                <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;Illegal auth handler exception&#39;</span><span class="p">,</span><span class="nx">error</span><span class="o">:</span><span class="s1">&#39;auth Handler &#39;</span><span class="o">+</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span><span class="o">+</span><span class="s2">&quot; not valid&quot;</span><span class="p">}</span>
+                <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;Illegal auth handler exception&#39;</span><span class="p">,</span><span class="nx">error</span><span class="o">:</span><span class="s1">&#39;auth Handler &#39;</span><span class="o">+</span><span class="nx">options</span><span class="p">.</span><span class="nx">authMethod</span><span class="o">+</span><span class="s2">&quot; not valid&quot;</span><span class="p">}</span>
         <span class="p">}</span>
     <span class="p">};</span>
 

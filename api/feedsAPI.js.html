@@ -204,80 +204,76 @@
             file <strong>feedsAPI.js</strong>
           </h2>
 
-          <div class="highlight"><pre><span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./req.js&quot;</span><span class="p">).</span><span class="nx">req</span><span class="p">;</span>
+          <div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">Class</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="nx">Class</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./Class.js&#39;</span><span class="p">).</span><span class="nx">Class</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./req.js&quot;</span><span class="p">).</span><span class="nx">req</span><span class="p">;</span>
 
-<span class="kd">var</span> <span class="nx">FeedsAPI</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">){</span>
+<span class="kd">var</span> <span class="nx">FeedsAPI</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
 <span class="cm">     * Feeds API for Echo</span>
 <span class="cm">     * @class FeedsAPI</span>
 <span class="cm">     * @submodule FeedsAPI</span>
-<span class="cm">     * @param {Object} options object for options&lt;br/&gt;</span>
+<span class="cm">     * @param {Object} parameters object for options&lt;br/&gt;</span>
 <span class="cm">     * &lt;ul&gt;</span>
-<span class="cm">     *     &lt;li&gt;options.consumerKey&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;options.consumerSecret&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;options.authHandler : optional, in [&#39;oauth&#39;,&#39;basic&#39;]. Default &#39;oauth&#39;</span>
+<span class="cm">     *     &lt;li&gt;parameters.consumerKey&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;parameters.consumerSecret&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;parameters.authMethod : optional, in [&#39;oauth&#39;,&#39;basic&#39;]. Default &#39;oauth&#39;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     * @constructor</span>
 <span class="cm">     */</span>
-
-    <span class="c1">//Get required options</span>
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">options</span> <span class="o">||</span> <span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">||</span> <span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">)</span> <span class="k">throw</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Options not set exception&quot;</span><span class="p">,</span> <span class="nx">message</span><span class="o">:</span> <span class="s2">&quot;FeedsAPI requires the consumerKey option to be defined&quot;</span> <span class="p">};</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">=</span> <span class="s1">&#39;api.echoenabled.com&#39;</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span> <span class="o">=</span> <span class="s2">&quot;oauth&quot;</span><span class="p">;</span>
+     <span class="nx">parameters</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">enumerable</span><span class="o">:</span> <span class="kc">true</span>
     <span class="p">}</span>
-<span class="p">};</span>
-
-
-<span class="nx">FeedsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">list</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
-    <span class="cm">/**</span>
-<span class="cm">     * list all feeds attached to this consumer key</span>
-<span class="cm">     * @method list</span>
-<span class="cm">     * @param {function} callback callback</span>
-<span class="cm">     */</span>
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/feeds/list&#39;</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
-    <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
-<span class="p">};</span>
-
-<span class="nx">FeedsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">register</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feed</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
-    <span class="cm">/**</span>
-<span class="cm">     * Register a new feed for a consumer key</span>
-<span class="cm">     * @method register</span>
-<span class="cm">     * @param {object} feed feed to register. Specify:</span>
-<span class="cm">     * &lt;ul&gt;</span>
-<span class="cm">     *     &lt;li&gt;feed.url : (mandatory) url of the new feed&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;feed.interval : (optional) interval for polling the feed&lt;li&lt;</span>
-<span class="cm">     * &lt;/ul&gt;</span>
-<span class="cm">     * @param {function} callback callback</span>
-<span class="cm">     */</span>
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/feeds/register&#39;</span><span class="p">;</span>
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">feed</span><span class="p">.</span><span class="nx">interval</span><span class="p">){</span>
-        <span class="nx">feed</span><span class="p">.</span><span class="nx">interval</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    <span class="p">,</span><span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">//Get required options</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">||</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">)</span> <span class="k">throw</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Options not set exception&quot;</span><span class="p">,</span> <span class="nx">message</span><span class="o">:</span> <span class="s2">&quot;FeedsAPI requires the consumerKey and consumerSecret options to be defined&quot;</span> <span class="p">};</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">=</span> <span class="s1">&#39;api.echoenabled.com&#39;</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">authMethod</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">authMethod</span> <span class="o">=</span> <span class="s2">&quot;oauth&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-    <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">feed</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
-<span class="p">};</span>
+    <span class="p">,</span><span class="nx">list</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * list all feeds attached to this consumer key</span>
+<span class="cm">         * @method list</span>
+<span class="cm">         * @param {function} callback callback</span>
+<span class="cm">         */</span>
+        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/feeds/list&#39;</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">,</span><span class="nx">register</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feed</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Register a new feed for a consumer key</span>
+<span class="cm">         * @method register</span>
+<span class="cm">         * @param {object} feed feed to register. Specify:</span>
+<span class="cm">         * &lt;ul&gt;</span>
+<span class="cm">         *     &lt;li&gt;feed.url : (mandatory) url of the new feed&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;feed.interval : (optional) interval for polling the feed&lt;li&lt;</span>
+<span class="cm">         * &lt;/ul&gt;</span>
+<span class="cm">         * @param {function} callback callback</span>
+<span class="cm">         */</span>
+        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/feeds/register&#39;</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">feed</span><span class="p">.</span><span class="nx">interval</span><span class="p">){</span>
+            <span class="nx">feed</span><span class="p">.</span><span class="nx">interval</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">feed</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="p">,</span><span class="nx">unregister</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feed</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Unregister a feed for a consumer key</span>
+<span class="cm">         * @method unregister</span>
+<span class="cm">         * @param {object} feed feed to unregister. Specify:</span>
+<span class="cm">         * &lt;ul&gt;</span>
+<span class="cm">         *     &lt;li&gt;feed.url : (mandatory) url of the feed&lt;/li&gt;</span>
+<span class="cm">         * &lt;/ul&gt;</span>
+<span class="cm">         * @param {function} callback callback</span>
+<span class="cm">         */</span>
+        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/feeds/unregister&#39;</span><span class="p">;</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">feed</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">});</span>
 
 
-<span class="nx">FeedsAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">unregister</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">feed</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
-    <span class="cm">/**</span>
-<span class="cm">     * Unregister a feed for a consumer key</span>
-<span class="cm">     * @method unregister</span>
-<span class="cm">     * @param {object} feed feed to unregister. Specify:</span>
-<span class="cm">     * &lt;ul&gt;</span>
-<span class="cm">     *     &lt;li&gt;feed.url : (mandatory) url of the feed&lt;/li&gt;</span>
-<span class="cm">     * &lt;/ul&gt;</span>
-<span class="cm">     * @param {function} callback callback</span>
-<span class="cm">     */</span>
-
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/feeds/unregister&#39;</span><span class="p">;</span>
-    <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">feed</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
-<span class="p">};</span>
 
 <span class="nx">exports</span><span class="p">.</span><span class="nx">FeedsAPI</span> <span class="o">=</span> <span class="nx">FeedsAPI</span><span class="p">;</span>
 </pre></div>

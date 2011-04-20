@@ -206,76 +206,74 @@
 
           <div class="highlight"><pre><span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./req.js&quot;</span><span class="p">).</span><span class="nx">req</span><span class="p">;</span>
 
-<span class="kd">var</span> <span class="nx">UsersAPI</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">){</span>
-    <span class="cm">/**</span>
-<span class="cm">     * Users API for Echo</span>
-<span class="cm">     * @class UsersAPI</span>
-<span class="cm">     * @submodule UsersAPI</span>
-<span class="cm">     * @param {Object} options object for options&lt;br/&gt;</span>
-<span class="cm">     * &lt;ul&gt;</span>
-<span class="cm">     *     &lt;li&gt;options.consumerKey&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;options.consumerSecret&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;options.authHandler : optional, in [&#39;oauth&#39;,&#39;basic&#39;]. Default &#39;oauth&#39;</span>
-<span class="cm">     * &lt;/ul&gt;</span>
-<span class="cm">     * @constructor</span>
-<span class="cm">     */</span>
-
-    <span class="c1">//Get required options</span>
-    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">options</span> <span class="o">||</span> <span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">||</span> <span class="o">!</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">)</span> <span class="k">throw</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;node-echo: Option not set exception&quot;</span><span class="p">,</span> <span class="nx">message</span><span class="o">:</span> <span class="s2">&quot;UsersAPI requires the consumerKey option to be defined&quot;</span> <span class="p">};</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span><span class="p">){</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span><span class="p">;</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">authHandler</span> <span class="o">=</span> <span class="s2">&quot;oauth&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">UsersAPI</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+     <span class="nx">parameters</span><span class="o">:</span><span class="p">{</span>
+        <span class="nx">enumerable</span><span class="o">:</span><span class="kc">true</span>
     <span class="p">}</span>
-    <span class="c1">//Set defaults</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">=</span> <span class="s1">&#39;api.echoenabled.com&#39;</span><span class="p">;</span>
-<span class="p">};</span>
+    <span class="p">,</span><span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Users API for Echo</span>
+<span class="cm">         * @class UsersAPI</span>
+<span class="cm">         * @submodule UsersAPI</span>
+<span class="cm">         * @param {Object} parameters object for options&lt;br/&gt;</span>
+<span class="cm">         * &lt;ul&gt;</span>
+<span class="cm">         *     &lt;li&gt;parameters.consumerKey&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;parameters.consumerSecret&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;parameters.authMethod : optional, in [&#39;oauth&#39;,&#39;basic&#39;]. Default &#39;oauth&#39;</span>
+<span class="cm">         * &lt;/ul&gt;</span>
+<span class="cm">         * @constructor</span>
+<span class="cm">         */</span>
+
+        <span class="c1">//Get required options</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">||</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">)</span> <span class="k">throw</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;UsersAPI: Option not set exception&quot;</span><span class="p">,</span> <span class="nx">message</span><span class="o">:</span> <span class="s2">&quot;UsersAPI requires the consumerKey option to be defined&quot;</span> <span class="p">};</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">authMethod</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">authMethod</span> <span class="o">=</span> <span class="s2">&quot;oauth&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">//Set defaults</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">=</span> <span class="s1">&#39;api.echoenabled.com&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">,</span><span class="nx">get</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Fetch user information</span>
+<span class="cm">         * @method get</span>
+<span class="cm">         * @param {string} id user identityURL</span>
+<span class="cm">         * @param {function} callback callback</span>
+<span class="cm">         */</span>
+        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/users/get&#39;</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="nx">identityURL</span><span class="o">:</span><span class="nx">id</span><span class="p">};</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="p">,</span><span class="nx">update</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Update user information</span>
+<span class="cm">         * @method get</span>
+<span class="cm">         * @param {object} user user to update. Need to specify:</span>
+<span class="cm">         * &lt;ul&gt;</span>
+<span class="cm">         *     &lt;li&gt;user.identityURL : User identity URL&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;user.subject : show which parameters should be updated&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;user.content : contains data to be used for user update&lt;/li&gt;</span>
+<span class="cm">         * &lt;/ul&gt;</span>
+<span class="cm">         * @param {function} callback callback</span>
+<span class="cm">         */</span>
+        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/users/update&#39;</span><span class="p">;</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="p">,</span><span class="nx">whoAmI</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Retrieve currently logged in user information by session ID</span>
+<span class="cm">         * @method whoAmI</span>
+<span class="cm">         * @param {object} user : info for the user. Need to specify:</span>
+<span class="cm">         * &lt;ul&gt;</span>
+<span class="cm">         *     &lt;li&gt;user.appKey : customer appKey&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;user.sessionID : Backplane sessions ID for this user&lt;/li&gt;</span>
+<span class="cm">         * &lt;/ul&gt;</span>
+<span class="cm">         */</span>
+        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/users/whoami&#39;</span><span class="p">;</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
 
 
-<span class="nx">UsersAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">get</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
-    <span class="cm">/**</span>
-<span class="cm">     * Fetch user information</span>
-<span class="cm">     * @method get</span>
-<span class="cm">     * @param {string} id user identityURL</span>
-<span class="cm">     * @param {function} callback callback</span>
-<span class="cm">     */</span>
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/users/get&#39;</span><span class="p">;</span>
-    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span><span class="nx">identityURL</span><span class="o">:</span><span class="nx">id</span><span class="p">};</span>
-    <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
-<span class="p">};</span>
-
-<span class="nx">UsersAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">update</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
-    <span class="cm">/**</span>
-<span class="cm">     * Update user information</span>
-<span class="cm">     * @method get</span>
-<span class="cm">     * @param {object} user user to update. Need to specify:</span>
-<span class="cm">     * &lt;ul&gt;</span>
-<span class="cm">     *     &lt;li&gt;user.identityURL : User identity URL&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;user.subject : show which parameters should be updated&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;user.content : contains data to be used for user update&lt;/li&gt;</span>
-<span class="cm">     * &lt;/ul&gt;</span>
-<span class="cm">     * @param {function} callback callback</span>
-<span class="cm">     */</span>
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/users/update&#39;</span><span class="p">;</span>
-    <span class="nx">req</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
-<span class="p">};</span>
-
-<span class="nx">UsersAPI</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">whoAmI</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
-    <span class="cm">/**</span>
-<span class="cm">     * Retrieve currently logged in user information by session ID</span>
-<span class="cm">     * @method whoAmI</span>
-<span class="cm">     * @param {object} user : info for the user. Need to specify:</span>
-<span class="cm">     * &lt;ul&gt;</span>
-<span class="cm">     *     &lt;li&gt;user.appKey : customer appKey&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;user.sessionID : Backplane sessions ID for this user&lt;/li&gt;</span>
-<span class="cm">     * &lt;/ul&gt;</span>
-<span class="cm">     */</span>
-    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/users/whoami&#39;</span><span class="p">;</span>
-    <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">);</span>
-<span class="p">};</span>
 
 
 <span class="nx">exports</span><span class="p">.</span><span class="nx">UsersAPI</span> <span class="o">=</span> <span class="nx">UsersAPI</span><span class="p">;</span>
