@@ -11,6 +11,6 @@ describe("bug.js",function(){
         expect(Bugs.SuperBuggy.spawn).toHaveBeenCalled()
     });
     it("should have called spawn with the expected parameters",function(){
-        expect(Bugs.SuperBuggy.spawn).toHaveBeenCalledWith({property:"a regular property"});
+        expect(Bugs.SuperBuggy.spawn).toHaveBeenCalledWith({property:{content:"a regular property"}});
     })
 });
