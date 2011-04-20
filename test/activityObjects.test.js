@@ -501,7 +501,7 @@ describe("class Comment",function(){
                          item:{}
                         ,user:{id:"bob42",name:"Robert Paulson",avatarURL:"http://myavatar.com"}
                         ,feed:"http://monfeed.com"});
-                }).toThrow({name : "Invalid Comment exception", error:"Comment needs a subject, a content an a permalink"});
+                }).toThrow({name : "Invalid Comment exception", error:"Comment needs a subject, a content, a target and a permalink"});
             })
         })
     })
