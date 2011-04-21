@@ -31,10 +31,10 @@ var UsersAPI = Echo.UsersAPI.spawn({parameters:options});
 
 
 // Get information for a user
-UsersAPI.get(user.id,showResponse);
+//UsersAPI.get(user.id,showResponse);
 
 
-// Update a user (in this case : give it administor status \o/)
+// Update a user (in this case : give it administrator status \o/)
 UsersAPI.update({
      id:user.id
     ,subject:'roles'
@@ -47,4 +47,4 @@ user = {
     ,sessionID:myUser.sessionID
 };
 // Retrieve currently logged in user information by session ID
-UsersAPI.whoAmI(user,showResponse);
+//UsersAPI.whoAmI(user,showResponse);

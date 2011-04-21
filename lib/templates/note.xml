@@ -2,5 +2,5 @@
   <activity:object-type>http://activitystrea.ms/schema/1.0/note</activity:object-type>
   <content type="text"><%= note.content %></content>
   <link rel="alternate" type="text/html" href="<%= note.url %>"/>
-  <id><%= note.url %></id>
+  <id><%= note.permalink %></id>
 </activity:object>

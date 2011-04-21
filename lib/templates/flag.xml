@@ -1,3 +1,4 @@
 <activity:object>
   <activity:object-type>http://activitystrea.ms/schema/1.0/flag</activity:object-type>
+    <id><%= flag.id %></id>
 </activity:object>

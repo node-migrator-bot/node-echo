@@ -3,5 +3,5 @@
   <subject type="text"><%= comment.subject %></subject>
   <content type="text"><%= comment.content %></content>
   <link rel="alternate" type="text/html" href="<%= comment.url %>"/>
-  <id><%= comment.id %></id>
+  <id><%= comment.permalink %></id>
 </activity:object>

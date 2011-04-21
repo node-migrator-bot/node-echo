@@ -1,0 +1,6 @@
+{
+    "id":"http://facebook.com/USERID"
+    ,"name":"Robert Paulson"
+    ,"avatarURL":"http://graph.facebook.com/USERIDPICTURE"
+    ,"sessionID":"http://api.js-kit.com/v1/bus/SESSIONID"
+}

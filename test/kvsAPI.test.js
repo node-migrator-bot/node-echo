@@ -2,6 +2,11 @@ var KvsAPI;
 var req = require("req.js").req;
 var callback = jasmine.createSpy();
 
+var kvs = {
+    "key":"key",
+    "value":"value"
+};
+
 describe("KvsAPI",function(){
     describe("constructor",function(){
         describe("valid properties",function(){
@@ -12,19 +17,19 @@ describe("KvsAPI",function(){
                 expect(KvsAPI.parameters.consumerSecret).toEqual("Secret");
                 expect(KvsAPI.parameters.consumerKey).toEqual("Key");
                 expect(KvsAPI.parameters.apiHost).toEqual('api.echoenabled.com');
-                expect(KvsAPI.parameters.authMethod).toEqual('oauth')
+                expect(KvsAPI.parameters.authMethod).toEqual('basic')
             });
             describe("get",function(){
                 describe("public KV",function(){
                     beforeEach(function(){
                         spyOn(req,"get");
-                        KvsAPI.get({key:"value"},true,callback)
+                        KvsAPI.get(kvs,"appkey",callback)
                     });
                     it("should call req.get",function(){
                         expect(req.get).toHaveBeenCalledWith(
-                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"}
-                                ,'http://api.echoenabled.com/v1/kvs/get'
-                                ,{key:"value"}
+                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'basic', apiHost:"api.echoenabled.com"}
+                                ,'/v1/kvs/get'
+                                ,{key:"key","value":"value"}
                                 ,callback)
                     })
                 });
@@ -32,13 +37,13 @@ describe("KvsAPI",function(){
                     beforeEach(function(){
                         beforeEach(function(){
                             spyOn(req,"get");
-                            KvsAPI.get({key:"value",appkey:"appkey"},false,callback)
+                            KvsAPI.get(key,"appkey",callback)
                         });
                         it("should call req.get",function(){
                             expect(req.get).toHaveBeenCalledWith(
-                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"}
+                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'basic', apiHost:"api.echoenabled.com"}
                                     ,'https://api.echoenabled.com/v1/kvs/get'
-                                    ,{key:"value", appkey:"appkey"}
+                                    ,{key:"key","value":"value", appkey:"appkey"}
                                     ,callback)
                         })
                     })
@@ -47,13 +52,13 @@ describe("KvsAPI",function(){
             describe("put",function(){
                 beforeEach(function(){
                     spyOn(req,"post");
-                    KvsAPI.put({key:"value"},callback)
-                })
+                    KvsAPI.put(kvs,callback)
+                });
                 it("should have call req.post",function(){
                     expect(req.post).toHaveBeenCalledWith(
-                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"}
-                   ,'https://api.echoenabled.com/v1/kvs/put'
-                   ,{key:"value", public:false}
+                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'basic', apiHost:"api.echoenabled.com"}
+                   ,'/v1/kvs/put'
+                   ,{key:"key",value:"value"}
                    ,callback)
                 })
             });
@@ -61,13 +66,13 @@ describe("KvsAPI",function(){
                 describe("public KV",function(){
                     beforeEach(function(){
                         spyOn(req,"get");
-                        KvsAPI.del({key:"value"},true,callback)
+                        KvsAPI.del(kvs,callback)
                     });
                     it("should call req.get",function(){
                         expect(req.get).toHaveBeenCalledWith(
-                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"}
-                                ,'http://api.echoenabled.com/v1/kvs/delete'
-                                ,{key:"value"}
+                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'basic', apiHost:"api.echoenabled.com"}
+                                ,'/v1/kvs/delete'
+                                ,{key:"key",value:"value"}
                                 ,callback)
                     })
                 });
@@ -75,12 +80,12 @@ describe("KvsAPI",function(){
                     beforeEach(function(){
                         beforeEach(function(){
                             spyOn(req,"get");
-                            KvsAPI.del({key:"value",appkey:"appkey"},false,callback)
+                            KvsAPI.del(kvs,callback)
                         });
                         it("should call req.get",function(){
                             expect(req.get).toHaveBeenCalledWith(
-                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'oauth', apiHost:"api.echoenabled.com"}
-                                    ,'https://api.echoenabled.com/v1/kvs/delete'
+                        { consumerKey:"Key", consumerSecret: "Secret", authMethod : 'basic', apiHost:"api.echoenabled.com"}
+                                    ,'/v1/kvs/delete'
                                     ,{key:"value", appkey:"appkey"}
                                     ,callback)
                         })
