@@ -36,9 +36,9 @@ var user = {
 // define a dummy article
 var article = {
     content:{
-        content:"THIS IS CONTENT!"
+        content:"THIS IS CONTENT! 12345678"
        ,title:"THIS IS TITLE!"
-       ,permalink:"http://echo.butter.com.hk/12345"
+       ,permalink:"http://echo.butter.com.hk/12345678"
        ,summary:"You're the summary !"
     }
 };
@@ -50,7 +50,7 @@ ItemsAPI.submitArticle(article,user,showResponse);
 
 //Tag/Untag this article
 ItemsAPI.tagArticle(article.content.permalink,{title:"awesome2",id:"http://echo.butter.com.hk/ep/test/article/tag/awesome2"},user,showResponse);
-ItemsAPI.untagArticle(article.content.permalink,{title:"awesome",id:"http://echo.butter.com.hk/ep/test/article/tag/awesome"},user,showResponse);
+ItemsAPI.untagArticle(article.content.permalink,{title:"awesome2",id:"http://echo.butter.com.hk/ep/test/article/tag/awesome"},user,showResponse);
 
 // Like/Unlike this article
 ItemsAPI.likeArticle(article.content.permalink,{id:"http://echo.butter.com.hk/ep/test/article/tag/like"},user,showResponse);
@@ -68,13 +68,15 @@ var comment = {
     }
     ,target:{type:ItemsAPI.TYPE_ARTICLE,id:article.content.permalink}
 };
+
+// Post a comment to that article:
 try{
 ItemsAPI.submitComment(comment,user,showResponse);
 } catch (e) { console.log(e) }
 
 // Tag/Untag this comment
 ItemsAPI.tagComment(comment.content.permalink,{title:"awesome2",id:"http://echo.butter.com.hk/ep/test/article/tag/awesome2"},user,showResponse);
-ItemsAPI.untagComment(comment.content.permalink,{title:"awesome",id:"http://echo.butter.com.hk/ep/test/article/tag/awesome"},user,showResponse);
+ItemsAPI.untagComment(comment.content.permalink,{title:"awesome2",id:"http://echo.butter.com.hk/ep/test/article/tag/awesome"},user,showResponse);
 
 // Like/Unlike this comment
 ItemsAPI.likeComment(comment.content.permalink,{id:"http://echo.butter.com.hk/ep/test/article/tag/like"},user,showResponse);
