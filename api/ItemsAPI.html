@@ -126,6 +126,9 @@
                     <a href="KvsAPI.html">KvsAPI</a>
                   </li>
                   <li >
+                    <a href="Like.html">Like</a>
+                  </li>
+                  <li >
                     <a href="Note.html">Note</a>
                   </li>
                   <li >
@@ -133,6 +136,9 @@
                   </li>
                   <li >
                     <a href="Status.html">Status</a>
+                  </li>
+                  <li >
+                    <a href="Tag.html">Tag</a>
                   </li>
                   <li >
                     <a href="TBind.html">TBind</a>
@@ -193,6 +199,9 @@
                     <a href="#method_count">count</a>
                   </li>
                   <li class=" ">
+                    <a href="#method_flag">flag</a>
+                  </li>
+                  <li class=" ">
                     <a href="#method_flagArticle">flagArticle</a>
                   </li>
                   <li class=" ">
@@ -205,6 +214,9 @@
                     <a href="#method_flagStatus">flagStatus</a>
                   </li>
                   <li class=" ">
+                    <a href="#method_like">like</a>
+                  </li>
+                  <li class=" ">
                     <a href="#method_likeArticle">likeArticle</a>
                   </li>
                   <li class=" ">
@@ -215,18 +227,6 @@
                   </li>
                   <li class=" ">
                     <a href="#method_likeStatus">likeStatus</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_markArticle">markArticle</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_markComment">markComment</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_markNote">markNote</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_markStatus">markStatus</a>
                   </li>
                   <li class=" ">
                     <a href="#method_mux">mux</a>
@@ -247,6 +247,9 @@
                     <a href="#method_submitStatus">submitStatus</a>
                   </li>
                   <li class=" ">
+                    <a href="#method_tag">tag</a>
+                  </li>
+                  <li class=" ">
                     <a href="#method_tagArticle">tagArticle</a>
                   </li>
                   <li class=" ">
@@ -257,6 +260,9 @@
                   </li>
                   <li class=" ">
                     <a href="#method_tagStatus">tagStatus</a>
+                  </li>
+                  <li class=" ">
+                    <a href="#method_unflag">unflag</a>
                   </li>
                   <li class=" ">
                     <a href="#method_unflagArticle">unflagArticle</a>
@@ -271,28 +277,7 @@
                     <a href="#method_unflagStatus">unflagStatus</a>
                   </li>
                   <li class=" ">
-                    <a href="#method_unlikeArticle">unlikeArticle</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_unlikeComment">unlikeComment</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_unlikeNote">unlikeNote</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_unlikeStatus">unlikeStatus</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_unmarkArticle">unmarkArticle</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_unmarkComment">unmarkComment</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_unmarkNote">unmarkNote</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_unmarkStatus">unmarkStatus</a>
+                    <a href="#method_untag">untag</a>
                   </li>
                   <li class=" ">
                     <a href="#method_untagArticle">untagArticle</a>
@@ -305,18 +290,6 @@
                   </li>
                   <li class=" ">
                     <a href="#method_untagStatus">untagStatus</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_updateArticle">updateArticle</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_updateComment">updateComment</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_updateNote">updateNote</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_updateStatus">updateStatus</a>
                   </li>
               </ul>
             </div>
@@ -481,12 +454,12 @@
                       </td>
 
                     </tr>
-                    <tr class=" " resource="#method_flagArticle">
+                    <tr class=" " resource="#method_flag">
 
                       <td class="names">
                         <code>
-                          <a name="method_flagArticle">flagArticle</a>(
-                          article, user, callback
+                          <a name="method_flag">flag</a>(
+                          target, flag, user, callback
                           )
                         </code>
                       </td>
@@ -505,18 +478,94 @@
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Allow a user to flag an article (for example : offensive article)
+                        "flag" an item
 
                           <p>Parameters:</p>
                           <ul>
                               <li>
                                 <code>
-                                  article
+                                  target
                                   &lt;object&gt;
                                 </code>
-                                 Article to flag. Need to specify:
+                                 Target of the action. Specify:
 <ul>
-<li>article.permalink : reference to the existing article</li>
+<li>target.type: type of the target</li>
+<li>target.id : id of the target</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  flag
+                                  &lt;object&gt;
+                                </code>
+                                 flag object. Specify
+<ul>
+<li>flag.id : id for that "like"</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  user
+                                  &lt;object&gt;
+                                </code>
+                                 User submitting the update
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback called after submission
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_flagArticle">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_flagArticle">flagArticle</a>(
+                          target, flag, user, callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Allow a user to "flag" an article
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the article
+                              </li>
+                              <li>
+                                <code>
+                                  flag
+                                  &lt;object&gt;
+                                </code>
+                                 flag object. Specify
+<ul>
+<li>flag.id : id for that "like"</li>
 </ul>
                               </li>
                               <li>
@@ -544,7 +593,7 @@
                       <td class="names">
                         <code>
                           <a name="method_flagComment">flagComment</a>(
-                          comment, user, callback
+                          target, flag, user, callback
                           )
                         </code>
                       </td>
@@ -563,18 +612,25 @@
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Allow a user to flag an comment (for example : offensive comment)
+                        Allow a user to "flag" an comment
 
                           <p>Parameters:</p>
                           <ul>
                               <li>
                                 <code>
-                                  comment
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the comment
+                              </li>
+                              <li>
+                                <code>
+                                  flag
                                   &lt;object&gt;
                                 </code>
-                                 Comment to flag. Need to specify:
+                                 flag object. Specify
 <ul>
-<li>comment.permalink : reference to the existing comment</li>
+<li>flag.id : id for that "like"</li>
 </ul>
                               </li>
                               <li>
@@ -602,7 +658,7 @@
                       <td class="names">
                         <code>
                           <a name="method_flagNote">flagNote</a>(
-                          note, user, callback
+                          target, flag, user, callback
                           )
                         </code>
                       </td>
@@ -621,18 +677,25 @@
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Allow a user to flag an note (for example : offensive note)
+                        Allow a user to "flag" an note
 
                           <p>Parameters:</p>
                           <ul>
                               <li>
                                 <code>
-                                  note
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the note
+                              </li>
+                              <li>
+                                <code>
+                                  flag
                                   &lt;object&gt;
                                 </code>
-                                 Note to flag. Need to specify:
+                                 flag object. Specify
 <ul>
-<li>note.permalink : reference to the existing note</li>
+<li>flag.id : id for that "like"</li>
 </ul>
                               </li>
                               <li>
@@ -660,7 +723,7 @@
                       <td class="names">
                         <code>
                           <a name="method_flagStatus">flagStatus</a>(
-                          status, user, callback
+                          target, flag, user, callback
                           )
                         </code>
                       </td>
@@ -679,18 +742,94 @@
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Allow a user to flag an status (for example : offensive status)
+                        Allow a user to "flag" an status
 
                           <p>Parameters:</p>
                           <ul>
                               <li>
                                 <code>
-                                  status
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the status
+                              </li>
+                              <li>
+                                <code>
+                                  flag
                                   &lt;object&gt;
                                 </code>
-                                 Status to flag. Need to specify:
+                                 flag object. Specify
 <ul>
-<li>status.permalink : reference to the existing status</li>
+<li>flag.id : id for that "like"</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  user
+                                  &lt;object&gt;
+                                </code>
+                                 User submitting the update
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback called after submission
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_like">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_like">like</a>(
+                          target, like, user, callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Allow a user to "like" an item
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  target
+                                  &lt;object&gt;
+                                </code>
+                                 Target of the action. Specify:
+<ul>
+<li>target.type: type of the target</li>
+<li>target.id : id of the target</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  like
+                                  &lt;object&gt;
+                                </code>
+                                 like object. Specify
+<ul>
+<li>tag.id : id for that "like"</li>
 </ul>
                               </li>
                               <li>
@@ -718,7 +857,7 @@
                       <td class="names">
                         <code>
                           <a name="method_likeArticle">likeArticle</a>(
-                          article, user, callback
+                          target, like, user, callback
                           )
                         </code>
                       </td>
@@ -743,12 +882,19 @@
                           <ul>
                               <li>
                                 <code>
-                                  article
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the article
+                              </li>
+                              <li>
+                                <code>
+                                  like
                                   &lt;object&gt;
                                 </code>
-                                 Article to like. Need to specify:
+                                 like object. Specify
 <ul>
-<li>article.permalink : reference to the existing article</li>
+<li>tag.id : id for that "like"</li>
 </ul>
                               </li>
                               <li>
@@ -776,7 +922,7 @@
                       <td class="names">
                         <code>
                           <a name="method_likeComment">likeComment</a>(
-                          comment, user, callback
+                          target, like, user, callback
                           )
                         </code>
                       </td>
@@ -801,12 +947,19 @@
                           <ul>
                               <li>
                                 <code>
-                                  comment
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the comment
+                              </li>
+                              <li>
+                                <code>
+                                  like
                                   &lt;object&gt;
                                 </code>
-                                 Comment to like. Need to specify:
+                                 like object. Specify
 <ul>
-<li>comment.permalink : reference to the existing comment</li>
+<li>tag.id : id for that "like"</li>
 </ul>
                               </li>
                               <li>
@@ -834,7 +987,7 @@
                       <td class="names">
                         <code>
                           <a name="method_likeNote">likeNote</a>(
-                          note, user, callback
+                          target, like, user, callback
                           )
                         </code>
                       </td>
@@ -859,12 +1012,19 @@
                           <ul>
                               <li>
                                 <code>
-                                  note
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the note
+                              </li>
+                              <li>
+                                <code>
+                                  like
                                   &lt;object&gt;
                                 </code>
-                                 Note to like. Need to specify:
+                                 like object. Specify
 <ul>
-<li>note.permalink : reference to the existing note</li>
+<li>tag.id : id for that "like"</li>
 </ul>
                               </li>
                               <li>
@@ -892,7 +1052,7 @@
                       <td class="names">
                         <code>
                           <a name="method_likeStatus">likeStatus</a>(
-                          status, user, callback
+                          target, like, user, callback
                           )
                         </code>
                       </td>
@@ -917,288 +1077,19 @@
                           <ul>
                               <li>
                                 <code>
-                                  status
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the status
+                              </li>
+                              <li>
+                                <code>
+                                  like
                                   &lt;object&gt;
                                 </code>
-                                 Status to like. Need to specify:
+                                 like object. Specify
 <ul>
-<li>status.permalink : reference to the existing status</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 User submitting the update
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_markArticle">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_markArticle">markArticle</a>(
-                          article, mark, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Add a mark to an article
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  article
-                                  &lt;object&gt;
-                                </code>
-                                 Article to mark. Need to specify:
-<ul>
-<li>article.permalink : reference to the existing article</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  mark
-                                  &lt;object&gt;
-                                </code>
-                                 Marker to apply to the article. Need to specify:
-<ul>
-<li>marker.title : title/content of your tag/mark</li>
-<li>marker.id : id for that update</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 User submitting the update
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_markComment">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_markComment">markComment</a>(
-                          comment, mark, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Add a mark to an comment
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  comment
-                                  &lt;object&gt;
-                                </code>
-                                 Comment to mark. Need to specify:
-<ul>
-<li>comment.permalink : reference to the existing comment</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  mark
-                                  &lt;object&gt;
-                                </code>
-                                 Marker to apply to the comment. Need to specify:
-<ul>
-<li>marker.title : title/content of your tag/mark</li>
-<li>marker.id : id for that update</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 User submitting the update
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_markNote">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_markNote">markNote</a>(
-                          note, mark, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Add a mark to an note
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  note
-                                  &lt;object&gt;
-                                </code>
-                                 Note to mark. Need to specify:
-<ul>
-<li>note.permalink : reference to the existing note</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  mark
-                                  &lt;object&gt;
-                                </code>
-                                 Marker to apply to the note. Need to specify:
-<ul>
-<li>marker.title : title/content of your tag/mark</li>
-<li>marker.id : id for that update</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 User submitting the update
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_markStatus">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_markStatus">markStatus</a>(
-                          status, mark, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Add a mark to an status
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  status
-                                  &lt;object&gt;
-                                </code>
-                                 Status to mark. Need to specify:
-<ul>
-<li>status.permalink : reference to the existing status</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  mark
-                                  &lt;object&gt;
-                                </code>
-                                 Marker to apply to the status. Need to specify:
-<ul>
-<li>marker.title : title/content of your tag/mark</li>
-<li>marker.id : id for that update</li>
+<li>tag.id : id for that "like"</li>
 </ul>
                               </li>
                               <li>
@@ -1352,10 +1243,18 @@
                                 </code>
                                  Article to be submitted. Need to specify:
 <ul>
-<li>article.title : title of the article</li>
-<li>article.summary : a short summary. </li>
-<li>article.content : main content of the article</li>
-<li>article.permalink : permanent link for this article</li>
+<li>article.content : The content of the article, specify:</li>
+<ul>
+<li>article.content.title : title of the article</li>
+<li>article.content.summary : a short summary. </li>
+<li>article.content.content : main content of the article</li>
+<li>article.content.permalink : permanent link for this article</li>
+</ul>
+<li>article.target : (optional) target of the article. Specify:</li>
+<ul>
+<li>article.target.type : type of the target</li>
+<li>article.target.id : id of the target</li>
+</ul>
 </ul>
                               </li>
                               <li>
@@ -1407,7 +1306,7 @@
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Submit a comment (typically : a response related to a blog entry)
+                        Submit a comment
 
                           <p>Parameters:</p>
                           <ul>
@@ -1418,9 +1317,17 @@
                                 </code>
                                  Comment to be submitted. Need to specify:
 <ul>
-<li>comment.subject : subject of the comment</li>
-<li>comment.content : main content of the comment</li>
-<li>comment.permalink : permanent link for this comment</li>
+<li>comment.content. Specify:</li>
+<ul>
+<li>comment.content.subject : subject of the comment</li>
+<li>comment.content.content : main content of the comment</li>
+<li>comment.content.permalink : permanent link for this comment</li>
+<ul>
+<li>comment.target : (optional) target of this comment. Specify:</li>
+<ul>
+<li>comment.target.id : ID of the target</li>
+<li>comment.target.type : type of the target</li>
+</ul>
 </ul>
                               </li>
                               <li>
@@ -1483,8 +1390,16 @@
                                 </code>
                                  Note to be submitted. Need to specify:
 <ul>
-<li>note.content : main content of the note</li>
-<li>note.permalink : permanent link for this note</li>
+<li>note.content. Specify:</li>
+<ul>
+<li>note.content.content : main content of the note</li>
+<li>note.content.permalink : permanent link for this note</li>
+<ul>
+<li>note.target : (optional) target of this note. Specify:</li>
+<ul>
+<li>note.target.id : ID of the target</li>
+<li>note.target.type : type of the target</li>
+</ul>
 </ul>
                               </li>
                               <li>
@@ -1576,12 +1491,82 @@
                       </td>
 
                     </tr>
+                    <tr class=" " resource="#method_tag">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_tag">tag</a>(
+                          target, tag, user, callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Tag an item
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  target
+                                  &lt;object&gt;
+                                </code>
+                                 Target of the action. Specify:
+<ul>
+<li>target.type: type of the target</li>
+<li>target.id : id of the target</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  tag
+                                  &lt;object&gt;
+                                </code>
+                                 Tag to apply to the article. Need to specify:
+<ul>
+<li>tag.title : title/content of your tag/mark</li>
+<li>tag.id : id for that update</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  user
+                                  &lt;object&gt;
+                                </code>
+                                 User submitting the update
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback called after submission
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
                     <tr class=" " resource="#method_tagArticle">
 
                       <td class="names">
                         <code>
                           <a name="method_tagArticle">tagArticle</a>(
-                          article, tag, user, callback
+                          target, tag, user, callback
                           )
                         </code>
                       </td>
@@ -1606,13 +1591,10 @@
                           <ul>
                               <li>
                                 <code>
-                                  article
-                                  &lt;object&gt;
+                                  target
+                                  &lt;string&gt;
                                 </code>
-                                 Article to update. Need to specify:
-<ul>
-<li>article.permalink : reference to the existing article</li>
-</ul>
+                                 ID of the article
                               </li>
                               <li>
                                 <code>
@@ -1650,7 +1632,7 @@
                       <td class="names">
                         <code>
                           <a name="method_tagComment">tagComment</a>(
-                          comment, tag, user, callback
+                          target, tag, user, callback
                           )
                         </code>
                       </td>
@@ -1675,13 +1657,10 @@
                           <ul>
                               <li>
                                 <code>
-                                  comment
-                                  &lt;object&gt;
+                                  target
+                                  &lt;string&gt;
                                 </code>
-                                 Comment to update. Need to specify:
-<ul>
-<li>comment.permalink : reference to the existing comment</li>
-</ul>
+                                 ID of the comment
                               </li>
                               <li>
                                 <code>
@@ -1719,7 +1698,7 @@
                       <td class="names">
                         <code>
                           <a name="method_tagNote">tagNote</a>(
-                          note, tag, user, callback
+                          target, tag, user, callback
                           )
                         </code>
                       </td>
@@ -1744,13 +1723,10 @@
                           <ul>
                               <li>
                                 <code>
-                                  note
-                                  &lt;object&gt;
+                                  target
+                                  &lt;string&gt;
                                 </code>
-                                 Note to update. Need to specify:
-<ul>
-<li>note.permalink : reference to the existing note</li>
-</ul>
+                                 ID of the note
                               </li>
                               <li>
                                 <code>
@@ -1788,7 +1764,7 @@
                       <td class="names">
                         <code>
                           <a name="method_tagStatus">tagStatus</a>(
-                          status, tag, user, callback
+                          target, tag, user, callback
                           )
                         </code>
                       </td>
@@ -1813,13 +1789,10 @@
                           <ul>
                               <li>
                                 <code>
-                                  status
-                                  &lt;object&gt;
+                                  target
+                                  &lt;string&gt;
                                 </code>
-                                 Status to update. Need to specify:
-<ul>
-<li>status.permalink : reference to the existing status</li>
-</ul>
+                                 ID of the status
                               </li>
                               <li>
                                 <code>
@@ -1852,12 +1825,12 @@
                       </td>
 
                     </tr>
-                    <tr class=" " resource="#method_unflagArticle">
+                    <tr class=" " resource="#method_unflag">
 
                       <td class="names">
                         <code>
-                          <a name="method_unflagArticle">unflagArticle</a>(
-                          article, user, callback
+                          <a name="method_unflag">unflag</a>(
+                          target, flag, user, callback
                           )
                         </code>
                       </td>
@@ -1876,18 +1849,101 @@
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Allow a user to unflag an article (for example : offensive article)
+                        "unflag" an item
 
                           <p>Parameters:</p>
                           <ul>
                               <li>
                                 <code>
-                                  article
+                                  target
                                   &lt;object&gt;
                                 </code>
-                                 Article to unflag. Need to specify:
+                                 Target of the action. Specify:
 <ul>
-<li>article.permalink : reference to the existing article</li>
+<li>target.type: type of the target</li>
+<li>target.id : id of the target</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the article to like
+                              </li>
+                              <li>
+                                <code>
+                                  flag
+                                  &lt;object&gt;
+                                </code>
+                                 flag object. Specify
+<ul>
+<li>flag.id : id for that "flag"</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  user
+                                  &lt;object&gt;
+                                </code>
+                                 User submitting the update
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback called after submission
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_unflagArticle">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_unflagArticle">unflagArticle</a>(
+                          target, flag, user, callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        "unflag" an article
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the article
+                              </li>
+                              <li>
+                                <code>
+                                  flag
+                                  &lt;object&gt;
+                                </code>
+                                 flag object. Specify
+<ul>
+<li>flag.id : id for that "flag"</li>
 </ul>
                               </li>
                               <li>
@@ -1915,7 +1971,7 @@
                       <td class="names">
                         <code>
                           <a name="method_unflagComment">unflagComment</a>(
-                          comment, user, callback
+                          target, flag, user, callback
                           )
                         </code>
                       </td>
@@ -1934,18 +1990,25 @@
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Allow a user to unflag an comment (for example : offensive comment)
+                        "unflag" an comment
 
                           <p>Parameters:</p>
                           <ul>
                               <li>
                                 <code>
-                                  comment
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the comment
+                              </li>
+                              <li>
+                                <code>
+                                  flag
                                   &lt;object&gt;
                                 </code>
-                                 Comment to unflag. Need to specify:
+                                 flag object. Specify
 <ul>
-<li>comment.permalink : reference to the existing comment</li>
+<li>flag.id : id for that "flag"</li>
 </ul>
                               </li>
                               <li>
@@ -1973,7 +2036,7 @@
                       <td class="names">
                         <code>
                           <a name="method_unflagNote">unflagNote</a>(
-                          note, user, callback
+                          target, flag, user, callback
                           )
                         </code>
                       </td>
@@ -1992,18 +2055,25 @@
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Allow a user to unflag an note (for example : offensive note)
+                        "unflag" an note
 
                           <p>Parameters:</p>
                           <ul>
                               <li>
                                 <code>
-                                  note
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the note
+                              </li>
+                              <li>
+                                <code>
+                                  flag
                                   &lt;object&gt;
                                 </code>
-                                 Note to unflag. Need to specify:
+                                 flag object. Specify
 <ul>
-<li>note.permalink : reference to the existing note</li>
+<li>flag.id : id for that "flag"</li>
 </ul>
                               </li>
                               <li>
@@ -2031,7 +2101,7 @@
                       <td class="names">
                         <code>
                           <a name="method_unflagStatus">unflagStatus</a>(
-                          status, user, callback
+                          target, flag, user, callback
                           )
                         </code>
                       </td>
@@ -2050,18 +2120,25 @@
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Allow a user to unflag an status (for example : offensive status)
+                        "unflag" an status
 
                           <p>Parameters:</p>
                           <ul>
                               <li>
                                 <code>
-                                  status
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the status
+                              </li>
+                              <li>
+                                <code>
+                                  flag
                                   &lt;object&gt;
                                 </code>
-                                 Status to unflag. Need to specify:
+                                 flag object. Specify
 <ul>
-<li>status.permalink : reference to the existing status</li>
+<li>flag.id : id for that "flag"</li>
 </ul>
                               </li>
                               <li>
@@ -2084,12 +2161,12 @@
                       </td>
 
                     </tr>
-                    <tr class=" " resource="#method_unlikeArticle">
+                    <tr class=" " resource="#method_untag">
 
                       <td class="names">
                         <code>
-                          <a name="method_unlikeArticle">unlikeArticle</a>(
-                          article, user, callback
+                          <a name="method_untag">untag</a>(
+                          target, tag, user, callback
                           )
                         </code>
                       </td>
@@ -2108,468 +2185,30 @@
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Allow a user to remove a previous "like" to an article
+                        unTag an item
 
                           <p>Parameters:</p>
                           <ul>
                               <li>
                                 <code>
-                                  article
+                                  target
                                   &lt;object&gt;
                                 </code>
-                                 Article to unlike. Need to specify:
+                                 Target of the action. Specify:
 <ul>
-<li>article.permalink : reference to the existing article</li>
+<li>target.type: type of the target</li>
+<li>target.id : id of the target</li>
 </ul>
                               </li>
                               <li>
                                 <code>
-                                  user
+                                  tag
                                   &lt;object&gt;
                                 </code>
-                                 User submitting the update
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_unlikeComment">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_unlikeComment">unlikeComment</a>(
-                          comment, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Allow a user to remove a previous "like" to an comment
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  comment
-                                  &lt;object&gt;
-                                </code>
-                                 Comment to unlike. Need to specify:
+                                 Tag to apply to the article. Need to specify:
 <ul>
-<li>comment.permalink : reference to the existing comment</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 User submitting the update
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_unlikeNote">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_unlikeNote">unlikeNote</a>(
-                          note, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Allow a user to remove a previous "like" to an note
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  note
-                                  &lt;object&gt;
-                                </code>
-                                 Note to unlike. Need to specify:
-<ul>
-<li>note.permalink : reference to the existing note</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 User submitting the update
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_unlikeStatus">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_unlikeStatus">unlikeStatus</a>(
-                          status, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Allow a user to remove a previous "like" to an status
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  status
-                                  &lt;object&gt;
-                                </code>
-                                 Status to unlike. Need to specify:
-<ul>
-<li>status.permalink : reference to the existing status</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 User submitting the update
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_unmarkArticle">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_unmarkArticle">unmarkArticle</a>(
-                          article, mark, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Remove a mark from an article
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  article
-                                  &lt;object&gt;
-                                </code>
-                                 Article to unmark. Need to specify:
-<ul>
-<li>article.permalink : reference to the existing article</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  mark
-                                  &lt;object&gt;
-                                </code>
-                                 Marker to remove from the article. Need to specify:
-<ul>
-<li>marker.title : title/content of your tag/mark</li>
-<li>marker.id : id for that update</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 User submitting the update
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_unmarkComment">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_unmarkComment">unmarkComment</a>(
-                          comment, mark, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Remove a mark from an comment
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  comment
-                                  &lt;object&gt;
-                                </code>
-                                 Comment to unmark. Need to specify:
-<ul>
-<li>comment.permalink : reference to the existing comment</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  mark
-                                  &lt;object&gt;
-                                </code>
-                                 Marker to remove from the comment. Need to specify:
-<ul>
-<li>marker.title : title/content of your tag/mark</li>
-<li>marker.id : id for that update</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 User submitting the update
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_unmarkNote">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_unmarkNote">unmarkNote</a>(
-                          note, mark, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Remove a mark from an note
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  note
-                                  &lt;object&gt;
-                                </code>
-                                 Note to unmark. Need to specify:
-<ul>
-<li>note.permalink : reference to the existing note</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  mark
-                                  &lt;object&gt;
-                                </code>
-                                 Marker to remove from the note. Need to specify:
-<ul>
-<li>marker.title : title/content of your tag/mark</li>
-<li>marker.id : id for that update</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 User submitting the update
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_unmarkStatus">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_unmarkStatus">unmarkStatus</a>(
-                          status, mark, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Remove a mark from an status
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  status
-                                  &lt;object&gt;
-                                </code>
-                                 Status to unmark. Need to specify:
-<ul>
-<li>status.permalink : reference to the existing status</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  mark
-                                  &lt;object&gt;
-                                </code>
-                                 Marker to remove from the status. Need to specify:
-<ul>
-<li>marker.title : title/content of your tag/mark</li>
-<li>marker.id : id for that update</li>
+<li>tag.title : title/content of your tag/mark</li>
+<li>tag.id : id for that update</li>
 </ul>
                               </li>
                               <li>
@@ -2597,7 +2236,7 @@
                       <td class="names">
                         <code>
                           <a name="method_untagArticle">untagArticle</a>(
-                          article, tag, user, callback
+                          target, tag, user, callback
                           )
                         </code>
                       </td>
@@ -2622,13 +2261,10 @@
                           <ul>
                               <li>
                                 <code>
-                                  article
-                                  &lt;object&gt;
+                                  target
+                                  &lt;string&gt;
                                 </code>
-                                 Article to untag. Need to specify:
-<ul>
-<li>article.permalink : reference to the existing article</li>
-</ul>
+                                 ID of the article
                               </li>
                               <li>
                                 <code>
@@ -2666,7 +2302,7 @@
                       <td class="names">
                         <code>
                           <a name="method_untagComment">untagComment</a>(
-                          comment, tag, user, callback
+                          target, tag, user, callback
                           )
                         </code>
                       </td>
@@ -2691,13 +2327,10 @@
                           <ul>
                               <li>
                                 <code>
-                                  comment
-                                  &lt;object&gt;
+                                  target
+                                  &lt;string&gt;
                                 </code>
-                                 Comment to untag. Need to specify:
-<ul>
-<li>comment.permalink : reference to the existing comment</li>
-</ul>
+                                 ID of the comment
                               </li>
                               <li>
                                 <code>
@@ -2735,7 +2368,7 @@
                       <td class="names">
                         <code>
                           <a name="method_untagNote">untagNote</a>(
-                          note, tag, user, callback
+                          target, tag, user, callback
                           )
                         </code>
                       </td>
@@ -2760,13 +2393,10 @@
                           <ul>
                               <li>
                                 <code>
-                                  note
-                                  &lt;object&gt;
+                                  target
+                                  &lt;string&gt;
                                 </code>
-                                 Note to untag. Need to specify:
-<ul>
-<li>note.permalink : reference to the existing note</li>
-</ul>
+                                 ID of the note
                               </li>
                               <li>
                                 <code>
@@ -2804,7 +2434,7 @@
                       <td class="names">
                         <code>
                           <a name="method_untagStatus">untagStatus</a>(
-                          status, tag, user, callback
+                          target, tag, user, callback
                           )
                         </code>
                       </td>
@@ -2829,13 +2459,10 @@
                           <ul>
                               <li>
                                 <code>
-                                  status
-                                  &lt;object&gt;
+                                  target
+                                  &lt;string&gt;
                                 </code>
-                                 Status to untag. Need to specify:
-<ul>
-<li>status.permalink : reference to the existing status</li>
-</ul>
+                                 ID of the status
                               </li>
                               <li>
                                 <code>
@@ -2854,270 +2481,6 @@
                                   &lt;object&gt;
                                 </code>
                                  User submitting the update
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_updateArticle">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_updateArticle">updateArticle</a>(
-                          article, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Allow a user to update an article
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  article
-                                  &lt;object&gt;
-                                </code>
-                                 Article to be updated. Need to specify:
-<ul>
-<li>article.title : title of the article</li>
-<li>article.summary : a short summary. </li>
-<li>article.content : main content of the article</li>
-<li>article.permalink : permanent link for this article</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 user submitting the content. Need to specify:
-<ul>
-<li>user.id : unique id for this user</li>
-<li>user.name : name of the user</li>
-<li>user.avatarURL : avatar of the user</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_updateComment">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_updateComment">updateComment</a>(
-                          comment, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Allow a user to update an comment
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  comment
-                                  &lt;object&gt;
-                                </code>
-                                 Comment to be updated. Need to specify:
-<ul>
-<li>comment.title : title of the comment</li>
-<li>comment.summary : a short summary. </li>
-<li>comment.content : main content of the comment</li>
-<li>comment.permalink : permanent link for this comment</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 user submitting the content. Need to specify:
-<ul>
-<li>user.id : unique id for this user</li>
-<li>user.name : name of the user</li>
-<li>user.avatarURL : avatar of the user</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_updateNote">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_updateNote">updateNote</a>(
-                          note, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Allow a user to update an note
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  note
-                                  &lt;object&gt;
-                                </code>
-                                 Note to be updated. Need to specify:
-<ul>
-<li>note.title : title of the note</li>
-<li>note.summary : a short summary. </li>
-<li>note.content : main content of the note</li>
-<li>note.permalink : permanent link for this note</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 user submitting the content. Need to specify:
-<ul>
-<li>user.id : unique id for this user</li>
-<li>user.name : name of the user</li>
-<li>user.avatarURL : avatar of the user</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback called after submission
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_updateStatus">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_updateStatus">updateStatus</a>(
-                          status, user, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Allow a user to update an status
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  status
-                                  &lt;object&gt;
-                                </code>
-                                 Status to be updated. Need to specify:
-<ul>
-<li>status.title : title of the status</li>
-<li>status.summary : a short summary. </li>
-<li>status.content : main content of the status</li>
-<li>status.permalink : permanent link for this status</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  user
-                                  &lt;object&gt;
-                                </code>
-                                 user submitting the content. Need to specify:
-<ul>
-<li>user.id : unique id for this user</li>
-<li>user.name : name of the user</li>
-<li>user.avatarURL : avatar of the user</li>
-</ul>
                               </li>
                               <li>
                                 <code>

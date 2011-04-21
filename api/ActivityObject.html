@@ -126,6 +126,9 @@
                     <a href="KvsAPI.html">KvsAPI</a>
                   </li>
                   <li >
+                    <a href="Like.html">Like</a>
+                  </li>
+                  <li >
                     <a href="Note.html">Note</a>
                   </li>
                   <li >
@@ -133,6 +136,9 @@
                   </li>
                   <li >
                     <a href="Status.html">Status</a>
+                  </li>
+                  <li >
+                    <a href="Tag.html">Tag</a>
                   </li>
                   <li >
                     <a href="TBind.html">TBind</a>
@@ -189,13 +195,7 @@
               <h4>Properties</h4>
               <ul>
                   <li class=" ">
-                    <a href="#property_feed">feed</a>
-                  </li>
-                  <li class=" ">
                     <a href="#property_item">item</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#property_user">user</a>
                   </li>
               </ul>
             </div>
@@ -211,9 +211,6 @@
                   </li>
                   <li class=" ">
                     <a href="#method_renderPost">renderPost</a>
-                  </li>
-                  <li class=" ">
-                    <a href="#method_renderUpdate">renderUpdate</a>
                   </li>
               </ul>
             </div>
@@ -245,9 +242,8 @@
 
 
         <div class="summary description">
-          Parent class to define all the Activity Objects Echo deals with, and their method for XML rendering.
+          Parent class to define all the Activity Objects Echo deals with, and their method for XML rendering according to their verb..
 http://wiki.aboutecho.com/w/page/24780107/How%20To%20-%20Getting%20us%20your%20Firehose#Supportedactivityobjecttypes
-Creation : var myActivityObject = ActivityObject.spawn(args)
         </div>
         
 
@@ -268,7 +264,13 @@ Creation : var myActivityObject = ActivityObject.spawn(args)
                       <a href="Note.html" title="Note">Note</a>
                     </li>
                     <li>
+                      <a href="Tag.html" title="Tag">Tag</a>
+                    </li>
+                    <li>
                       <a href="Article.html" title="Article">Article</a>
+                    </li>
+                    <li>
+                      <a href="Like.html" title="Like">Like</a>
                     </li>
                 </ul>
               </div>
@@ -319,7 +321,6 @@ Creation : var myActivityObject = ActivityObject.spawn(args)
 <ul>
 <li>properties.item : the item you want to create (depends on its kind)</li>
 <li>properties.user : the user interacting with this item</li>
-<li>properties.feed : the feed this item belongs to</li>
 </ul>
                           </li>
                       </ul>
@@ -352,35 +353,6 @@ Creation : var myActivityObject = ActivityObject.spawn(args)
                 </thead>
                 <tbody>
                 
-                    <tr class=" " resource="#property_feed">
-                  
-                      <td class="names">
-                        <code>
-                          <a name="property_feed">feed</a>
-                        </code>
-                      </td>
-
-                      <td class="type">
-                        <code>
-                          object
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-                        <div>
-
-                          Define the feed this item belongs to
-
-                        </div>
-                      </td>
-
-                    </tr>
                     <tr class=" " resource="#property_item">
                   
                       <td class="names">
@@ -405,35 +377,6 @@ Creation : var myActivityObject = ActivityObject.spawn(args)
                         <div>
 
                           Define the values for this item.
-
-                        </div>
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#property_user">
-                  
-                      <td class="names">
-                        <code>
-                          <a name="property_user">user</a>
-                        </code>
-                      </td>
-
-                      <td class="type">
-                        <code>
-                          object
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-                        <div>
-
-                          Define the user interacting with this item
 
                         </div>
                       </td>
@@ -488,8 +431,8 @@ Creation : var myActivityObject = ActivityObject.spawn(args)
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Initialised the ActivityObject. Data Check.
-Needs to be extended by Child classes
+                        Initialised the ActivityObject. Meta data Check.
+Needs to be extended by Child classes (for content checking)
 Is automatically called at object spawning.
 
 
@@ -572,59 +515,6 @@ Is automatically called at object spawning.
                                   &lt;function&gt;
                                 </code>
                                  callback (should very likely be a call to a "submit" method)
-                              </li>
-                          <ul>
-
-
-                      </td>
-
-                    </tr>
-                    <tr class=" " resource="#method_renderUpdate">
-
-                      <td class="names">
-                        <code>
-                          <a name="method_renderUpdate">renderUpdate</a>(
-                          update, callback
-                          )
-                        </code>
-                      </td>
-
-                      <td class="returns">
-                        <code>
-                          void
-                        </code>
-
-                        
-                        
-                        
-                      </td>
-
-                      <td class="description">
-                        <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-
-                        Prepare the item for an update (tag / mark)
-
-                          <p>Parameters:</p>
-                          <ul>
-                              <li>
-                                <code>
-                                  update
-                                  &lt;Object&gt;
-                                </code>
-                                 type and content of the update.
-<ul>
-<li>update.type in [tag,untag,mark,unmark,like,unlike,flag,unflag,update]</li>
-<li>update.content.id : id of the update (when applicable)</li>
-<li>update.content.title : title/content of the update (when applicable)</li>
-</ul>
-                              </li>
-                              <li>
-                                <code>
-                                  callback
-                                  &lt;function&gt;
-                                </code>
-                                 callback that will be called with the rendered update.
                               </li>
                           <ul>
 

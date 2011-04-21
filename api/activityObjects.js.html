@@ -126,6 +126,9 @@
                     <a href="KvsAPI.html">KvsAPI</a>
                   </li>
                   <li >
+                    <a href="Like.html">Like</a>
+                  </li>
+                  <li >
                     <a href="Note.html">Note</a>
                   </li>
                   <li >
@@ -133,6 +136,9 @@
                   </li>
                   <li >
                     <a href="Status.html">Status</a>
+                  </li>
+                  <li >
+                    <a href="Tag.html">Tag</a>
                   </li>
                   <li >
                     <a href="TBind.html">TBind</a>
@@ -211,52 +217,52 @@
 
 <span class="kd">var</span> <span class="nx">ActivityObject</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
-<span class="cm">     * Parent class to define all the Activity Objects Echo deals with, and their method for XML rendering.</span>
+<span class="cm">     * Parent class to define all the Activity Objects Echo deals with, and their method for XML rendering according to their verb..</span>
 <span class="cm">     * http://wiki.aboutecho.com/w/page/24780107/How%20To%20-%20Getting%20us%20your%20Firehose#Supportedactivityobjecttypes</span>
-<span class="cm">     * Creation : var myActivityObject = ActivityObject.spawn(args)</span>
+<span class="cm">     * </span>
 <span class="cm">     * @class ActivityObject</span>
 <span class="cm">     * @constructor</span>
 <span class="cm">     * @param {object} properties. Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.item : the item you want to create (depends on its kind)&lt;/li&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.user : the user interacting with this item&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;properties.feed : the feed this item belongs to&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     */</span>
-     <span class="nx">renderPost</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
+
+     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="cm">/**</span>
+<span class="cm">         * Initialised the ActivityObject. Meta data Check.</span>
+<span class="cm">         * Needs to be extended by Child classes (for content checking)</span>
+<span class="cm">         * Is automatically called at object spawning.</span>
+<span class="cm">         * @method init</span>
+<span class="cm">         */</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">user</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">avatarURL</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">)){</span>
+            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span><span class="s2">&quot;Invalid user exception&quot;</span><span class="p">,</span> <span class="nx">error</span> <span class="o">:</span> <span class="s2">&quot;Invalid user&quot;</span><span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">feed</span><span class="p">)){</span>
+            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid options exception&quot;</span><span class="p">,</span> <span class="nx">error</span> <span class="o">:</span><span class="s2">&quot;Invalid feed&quot;</span><span class="p">};</span>
+        <span class="p">}</span>
+        <span class="c1">// Set defaults.</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;abstract&quot;</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">verb</span><span class="p">){</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">verb</span> <span class="o">=</span> <span class="s1">&#39;http://activitystrea.ms/schema/1.0/post&#39;</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="nx">verb</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">verb</span><span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">)){</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span> <span class="o">=</span> <span class="p">{}</span> <span class="p">}</span>
+
+     <span class="p">}</span>
+     <span class="p">,</span><span class="nx">renderPost</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
        <span class="cm">/**</span>
 <span class="cm">        * Prepare the item for posting.</span>
 <span class="cm">        * @method renderPost</span>
 <span class="cm">        * @param {function} callback callback (should very likely be a call to a &quot;submit&quot; method)</span>
 <span class="cm">        */</span>
-        <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">renderItem</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="nx">renderedData</span><span class="p">){</span>
            <span class="k">if</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span> <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-              <span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">ISODateString</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">());</span>
               <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span>
-                 <span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/base.xml&#39;</span><span class="p">,</span> <span class="c1">// First arg of render.renderTemplate</span>
-                 <span class="p">{</span>                                  <span class="c1">// Second arg</span>
-                    <span class="nx">verb</span><span class="o">:</span> <span class="s1">&#39;http://activitystrea.ms/schema/1.0/post&#39;</span><span class="p">,</span>
-                    <span class="nx">feed</span><span class="o">:</span> <span class="p">{</span>
-                       <span class="nx">idUrl</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">feed</span><span class="p">,</span>
-                       <span class="nx">updated</span><span class="o">:</span> <span class="nx">date</span>
-                    <span class="p">},</span>
-                    <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
-                       <span class="nx">id</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
-                       <span class="nx">published</span><span class="o">:</span> <span class="nx">date</span>
-                    <span class="p">},</span>
-                    <span class="nx">actor</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="nx">url</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span>
-                       <span class="p">,</span><span class="nx">name</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span>
-                       <span class="p">,</span><span class="nx">avatar</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">avatarURL</span>
-                    <span class="p">},</span>
-                    <span class="nx">activityObject</span><span class="o">:</span> <span class="nx">renderedData</span><span class="p">,</span>
-                    <span class="nx">target</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="nx">type</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">type</span>
-                       <span class="p">,</span><span class="nx">url</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">url</span>
-                    <span class="p">}</span>
-                 <span class="p">},</span>
-                 <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="nx">renderedMessage</span><span class="p">){</span> <span class="c1">// Third arg of render.renderTemplate</span>
+                 <span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/base.xml&#39;</span>
+                <span class="p">,</span><span class="nx">self</span><span class="p">.</span><span class="nx">itemTemplate</span><span class="p">(</span><span class="nx">renderedData</span><span class="p">)</span>
+                <span class="p">,</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="nx">renderedMessage</span><span class="p">){</span> <span class="c1">// Third arg of render.renderTemplate</span>
                     <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="nx">callback</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
                     <span class="k">else</span><span class="p">{</span>
                        <span class="nx">callback</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,{</span> <span class="nx">content</span><span class="o">:</span> <span class="nx">renderedMessage</span> <span class="p">})</span>
@@ -266,130 +272,35 @@
            <span class="p">}</span>
         <span class="p">)</span>
      <span class="p">}</span>
-     <span class="c1">// Common to all Items:</span>
-    <span class="p">,</span><span class="nx">renderUpdate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">update</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="p">,</span><span class="nx">itemTemplate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
         <span class="cm">/**</span>
-<span class="cm">         * Prepare the item for an update (tag / mark)</span>
-<span class="cm">         * @method renderUpdate</span>
-<span class="cm">         * @param {Object} update type and content of the update.</span>
-<span class="cm">         * &lt;ul&gt;</span>
-<span class="cm">         *     &lt;li&gt;update.type in [tag,untag,mark,unmark,like,unlike,flag,unflag,update]&lt;/li&gt;</span>
-<span class="cm">         *     &lt;li&gt;update.content.id : id of the update (when applicable)&lt;/li&gt;</span>
-<span class="cm">         *     &lt;li&gt;update.content.title : title/content of the update (when applicable)&lt;/li&gt;</span>
-<span class="cm">         * &lt;/ul&gt;</span>
-<span class="cm">         * @param {function} callback callback that will be called with the rendered update.</span>
+<span class="cm">         * Select and return the proper properties for an object.</span>
+<span class="cm">         * @method itemTemplate</span>
+<span class="cm">         * @private</span>
 <span class="cm">         */</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">update</span><span class="p">){</span>
-            <span class="nx">callback</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Illegal update exception&quot;</span><span class="p">,</span><span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Not recognized as a valid update&quot;</span><span class="p">},</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">verb</span><span class="p">;</span>
-            <span class="kd">var</span> <span class="nx">template</span><span class="p">;</span>
-            <span class="kd">var</span> <span class="nx">toBeRendered</span><span class="p">;</span> <span class="c1">// The object that will be rendered</span>
-            <span class="k">switch</span><span class="p">(</span><span class="nx">update</span><span class="p">.</span><span class="nx">type</span><span class="p">){</span>
-                <span class="c1">// Echo documentation seems to be outdated and is messy. Might have to fix the &quot;verb&quot;s and the template.</span>
-                <span class="k">case</span> <span class="s2">&quot;tag&quot;</span><span class="o">:</span>
-                    <span class="nx">template</span> <span class="o">=</span> <span class="s1">&#39;/templates/tag.xml&#39;</span><span class="p">;</span>
-                    <span class="nx">verb</span> <span class="o">=</span> <span class="s1">&#39;http://activitystrea.ms/schema/1.0/tag&#39;</span><span class="p">;</span>
-                    <span class="nx">toBeRendered</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">tag</span> <span class="o">:</span> <span class="nx">update</span><span class="p">.</span><span class="nx">content</span><span class="p">};</span>
-                    <span class="k">break</span><span class="p">;</span>
-                <span class="k">case</span> <span class="s2">&quot;untag&quot;</span><span class="o">:</span>
-                    <span class="nx">template</span> <span class="o">=</span> <span class="s1">&#39;/templates/tag.xml&#39;</span><span class="p">;</span>
-                    <span class="nx">verb</span> <span class="o">=</span> <span class="s1">&#39;http://js-kit.com/spec/e2/v1/untag&#39;</span><span class="p">;</span>
-                    <span class="nx">toBeRendered</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">tag</span> <span class="o">:</span> <span class="nx">update</span><span class="p">.</span><span class="nx">content</span><span class="p">};</span>
-                    <span class="k">break</span><span class="p">;</span>
-                <span class="k">case</span> <span class="s2">&quot;mark&quot;</span><span class="o">:</span>
-                    <span class="nx">template</span> <span class="o">=</span> <span class="s1">&#39;/templates/marker.xml&#39;</span><span class="p">;</span>
-                    <span class="nx">verb</span> <span class="o">=</span> <span class="s1">&#39;http://js-kit.com/spec/e2/v1/marker&#39;</span><span class="p">;</span>
-                    <span class="nx">toBeRendered</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">marker</span> <span class="o">:</span> <span class="nx">update</span><span class="p">.</span><span class="nx">content</span><span class="p">};</span>
-                    <span class="k">break</span><span class="p">;</span>
-                <span class="k">case</span> <span class="s2">&quot;unmark&quot;</span><span class="o">:</span>
-                    <span class="nx">template</span> <span class="o">=</span> <span class="s1">&#39;/templates/marker.xml&#39;</span><span class="p">;</span>
-                    <span class="nx">verb</span> <span class="o">=</span> <span class="s1">&#39;http://js-kit.com/spec/e2/v1/untag&#39;</span><span class="p">;</span>
-                    <span class="nx">toBeRendered</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">marker</span> <span class="o">:</span> <span class="nx">update</span><span class="p">.</span><span class="nx">content</span><span class="p">};</span>
-                    <span class="k">break</span><span class="p">;</span>
-                <span class="k">case</span> <span class="s2">&quot;like&quot;</span><span class="o">:</span> <span class="c1">// Case of like/flag : empty template, nothing to render !</span>
-                    <span class="nx">template</span> <span class="o">=</span> <span class="s1">&#39;/templates/like.xml&#39;</span><span class="p">;</span>
-                    <span class="nx">verb</span> <span class="o">=</span>  <span class="s1">&#39;http://activitystrea.ms/schema/1.0/like&#39;</span><span class="p">;</span>
-                    <span class="nx">toBeRendered</span> <span class="o">=</span> <span class="p">{</span> <span class="p">};</span>
-                    <span class="k">break</span><span class="p">;</span>
-                <span class="k">case</span> <span class="s2">&quot;unlike&quot;</span><span class="o">:</span>
-                    <span class="nx">template</span> <span class="o">=</span> <span class="s1">&#39;/templates/like.xml&#39;</span><span class="p">;</span>
-                    <span class="nx">verb</span> <span class="o">=</span>  <span class="s1">&#39;http://js-kit.com/spec/e2/v1/unlike&#39;</span><span class="p">;</span>
-                    <span class="nx">toBeRendered</span> <span class="o">=</span> <span class="p">{</span> <span class="p">};</span>
-                    <span class="k">break</span><span class="p">;</span>
-                <span class="k">case</span> <span class="s2">&quot;flag&quot;</span><span class="o">:</span>
-                    <span class="nx">template</span> <span class="o">=</span> <span class="s1">&#39;/templates/flag.xml&#39;</span><span class="p">;</span>
-                    <span class="nx">verb</span> <span class="o">=</span> <span class="s1">&#39;http://activitystrea.ms/schema/1.0/flag&#39;</span><span class="p">;</span>
-                    <span class="nx">toBeRendered</span> <span class="o">=</span> <span class="p">{</span> <span class="p">};</span>
-                    <span class="k">break</span><span class="p">;</span>
-                <span class="k">case</span> <span class="s2">&quot;unflag&quot;</span><span class="o">:</span>
-                    <span class="nx">template</span> <span class="o">=</span> <span class="s1">&#39;/templates/flag.xml&#39;</span><span class="p">;</span>
-                    <span class="nx">verb</span> <span class="o">=</span> <span class="s1">&#39;http://js-kit.com/spec/e2/v1/unflag&#39;</span><span class="p">;</span>
-                    <span class="nx">toBeRendered</span> <span class="o">=</span> <span class="p">{</span> <span class="p">};</span>
-                    <span class="k">break</span><span class="p">;</span>
-                <span class="k">case</span> <span class="s2">&quot;update&quot;</span><span class="o">:</span>
-                    <span class="c1">// Just re-post the Item with updated values.</span>
-                    <span class="k">this</span><span class="p">.</span><span class="nx">renderPost</span><span class="p">(</span><span class="nx">callback</span><span class="p">);</span>
-                    <span class="k">break</span><span class="p">;</span>
-                <span class="k">default</span><span class="o">:</span>
-                    <span class="nx">callback</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span><span class="s2">&quot;Illegal update exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="nx">update</span><span class="p">.</span><span class="nx">type</span><span class="o">+</span><span class="s2">&quot;: not recognized as a valid update&quot;</span><span class="p">},</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">ISODateString</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">());</span>
+        <span class="k">return</span> <span class="p">{</span>
+                <span class="nx">activityObject</span><span class="o">:</span> <span class="nx">data</span>
+               <span class="p">,</span><span class="nx">feed</span><span class="o">:</span> <span class="p">{</span>
+                  <span class="nx">idUrl</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">feed</span><span class="p">,</span>
+                  <span class="nx">updated</span><span class="o">:</span> <span class="nx">date</span>
+               <span class="p">}</span>
+               <span class="p">,</span><span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
+                  <span class="nx">id</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">permalink</span><span class="p">,</span>
+                  <span class="nx">published</span><span class="o">:</span> <span class="nx">date</span>
+               <span class="p">}</span>
+               <span class="p">,</span><span class="nx">target</span><span class="o">:</span> <span class="p">{</span>
+                   <span class="nx">type</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">type</span>
+                  <span class="p">,</span><span class="nx">url</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span>
+               <span class="p">}</span>
+               <span class="p">,</span><span class="nx">actor</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="nx">url</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span>
+                   <span class="p">,</span><span class="nx">name</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span>
+                   <span class="p">,</span><span class="nx">avatar</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">avatarURL</span>
+               <span class="p">}</span>
+               <span class="p">,</span><span class="nx">verb</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">verb</span>
             <span class="p">}</span>
-
-            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
-            <span class="kd">var</span> <span class="nx">date</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">ISODateString</span><span class="p">(</span><span class="k">new</span> <span class="nb">Date</span><span class="p">());</span>
-            <span class="c1">// Rendering</span>
-            <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="nx">template</span><span class="p">,</span> <span class="nx">toBeRendered</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="nx">renderedUpdate</span><span class="p">){</span>
-                <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="nx">callback</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
-                <span class="k">else</span><span class="p">{</span>
-                    <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/base.xml&#39;</span><span class="p">,</span> <span class="p">{</span>
-                        <span class="nx">verb</span><span class="o">:</span> <span class="nx">verb</span><span class="p">,</span>
-                        <span class="nx">feed</span><span class="o">:</span> <span class="p">{</span>
-                            <span class="nx">idUrl</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">feed</span><span class="p">,</span>
-                            <span class="nx">updated</span><span class="o">:</span> <span class="nx">date</span>
-                        <span class="p">},</span>
-                        <span class="nx">entry</span><span class="o">:</span> <span class="p">{</span>
-                            <span class="nx">id</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
-                            <span class="nx">published</span><span class="o">:</span> <span class="nx">date</span>
-                        <span class="p">},</span>
-                        <span class="nx">actor</span><span class="o">:</span> <span class="p">{</span>
-                            <span class="nx">url</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span>
-                            <span class="p">,</span><span class="nx">name</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span>
-                            <span class="p">,</span><span class="nx">avatar</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">avatarURL</span>
-                        <span class="p">},</span>
-                        <span class="nx">activityObject</span><span class="o">:</span> <span class="nx">renderedUpdate</span><span class="p">,</span>
-                        <span class="nx">target</span><span class="o">:</span> <span class="p">{</span>
-                            <span class="nx">type</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span><span class="p">,</span>
-                            <span class="nx">url</span><span class="o">:</span> <span class="nx">self</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span>
-                        <span class="p">}</span>
-                    <span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="nx">renderedMessage</span><span class="p">){</span>
-                        <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span><span class="nx">callback</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">);</span>
-                        <span class="k">else</span><span class="p">{</span>
-                           <span class="nx">callback</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,{</span> <span class="nx">content</span><span class="o">:</span> <span class="nx">renderedMessage</span> <span class="p">})</span>
-                        <span class="p">}</span>
-                    <span class="p">});</span>
-                <span class="p">}</span>
-            <span class="p">});</span>
-        <span class="p">}</span>
     <span class="p">}</span>
-     <span class="c1">// Must be extended:</span>
-    <span class="p">,</span><span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
-        <span class="cm">/**</span>
-<span class="cm">         * Initialised the ActivityObject. Data Check.</span>
-<span class="cm">         * Needs to be extended by Child classes</span>
-<span class="cm">         * Is automatically called at object spawning.</span>
-<span class="cm">         * @method init</span>
-<span class="cm">         */</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">user</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">avatarURL</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">)){</span>
-            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span><span class="s2">&quot;Invalid user exception&quot;</span><span class="p">,</span> <span class="nx">error</span> <span class="o">:</span> <span class="s2">&quot;Invalid user&quot;</span><span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">feed</span><span class="p">)){</span>
-            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid options exception&quot;</span><span class="p">,</span> <span class="nx">error</span> <span class="o">:</span><span class="s2">&quot;Invalid feed&quot;</span><span class="p">};</span>
-        <span class="p">}</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;abstract&quot;</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="s2">&quot;/dev/null&quot;</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">url</span><span class="o">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="s2">&quot;&quot;</span><span class="p">}</span>
-    <span class="p">}</span> <span class="c1">// Mostly common to all items, but must be extended</span>
-     <span class="c1">// Must be overwritten:</span>
     <span class="p">,</span><span class="nx">renderItem</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
 <span class="cm">         * Render the part of the Item that is &lt;i&gt;not&lt;/i&gt; common to all items</span>
@@ -400,20 +311,6 @@
     <span class="p">}</span> <span class="c1">// Different for all items, must be extended</span>
 
     <span class="c1">// Properties (common to all Items):</span>
-    <span class="p">,</span><span class="nx">user</span><span class="o">:</span><span class="p">{</span>
-        <span class="cm">/**</span>
-<span class="cm">         * Define the user interacting with this item</span>
-<span class="cm">         * @property user</span>
-<span class="cm">         */</span>
-        <span class="nx">enumerable</span><span class="o">:</span> <span class="kc">true</span>
-    <span class="p">}</span>
-    <span class="p">,</span><span class="nx">feed</span><span class="o">:</span><span class="p">{</span>
-        <span class="cm">/**</span>
-<span class="cm">         * Define the feed this item belongs to</span>
-<span class="cm">         * @property feed</span>
-<span class="cm">         */</span>
-        <span class="nx">enumerable</span><span class="o">:</span> <span class="kc">false</span>
-    <span class="p">}</span>
     <span class="p">,</span><span class="nx">item</span><span class="o">:</span><span class="p">{</span>
         <span class="cm">/**</span>
 <span class="cm">         * Define the values for this item.</span>
@@ -430,30 +327,34 @@
 <span class="cm">     * @class Article</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// Call parent</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">summary</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span><span class="p">)){</span>
-            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Article exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Article needs a title, a summary, a content an a permalink&quot;</span><span class="p">}</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span><span class="p">;</span>
 
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">summary</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span><span class="p">;</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/article&quot;</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">){</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span> <span class="o">=</span> <span class="p">{</span>
-                    <span class="nx">url</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span>
-                    <span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="s2">&quot;http://activitystrea.ms/schema/1.0/article&quot;</span>
-                <span class="p">};</span>
-            <span class="p">}</span>
+        <span class="c1">// Set specific parameters</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/article&quot;</span><span class="p">;</span>
+
+        <span class="c1">// Check content:        </span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">title</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">summary</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">content</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">permalink</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">feed</span><span class="p">)){</span>
+            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Article exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Article needs a title, a summary, a content, a permalink and a feed ID&quot;</span><span class="p">}</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// Format content</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">summary</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">summary</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">type</span><span class="p">)){</span>
+             <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span> <span class="o">=</span> <span class="p">{</span>
+                 <span class="nx">id</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">permalink</span>
+                 <span class="p">,</span> <span class="nx">type</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span>
+             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="nx">renderItem</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
-        <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/article.xml&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">article</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span> <span class="p">},</span> <span class="nx">callback</span><span class="p">)</span>
+        <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/article.xml&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">article</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="p">},</span> <span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">});</span>
+
 
 <span class="kd">var</span> <span class="nx">Comment</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
@@ -462,18 +363,26 @@
 <span class="cm">     * @class Comment</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// Call parent init</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">subject</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">)){</span>
-            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Comment exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Comment needs a subject, a content, a target and a permalink&quot;</span><span class="p">}</span>
+        <span class="c1">// Set specifics</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/comment&quot;</span><span class="p">;</span>
+        <span class="c1">//Data check and formatting</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">content</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">subject</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">permalink</span><span class="p">)){</span>
+            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Comment exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Comment needs a subject, a content and a permalink&quot;</span><span class="p">}</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span><span class="p">;</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">subject</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">subject</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/comment&quot;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">subject</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">subject</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">type</span><span class="p">)){</span>
+             <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span> <span class="o">=</span> <span class="p">{</span>
+                 <span class="nx">id</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">permalink</span>
+                 <span class="p">,</span> <span class="nx">type</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span>
+             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="nx">renderItem</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
-        <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/comment.xml&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">comment</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span> <span class="p">},</span> <span class="nx">callback</span><span class="p">)</span>
+        <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/comment.xml&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">comment</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="p">},</span> <span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">});</span>
 
@@ -484,22 +393,25 @@
 <span class="cm">     * @class Note</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// Call parent init</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">)){</span>
-            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Note exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Note needs a content an a permalink&quot;</span><span class="p">}</span>
+        <span class="c1">// Set specifics</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/note&quot;</span><span class="p">;</span>
+        <span class="c1">//Data check and formatting</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">content</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">permalink</span><span class="p">)){</span>
+            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Note exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Note needs a content and a permalink&quot;</span><span class="p">}</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span><span class="p">;</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/note&quot;</span>
-            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">){</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/note&quot;</span>
-            <span class="p">}</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">type</span><span class="p">)){</span>
+             <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span> <span class="o">=</span> <span class="p">{</span>
+                 <span class="nx">id</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">permalink</span>
+                 <span class="p">,</span> <span class="nx">type</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span>
+             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="nx">renderItem</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
-        <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/note.xml&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">note</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span> <span class="p">},</span> <span class="nx">callback</span><span class="p">)</span>
+        <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/note.xml&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">note</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="p">},</span> <span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">});</span>
 
@@ -511,23 +423,79 @@
 <span class="cm">     * @class Status</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// Call parent init</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span><span class="p">)){</span>
-            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Status exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Status needs a content an a permalink&quot;</span><span class="p">}</span>
+        <span class="c1">// Set specifics</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/status&quot;</span><span class="p">;</span>
+        <span class="c1">//Data check and formatting</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">content</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">permalink</span><span class="p">)){</span>
+            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Status exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Status needs a content and a permalink&quot;</span><span class="p">}</span>
         <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span><span class="p">;</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/status&quot;</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">){</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">permalink</span><span class="p">;</span>
-                <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/status&quot;</span>
-            <span class="p">}</span>
-
+            <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">content</span> <span class="o">=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">Encoder</span><span class="p">.</span><span class="nx">htmlEncode</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">content</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">type</span><span class="p">)){</span>
+             <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span> <span class="o">=</span> <span class="p">{</span>
+                 <span class="nx">id</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">permalink</span>
+                 <span class="p">,</span> <span class="nx">type</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span>
+             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">},</span>
     <span class="nx">renderItem</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
-        <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/status.xml&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span> <span class="p">},</span> <span class="nx">callback</span><span class="p">)</span>
+        <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/status.xml&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">status</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="p">},</span> <span class="nx">callback</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">Tag</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Tag/Untag</span>
+<span class="cm">     * @extends ActivityObject</span>
+<span class="cm">     * @class Tag</span>
+<span class="cm">     */</span>
+    <span class="nx">init</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">type</span><span class="p">)){</span>
+            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Tag exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Tag needs a valid target&quot;</span><span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/tag&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">,</span><span class="nx">renderItem</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
+        <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/tag.xml&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">tag</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="p">},</span> <span class="nx">callback</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">Like</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Like/Unlike</span>
+<span class="cm">     * @extends ActivityObject</span>
+<span class="cm">     * @class Like</span>
+<span class="cm">     */</span>
+    <span class="nx">init</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">type</span><span class="p">)){</span>
+            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Like exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Like needs a valid target&quot;</span><span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/like&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">,</span><span class="nx">renderItem</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
+        <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/like.xml&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">like</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="p">},</span> <span class="nx">callback</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">Flag</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+    <span class="cm">/**</span>
+<span class="cm">     * Flag/Unflag</span>
+<span class="cm">     * @extends ActivityObject</span>
+<span class="cm">     * @class Like</span>
+<span class="cm">     */</span>
+    <span class="nx">init</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">type</span><span class="p">)){</span>
+            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Flag exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Flag needs a valid target&quot;</span><span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/flag&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="p">,</span><span class="nx">renderItem</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
+        <span class="nx">render</span><span class="p">.</span><span class="nx">renderTemplate</span><span class="p">(</span><span class="nx">__dirname</span> <span class="o">+</span> <span class="s1">&#39;/templates/flag.xml&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">flag</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="p">},</span> <span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">});</span>
 
@@ -535,6 +503,10 @@
 <span class="nx">exports</span><span class="p">.</span><span class="nx">Comment</span> <span class="o">=</span> <span class="nx">Comment</span><span class="p">;</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">Note</span> <span class="o">=</span> <span class="nx">Note</span><span class="p">;</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">Status</span> <span class="o">=</span> <span class="nx">Status</span><span class="p">;</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">Tag</span> <span class="o">=</span> <span class="nx">Tag</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">Flag</span> <span class="o">=</span> <span class="nx">Flag</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">Like</span> <span class="o">=</span> <span class="nx">Like</span><span class="p">;</span>
 
 <span class="c1">// For test only, end-user don&#39;t need that</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">ActivityObject</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">;</span>

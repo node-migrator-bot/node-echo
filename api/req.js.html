@@ -126,6 +126,9 @@
                     <a href="KvsAPI.html">KvsAPI</a>
                   </li>
                   <li >
+                    <a href="Like.html">Like</a>
+                  </li>
+                  <li >
                     <a href="Note.html">Note</a>
                   </li>
                   <li >
@@ -133,6 +136,9 @@
                   </li>
                   <li >
                     <a href="Status.html">Status</a>
+                  </li>
+                  <li >
+                    <a href="Tag.html">Tag</a>
                   </li>
                   <li >
                     <a href="TBind.html">TBind</a>
@@ -204,8 +210,7 @@
             file <strong>req.js</strong>
           </h2>
 
-          <div class="highlight"><pre><span class="kd">var</span> <span class="nx">http</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">https</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;https&quot;</span><span class="p">);</span>
+          <div class="highlight"><pre><span class="kd">var</span> <span class="nx">https</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;https&quot;</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">sha1</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./sha1.js&quot;</span><span class="p">).</span><span class="nx">sha1</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">base64</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;base64&quot;</span><span class="p">);</span>
 
@@ -289,7 +294,7 @@
 
         <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span>
                 <span class="nx">method</span>
-                <span class="p">,</span><span class="s2">&quot;http://&quot;</span> <span class="o">+</span> <span class="nx">apiHost</span> <span class="o">+</span> <span class="nx">url</span>
+                <span class="p">,</span><span class="s2">&quot;https://&quot;</span> <span class="o">+</span> <span class="nx">apiHost</span> <span class="o">+</span> <span class="nx">url</span>
                 <span class="p">,</span><span class="nx">consumerKey</span>
                 <span class="p">,</span><span class="nx">consumerSecret</span>
                 <span class="p">,</span><span class="nx">data</span><span class="p">);</span>
@@ -306,14 +311,7 @@
             <span class="p">}</span>
         <span class="p">};</span>
 
-
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;-getOAuth------------------------------&quot;</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;util&quot;</span><span class="p">).</span><span class="nx">inspect</span><span class="p">(</span><span class="nx">reqoptions</span><span class="p">));</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;---------------------------------------&quot;</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;---------------------------------------&quot;</span><span class="p">);</span>
-
-        <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="nx">reqoptions</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">https</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="nx">reqoptions</span><span class="p">);</span>
         <span class="nx">request</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
 
         <span class="nx">request</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
@@ -343,14 +341,9 @@
         <span class="kd">var</span> <span class="nx">apiHost</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">apiHost</span><span class="p">;</span>
         <span class="kd">var</span> <span class="nx">method</span> <span class="o">=</span> <span class="s2">&quot;POST&quot;</span><span class="p">;</span>
 
-<span class="c1">//        console.log(&quot;auth,&quot;, method</span>
-<span class="c1">//                ,&quot;http://&quot; + apiHost + url</span>
-<span class="c1">//                ,consumerKey</span>
-<span class="c1">//                ,consumerSecret</span>
-<span class="c1">//                ,data);</span>
         <span class="kd">var</span> <span class="nx">postData</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">.</span><span class="nx">signRequest</span><span class="p">(</span>
                 <span class="nx">method</span>
-                <span class="p">,</span><span class="s2">&quot;http://&quot;</span> <span class="o">+</span> <span class="nx">apiHost</span> <span class="o">+</span> <span class="nx">url</span>
+                <span class="p">,</span><span class="s2">&quot;https://&quot;</span><span class="o">+</span><span class="nx">apiHost</span> <span class="o">+</span> <span class="nx">url</span>
                 <span class="p">,</span><span class="nx">consumerKey</span>
                 <span class="p">,</span><span class="nx">consumerSecret</span>
                 <span class="p">,</span><span class="nx">data</span><span class="p">);</span>
@@ -367,16 +360,8 @@
             <span class="p">}</span>
         <span class="p">};</span>
 
-
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;-postOAuth-----------------------------&quot;</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;util&quot;</span><span class="p">).</span><span class="nx">inspect</span><span class="p">(</span><span class="nx">reqoptions</span><span class="p">));</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;---------------------------------------&quot;</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;---------------------------------------&quot;</span><span class="p">);</span>
-
-        <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="nx">reqoptions</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">https</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="nx">reqoptions</span><span class="p">);</span>
         <span class="nx">request</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
-
 
         <span class="nx">request</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;response&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">response</span><span class="p">)</span> <span class="p">{</span>
             <span class="kd">var</span> <span class="nx">res</span> <span class="o">=</span> <span class="p">{};</span>
@@ -415,17 +400,13 @@
         <span class="kd">var</span> <span class="nx">reqoptions</span> <span class="o">=</span> <span class="p">{</span>
              <span class="s1">&#39;host&#39;</span> <span class="o">:</span> <span class="nx">apiHost</span>
             <span class="p">,</span><span class="s1">&#39;method&#39;</span><span class="o">:</span> <span class="nx">method</span>
-            <span class="p">,</span><span class="s1">&#39;path&#39;</span><span class="o">:</span><span class="nx">url</span> <span class="o">+</span><span class="nx">postData</span>
+            <span class="p">,</span><span class="s1">&#39;path&#39;</span><span class="o">:</span><span class="nx">url</span><span class="o">+</span><span class="nx">postData</span>
             <span class="p">,</span><span class="s1">&#39;headers&#39;</span><span class="o">:</span><span class="p">{</span>
                  <span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/x-www-urlencoded&#39;</span>
                 <span class="p">,</span><span class="s1">&#39;Content-Length&#39;</span><span class="o">:</span> <span class="nx">postData</span><span class="p">.</span><span class="nx">length</span>
                 <span class="p">,</span><span class="s1">&#39;Authorization&#39;</span><span class="o">:</span><span class="s1">&#39;Basic &#39;</span><span class="o">+</span><span class="nx">loginfo</span>
             <span class="p">}</span>
         <span class="p">};</span>
-
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;-getBasic------------------------------&quot;</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;util&quot;</span><span class="p">).</span><span class="nx">inspect</span><span class="p">(</span><span class="nx">reqoptions</span><span class="p">));</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;---------------------------------------&quot;</span><span class="p">);</span>
 
         <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">https</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="nx">reqoptions</span><span class="p">);</span>
         <span class="nx">request</span><span class="p">.</span><span class="nx">end</span><span class="p">();</span>
@@ -471,12 +452,6 @@
             <span class="p">}</span>
         <span class="p">};</span>
 
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;-postBasic-----------------------------&quot;</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;util&quot;</span><span class="p">).</span><span class="nx">inspect</span><span class="p">(</span><span class="nx">reqoptions</span><span class="p">));</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;---------------------------------------&quot;</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;---------------------------------------&quot;</span><span class="p">);</span>
-
         <span class="kd">var</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">https</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="nx">reqoptions</span><span class="p">);</span>
         <span class="nx">request</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span><span class="nx">postData</span><span class="p">);</span>
 
@@ -494,8 +469,6 @@
             <span class="p">});</span>
         <span class="p">});</span>
     <span class="p">};</span>
-
-
 
     <span class="k">return</span> <span class="nx">my</span><span class="p">;</span>
 <span class="p">}();</span>

@@ -126,6 +126,9 @@
                     <a href="KvsAPI.html">KvsAPI</a>
                   </li>
                   <li >
+                    <a href="Like.html">Like</a>
+                  </li>
+                  <li >
                     <a href="Note.html">Note</a>
                   </li>
                   <li >
@@ -133,6 +136,9 @@
                   </li>
                   <li >
                     <a href="Status.html">Status</a>
+                  </li>
+                  <li >
+                    <a href="Tag.html">Tag</a>
                   </li>
                   <li >
                     <a href="TBind.html">TBind</a>
@@ -190,7 +196,15 @@
               <h4>Methods</h4>
               <ul>
                   <li class=" ">
-                    <a href="#method_del">del</a>
+                    <a href="#method_del
+<ul>
+<li>kvs.key : key of the value to retrieve</li>
+<li>kvs.public : (optional) indicate if the KV pair is public or not</li>
+</ul>">del
+<ul>
+<li>kvs.key : key of the value to retrieve</li>
+<li>kvs.public : (optional) indicate if the KV pair is public or not</li>
+</ul></a>
                   </li>
                   <li class=" ">
                     <a href="#method_get">get</a>
@@ -277,7 +291,7 @@
 <ul>
 <li>parameters.consumerKey</li>
 <li>parameters.consumerSecret</li>
-<li>parameters.authMethod : optional, in ['oauth','basic']. Default 'oauth'
+<li>parameters.authMethod : optional, in ['oauth','basic']. Default 'oauth'</li>
 </ul>
                           </li>
                       </ul>
@@ -312,12 +326,24 @@
                 </thead>
                 <tbody>
 
-                    <tr class=" " resource="#method_del">
+                    <tr class=" " resource="#method_del
+<ul>
+<li>kvs.key : key of the value to retrieve</li>
+<li>kvs.public : (optional) indicate if the KV pair is public or not</li>
+</ul>">
 
                       <td class="names">
                         <code>
-                          <a name="method_del">del</a>(
-                          key, ispublic, callback
+                          <a name="method_del
+<ul>
+<li>kvs.key : key of the value to retrieve</li>
+<li>kvs.public : (optional) indicate if the KV pair is public or not</li>
+</ul>">del
+<ul>
+<li>kvs.key : key of the value to retrieve</li>
+<li>kvs.public : (optional) indicate if the KV pair is public or not</li>
+</ul></a>(
+                          callback
                           )
                         </code>
                       </td>
@@ -342,20 +368,6 @@
                           <ul>
                               <li>
                                 <code>
-                                  key
-                                  &lt;string&gt;
-                                </code>
-                                 of the pair to delete
-                              </li>
-                              <li>
-                                <code>
-                                  ispublic
-                                  &lt;boolean&gt;
-                                </code>
-                                 indicates if the pair to delete is public or private
-                              </li>
-                              <li>
-                                <code>
                                   callback
                                   &lt;function&gt;
                                 </code>
@@ -372,7 +384,7 @@
                       <td class="names">
                         <code>
                           <a name="method_get">get</a>(
-                          kvs, ispublic, callback
+                          kvs, appkey, callback
                           )
                         </code>
                       </td>
@@ -400,18 +412,18 @@
                                   kvs
                                   &lt;object&gt;
                                 </code>
-                                 Key to value to retrieve. Specify:
+                                 Key of the value to retrieve. Specify:
 <ul>
 <li>kvs.key : key of the value to retrieve</li>
-<li>kvs.appkey : customer application key</li>
+<li>kvs.public : (optional) indicate if the KV pair is public or not</li>
 </ul>
                               </li>
                               <li>
                                 <code>
-                                  ispublic
-                                  &lt;boolean&gt;
+                                  appkey
+                                  &lt;string&gt;
                                 </code>
-                                 indicate if data to retrieve is public or not.
+                                 : customer application key</li>
                               </li>
                               <li>
                                 <code>

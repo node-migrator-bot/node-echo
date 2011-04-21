@@ -126,6 +126,9 @@
                     <a href="KvsAPI.html">KvsAPI</a>
                   </li>
                   <li >
+                    <a href="Like.html">Like</a>
+                  </li>
+                  <li >
                     <a href="Note.html">Note</a>
                   </li>
                   <li >
@@ -133,6 +136,9 @@
                   </li>
                   <li >
                     <a href="Status.html">Status</a>
+                  </li>
+                  <li >
+                    <a href="Tag.html">Tag</a>
                   </li>
                   <li >
                     <a href="TBind.html">TBind</a>
@@ -220,7 +226,7 @@
 <span class="cm">         * &lt;ul&gt;</span>
 <span class="cm">         *     &lt;li&gt;parameters.consumerKey&lt;/li&gt;</span>
 <span class="cm">         *     &lt;li&gt;parameters.consumerSecret&lt;/li&gt;</span>
-<span class="cm">         *     &lt;li&gt;parameters.authMethod : optional, in [&#39;oauth&#39;,&#39;basic&#39;]. Default &#39;oauth&#39;</span>
+<span class="cm">         *     &lt;li&gt;parameters.authMethod : optional, in [&#39;oauth&#39;,&#39;basic&#39;]. Default &#39;oauth&#39;&lt;/li&gt;</span>
 <span class="cm">         * &lt;/ul&gt;</span>
 <span class="cm">         * @constructor</span>
 <span class="cm">         */</span>
@@ -244,52 +250,38 @@
 <span class="cm">         * &lt;/ul&gt;</span>
 <span class="cm">         * @param {function} callback callback</span>
 <span class="cm">         */</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">kvs</span><span class="p">.</span><span class="kr">public</span><span class="p">))</span><span class="nx">kvs</span><span class="p">.</span><span class="kr">public</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.echoenabled.com/v1/kvs/put&#39;</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/kvs/put&#39;</span><span class="p">;</span>
         <span class="nx">req</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">kvs</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
-    <span class="p">,</span><span class="nx">get</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">kvs</span><span class="p">,</span><span class="nx">ispublic</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="p">,</span><span class="nx">get</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">kvs</span><span class="p">,</span><span class="nx">appkey</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
 <span class="cm">         * Fetch data from the Echo Key-Value Store.</span>
 <span class="cm">         * @method get</span>
-<span class="cm">         * @param {object} kvs Key to value to retrieve. Specify:</span>
+<span class="cm">         * @param {object} kvs Key of the value to retrieve. Specify:</span>
 <span class="cm">         * &lt;ul&gt;</span>
 <span class="cm">         *     &lt;li&gt;kvs.key : key of the value to retrieve&lt;/li&gt;</span>
-<span class="cm">         *     &lt;li&gt;kvs.appkey : customer application key&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;kvs.public : (optional) indicate if the KV pair is public or not&lt;/li&gt;</span>
 <span class="cm">         * &lt;/ul&gt;</span>
-<span class="cm">         * @param {boolean} ispublic indicate if data to retrieve is public or not.</span>
+<span class="cm">         * @param {string} appkey : customer application key&lt;/li&gt;</span>
 <span class="cm">         * @param {function} callback callback</span>
 <span class="cm">         */</span>
 
-        <span class="kd">var</span> <span class="nx">url</span><span class="p">;</span>
-        <span class="kd">var</span> <span class="nx">data</span> <span class="p">;</span>
-
-        <span class="k">if</span> <span class="p">(</span><span class="nx">ispublic</span><span class="p">){</span>
-            <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;http://api.echoenabled.com/v1/kvs/get&#39;</span><span class="p">;</span>
-            <span class="nx">data</span> <span class="o">=</span> <span class="p">{};</span>
-            <span class="nx">data</span><span class="p">.</span><span class="nx">key</span> <span class="o">=</span> <span class="nx">kvs</span><span class="p">.</span><span class="nx">key</span><span class="p">;</span> <span class="c1">// We don&#39;t need kvs.appkey for public data</span>
-        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-            <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.echoenabled.com/v1/kvs/get&#39;</span><span class="p">;</span>
-            <span class="nx">data</span> <span class="o">=</span> <span class="nx">kvs</span>
-        <span class="p">}</span>
-        <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/kvs/get&#39;</span><span class="p">;</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">kvs</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
-    <span class="p">,</span><span class="nx">del</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span><span class="nx">ispublic</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
+    <span class="p">,</span><span class="nx">del</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">kvs</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
 <span class="cm">         * Delete KV pair</span>
 <span class="cm">         * @method del</span>
-<span class="cm">         * @param {string} key of the pair to delete</span>
-<span class="cm">         * @param {boolean} ispublic indicates if the pair to delete is public or private</span>
+<span class="cm">         * &lt;ul&gt;</span>
+<span class="cm">         *     &lt;li&gt;kvs.key : key of the value to retrieve&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;kvs.public : (optional) indicate if the KV pair is public or not&lt;/li&gt;</span>
+<span class="cm">         * &lt;/ul&gt;</span>
 <span class="cm">         * @param {function} callback callback</span>
 <span class="cm">         */</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">ispublic</span><span class="p">){</span>
-            <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;http://api.echoenabled.com/v1/kvs/delete&#39;</span><span class="p">;</span>
-            <span class="nx">data</span> <span class="o">=</span> <span class="nx">key</span><span class="p">;</span>
-        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-            <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.echoenabled.com/v1/kvs/delete&#39;</span><span class="p">;</span>
-            <span class="nx">data</span> <span class="o">=</span> <span class="nx">key</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">data</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s1">&#39;/v1/kvs/delete&#39;</span><span class="p">;</span>
+        <span class="nx">req</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">,</span><span class="nx">url</span><span class="p">,</span><span class="nx">kvs</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">});</span>
 
