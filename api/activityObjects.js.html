@@ -224,8 +224,10 @@
 <span class="cm">     * @constructor</span>
 <span class="cm">     * @param {object} properties. Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
-<span class="cm">     *     &lt;li&gt;properties.item : the item you want to create (depends on its kind)&lt;/li&gt;</span>
-<span class="cm">     *     &lt;li&gt;properties.user : the user interacting with this item&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.content : the item you want to create (depends on its kind, see subclasses documentation)&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.user : the user interacting with this item&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb (post) for this item&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     */</span>
 
@@ -252,7 +254,7 @@
      <span class="p">}</span>
      <span class="p">,</span><span class="nx">renderPost</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
        <span class="cm">/**</span>
-<span class="cm">        * Prepare the item for posting.</span>
+<span class="cm">        * Forge a proper XML document ready for posting, using base template.</span>
 <span class="cm">        * @method renderPost</span>
 <span class="cm">        * @param {function} callback callback (should very likely be a call to a &quot;submit&quot; method)</span>
 <span class="cm">        */</span>
@@ -303,7 +305,7 @@
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">renderItem</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
-<span class="cm">         * Render the part of the Item that is &lt;i&gt;not&lt;/i&gt; common to all items</span>
+<span class="cm">         * Render the part of the Item that is &lt;i&gt;specific&lt;/i&gt; to this item, using templates.</span>
 <span class="cm">         * @method renderItem</span>
 <span class="cm">         * @param {function} callback callback</span>
 <span class="cm">         */</span>
@@ -325,6 +327,26 @@
 <span class="cm">     * Article.</span>
 <span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @class Article</span>
+<span class="cm">     * @param {object} properties. Specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.content : the article. Need to specify:</span>
+<span class="cm">     *     &lt;ul&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.title : title of the article&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.content : the main content of the article,&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.permalink : a unique URL for this item.&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.summary : a short summary for that item&lt;/li&gt;</span>
+<span class="cm">     *     &lt;/ul&gt;&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.user : user posting that item.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.target : (optional) a target for this item. Default: current item. Specify</span>
+<span class="cm">     *     &lt;ul&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.target.id : the permalink of the target&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.type : the type of the target&lt;/li&gt;</span>
+<span class="cm">     *     &lt;/ul&gt;&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb (post) for this item&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     *</span>
+<span class="cm">     *</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
         <span class="c1">// Call parent</span>
@@ -361,6 +383,23 @@
 <span class="cm">     * Comment</span>
 <span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @class Comment</span>
+<span class="cm">     * @param {object} properties. Specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.content : the comment. Need to specify:</span>
+<span class="cm">     *     &lt;ul&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.subject : subject of the comment (can be blank, can&#39;t be undefined&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.content : the main content of the comment,&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.permalink : a unique URL for this item.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;/ul&gt;&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.user : user posting that comment.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.target : (optional) a target for this item. Default: Current item. Specify</span>
+<span class="cm">     *     &lt;ul&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.target.id : the permalink of the target&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.type : the type of the target&lt;/li&gt;</span>
+<span class="cm">     *     &lt;/ul&gt;&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb (post) for this item&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
         <span class="c1">// Call parent init</span>
@@ -390,6 +429,22 @@
     <span class="cm">/**</span>
 <span class="cm">     * Note</span>
 <span class="cm">     * @extends ActivityObject</span>
+<span class="cm">     * @param {object} properties. Specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.content : the note. Need to specify:</span>
+<span class="cm">     *     &lt;ul&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.content : the main content of the Note.&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.permalink : a unique URL for this item.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;/ul&gt;&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.user : user posting that item.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.target : (optional) a target for this item. Default: Current item. Specify</span>
+<span class="cm">     *     &lt;ul&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.target.id : the permalink of the target&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.type : the type of the target&lt;/li&gt;</span>
+<span class="cm">     *     &lt;/ul&gt;&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb (post) for this item&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     * @class Note</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
@@ -421,6 +476,22 @@
 <span class="cm">     * Status</span>
 <span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @class Status</span>
+<span class="cm">     * @param {object} properties. Specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.content : the status. Need to specify:</span>
+<span class="cm">     *     &lt;ul&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.content : the main content of the status.&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.permalink : a unique URL for this item.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;/ul&gt;&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.user : user posting that item.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.target : (optional) a target for this item. Default: Current item. Specify</span>
+<span class="cm">     *     &lt;ul&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.target.id : the permalink of the target&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.type : the type of the target&lt;/li&gt;</span>
+<span class="cm">     *     &lt;/ul&gt;&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb (post) for this item&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
         <span class="c1">// Call parent init</span>
@@ -450,11 +521,30 @@
 <span class="cm">     * Tag/Untag</span>
 <span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @class Tag</span>
+<span class="cm">     * @param {object} properties. Specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.content : the tag. Need to specify:</span>
+<span class="cm">     *     &lt;ul&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.id : id of the tag.&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.title : the tag itself.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;/ul&gt;&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.user : user posting that item.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.target : a mandatory target for this tag. Specify</span>
+<span class="cm">     *     &lt;ul&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.target.id : the permalink of the target&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.type : the type of the target&lt;/li&gt;</span>
+<span class="cm">     *     &lt;/ul&gt;&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb for this item (post) -- set it to properly to tag or untag&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>
         <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">type</span><span class="p">)){</span>
             <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Tag exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Tag needs a valid target&quot;</span><span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">id</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">title</span><span class="p">)){</span>
+            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Tag exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Tag needs a title and an id&quot;</span><span class="p">}</span>
         <span class="p">}</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/tag&quot;</span><span class="p">;</span>
     <span class="p">}</span>
@@ -468,11 +558,29 @@
 <span class="cm">     * Like/Unlike</span>
 <span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @class Like</span>
+<span class="cm">     * @param {object} properties. Specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.content : the like. Need to specify:</span>
+<span class="cm">     *     &lt;ul&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.id : id of the like.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;/ul&gt;&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.user : user posting that item.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.target : a mandatory target for the like. Specify</span>
+<span class="cm">     *     &lt;ul&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.target.id : the permalink of the target&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.type : the type of the target&lt;/li&gt;</span>
+<span class="cm">     *     &lt;/ul&gt;&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb for this item (post) -- set it to properly to like or unlike&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>
         <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">id</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">type</span><span class="p">)){</span>
             <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Like exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Like needs a valid target&quot;</span><span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nx">id</span><span class="p">)){</span>
+            <span class="k">throw</span> <span class="p">{</span><span class="nx">name</span> <span class="o">:</span> <span class="s2">&quot;Invalid Like Exception&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="o">:</span><span class="s2">&quot;Like needs an id&quot;</span><span class="p">}</span>
         <span class="p">}</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">item</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/like&quot;</span><span class="p">;</span>
     <span class="p">}</span>
@@ -486,6 +594,21 @@
 <span class="cm">     * Flag/Unflag</span>
 <span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @class Like</span>
+<span class="cm">     * @param {object} properties. Specify:</span>
+<span class="cm">     * &lt;ul&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.content : the flag. Need to specify:</span>
+<span class="cm">     *     &lt;ul&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.content.id : id of the flag.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;/ul&gt;&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.user : user posting that item.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.target : a mandatory target for the flag. Specify</span>
+<span class="cm">     *     &lt;ul&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.target.id : the permalink of the target&lt;/li&gt;</span>
+<span class="cm">     *         &lt;li&gt;properties.item.type : the type of the target&lt;/li&gt;</span>
+<span class="cm">     *     &lt;/ul&gt;&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
+<span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb for this item (post) -- set it to properly to flag or unflag&lt;/li&gt;</span>
+<span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>

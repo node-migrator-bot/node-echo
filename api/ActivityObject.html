@@ -319,8 +319,10 @@ http://wiki.aboutecho.com/w/page/24780107/How%20To%20-%20Getting%20us%20your%20F
                             </code>
                              Specify:
 <ul>
-<li>properties.item : the item you want to create (depends on its kind)</li>
-<li>properties.user : the user interacting with this item</li>
+<li>properties.item.content : the item you want to create (depends on its kind, see subclasses documentation)</li>
+<li>properties.item.user : the user interacting with this item</li>
+<li>properties.item.feed : the feed this item is posted to.</li>
+<li>properties.item.verb : (optional) overwrite default verb (post) for this item</li>
 </ul>
                           </li>
                       </ul>
@@ -464,7 +466,7 @@ Is automatically called at object spawning.
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Render the part of the Item that is <i>not</i> common to all items
+                        Render the part of the Item that is <i>specific</i> to this item, using templates.
 
                           <p>Parameters:</p>
                           <ul>
@@ -505,7 +507,7 @@ Is automatically called at object spawning.
                         <a href="#top" class="top" title="Jump back to the top">↑</a>
 
 
-                        Prepare the item for posting.
+                        Forge a proper XML document ready for posting, using base template.
 
                           <p>Parameters:</p>
                           <ul>
