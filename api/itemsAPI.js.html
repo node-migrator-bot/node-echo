@@ -114,6 +114,9 @@
                     <a href="Comment.html">Comment</a>
                   </li>
                   <li >
+                    <a href="Const.html">Const</a>
+                  </li>
+                  <li >
                     <a href="FeedsAPI.html">FeedsAPI</a>
                   </li>
                   <li >
@@ -160,6 +163,9 @@
                   </li>
                   <li >
                     <a href="Class.js.html">Class.js</a>
+                  </li>
+                  <li >
+                    <a href="Const.js.html">Const.js</a>
                   </li>
                   <li >
                     <a href="feedsAPI.js.html">feedsAPI.js</a>
@@ -216,6 +222,8 @@
           <div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">Class</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="nx">Class</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./Class.js&#39;</span><span class="p">).</span><span class="nx">Class</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">activityObjects</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./activityObjects.js&quot;</span><span class="p">);</span>
 <span class="kd">var</span> <span class="nx">ItemsAPICore</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./ItemsAPICore.js&quot;</span><span class="p">).</span><span class="nx">ItemsAPICore</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">cons</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./Cons.js&quot;</span><span class="p">);</span>
+
 
 <span class="kd">var</span> <span class="nx">ItemsAPI</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
      <span class="nx">parameters</span><span class="o">:</span><span class="p">{</span>
@@ -244,10 +252,6 @@
              <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span> <span class="o">=</span> <span class="nx">ItemsAPICore</span><span class="p">.</span><span class="nx">spawn</span><span class="p">({</span><span class="nx">parameters</span><span class="o">:</span><span class="p">{</span><span class="nx">consumerKey</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">consumerKey</span><span class="p">,</span><span class="nx">consumerSecret</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">,</span> <span class="nx">authMethod</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">authMethod</span><span class="p">}});</span>
 
          <span class="p">}</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">TYPE_ARTICLE</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/article&quot;</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">TYPE_COMMENT</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/comment&quot;</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">TYPE_NOTE</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/note&quot;</span><span class="p">;</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">TYPE_STATUS</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/status&quot;</span><span class="p">;</span>
      <span class="p">}</span>
     <span class="cm">/* **************************************</span>
 <span class="cm">     *            Search                    *</span>
@@ -257,7 +261,7 @@
         <span class="cm">/**</span>
 <span class="cm">         * Search for query</span>
 <span class="cm">         * @method search</span>
-<span class="cm">         * @param {string} query Query to perform</span>
+<span class="cm">         * @param {string} query Query to submit</span>
 <span class="cm">         * @param {function} callback callback</span>
 <span class="cm">         */</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
@@ -266,7 +270,7 @@
         <span class="cm">/**</span>
 <span class="cm">         * Count how many answers match the query</span>
 <span class="cm">         * @method count</span>
-<span class="cm">         * @param {string} query Query to perform</span>
+<span class="cm">         * @param {string} query Query to submit</span>
 <span class="cm">         * @param {function} callback callback</span>
 <span class="cm">         */</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">itemsAPICore</span><span class="p">.</span><span class="nx">count</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
@@ -304,7 +308,7 @@
         <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
         <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span>  <span class="p">{</span>
             <span class="nx">target</span><span class="o">:</span><span class="nx">target</span>
-            <span class="p">,</span><span class="nx">verb</span><span class="o">:</span><span class="s2">&quot;http://activitystrea.ms/schema/1.0/tag&quot;</span>
+            <span class="p">,</span><span class="nx">verb</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">VERB_TAG</span>
             <span class="p">,</span><span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">feed</span>
             <span class="p">,</span><span class="nx">content</span><span class="o">:</span><span class="nx">tag</span>
             <span class="p">,</span><span class="nx">user</span><span class="o">:</span><span class="nx">user</span>
@@ -336,7 +340,7 @@
         <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
         <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span>  <span class="p">{</span>
             <span class="nx">target</span><span class="o">:</span><span class="nx">target</span>
-            <span class="p">,</span><span class="nx">verb</span><span class="o">:</span><span class="s2">&quot;http://js-kit.com/spec/e2/v1/untag&quot;</span>
+            <span class="p">,</span><span class="nx">verb</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">VERB_UNTAG</span>
             <span class="p">,</span><span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">feed</span>
             <span class="p">,</span><span class="nx">content</span><span class="o">:</span><span class="nx">tag</span>
             <span class="p">,</span><span class="nx">user</span><span class="o">:</span><span class="nx">user</span>
@@ -367,7 +371,7 @@
         <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
         <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span>  <span class="p">{</span>
             <span class="nx">target</span><span class="o">:</span><span class="nx">target</span>
-            <span class="p">,</span><span class="nx">verb</span><span class="o">:</span><span class="s2">&quot;http://activitystrea.ms/schema/1.0/like&quot;</span>
+            <span class="p">,</span><span class="nx">verb</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">VERB_LIKE</span>
             <span class="p">,</span><span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">feed</span>
             <span class="p">,</span><span class="nx">content</span><span class="o">:</span><span class="nx">like</span>
             <span class="p">,</span><span class="nx">user</span><span class="o">:</span><span class="nx">user</span>
@@ -398,7 +402,7 @@
         <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
         <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span>  <span class="p">{</span>
             <span class="nx">target</span><span class="o">:</span><span class="nx">target</span>
-            <span class="p">,</span><span class="nx">verb</span><span class="o">:</span><span class="s2">&quot;http://js-kit.com/spec/e2/v1/unlike&quot;</span>
+            <span class="p">,</span><span class="nx">verb</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">VERB_UNLIKE</span>
             <span class="p">,</span><span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">feed</span>
             <span class="p">,</span><span class="nx">content</span><span class="o">:</span><span class="nx">like</span>
             <span class="p">,</span><span class="nx">user</span><span class="o">:</span><span class="nx">user</span>
@@ -421,7 +425,7 @@
 <span class="cm">         * &lt;/ul&gt;</span>
 <span class="cm">         * @param {object} flag flag object. Specify</span>
 <span class="cm">         * &lt;ul&gt;</span>
-<span class="cm">         *     &lt;li&gt;flag.id : id for that &quot;like&quot;&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;flag.id : id for that flag&lt;/li&gt;</span>
 <span class="cm">         * &lt;/ul&gt;</span>
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
@@ -429,7 +433,7 @@
         <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
         <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span>  <span class="p">{</span>
             <span class="nx">target</span><span class="o">:</span><span class="nx">target</span>
-            <span class="p">,</span><span class="nx">verb</span><span class="o">:</span><span class="s2">&quot;http://activitystrea.ms/schema/1.0/flag&quot;</span>
+            <span class="p">,</span><span class="nx">verb</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">VERB_FLAG</span>
             <span class="p">,</span><span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">feed</span>
             <span class="p">,</span><span class="nx">content</span><span class="o">:</span><span class="nx">flag</span>
             <span class="p">,</span><span class="nx">user</span><span class="o">:</span><span class="nx">user</span>
@@ -453,7 +457,7 @@
 <span class="cm">         * @param {string} target Id of the article to like</span>
 <span class="cm">         * @param {object} flag flag object. Specify</span>
 <span class="cm">         * &lt;ul&gt;</span>
-<span class="cm">         *     &lt;li&gt;flag.id : id for that &quot;flag&quot;&lt;/li&gt;</span>
+<span class="cm">         *     &lt;li&gt;flag.id : id for that flag&lt;/li&gt;</span>
 <span class="cm">         * &lt;/ul&gt;</span>
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
@@ -461,7 +465,7 @@
         <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
         <span class="kd">var</span> <span class="nx">item</span> <span class="o">=</span>  <span class="p">{</span>
             <span class="nx">target</span><span class="o">:</span><span class="nx">target</span>
-            <span class="p">,</span><span class="nx">verb</span><span class="o">:</span><span class="s2">&quot;http://js-kit.com/spec/e2/v1/unflag&quot;</span>
+            <span class="p">,</span><span class="nx">verb</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">VERB_UNFLAG</span>
             <span class="p">,</span><span class="nx">feed</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">feed</span>
             <span class="p">,</span><span class="nx">content</span><span class="o">:</span><span class="nx">flag</span>
             <span class="p">,</span><span class="nx">user</span><span class="o">:</span><span class="nx">user</span>
@@ -522,7 +526,7 @@
 <span class="cm">         * &lt;ul&gt;</span>
 <span class="cm">         *     &lt;li&gt;comment.content. Specify:&lt;/li&gt;</span>
 <span class="cm">         *     &lt;ul&gt;</span>
-<span class="cm">         *         &lt;li&gt;comment.content.subject : subject of the comment&lt;/li&gt;</span>
+<span class="cm">         *         &lt;li&gt;comment.content.subject : subject of the comment (can be blank, must be defined)&lt;/li&gt;</span>
 <span class="cm">         *         &lt;li&gt;comment.content.content : main content of the comment&lt;/li&gt;</span>
 <span class="cm">         *         &lt;li&gt;comment.content.permalink : permanent link for this comment&lt;/li&gt;</span>
 <span class="cm">         *     &lt;ul&gt;</span>
@@ -635,7 +639,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">tag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_ARTICLE</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">tag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_ARTICLE</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">untagArticle</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -650,7 +654,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">untag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_ARTICLE</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">untag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_ARTICLE</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">likeArticle</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -664,7 +668,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">like</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_ARTICLE</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">like</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_ARTICLE</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">unlikeArticle</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -678,7 +682,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">unlike</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_ARTICLE</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">unlike</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_ARTICLE</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">flagArticle</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -692,7 +696,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_ARTICLE</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_ARTICLE</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">unflagArticle</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -706,7 +710,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_ARTICLE</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_ARTICLE</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
         <span class="p">,</span><span class="nx">tagComment</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -721,7 +725,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">tag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_COMMENT</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">tag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_COMMENT</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">untagComment</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -736,7 +740,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">untag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_COMMENT</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">untag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_COMMENT</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">likeComment</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -750,7 +754,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">like</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_COMMENT</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">like</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_COMMENT</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">unlikeComment</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -764,7 +768,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">unlike</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_COMMENT</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">unlike</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_COMMENT</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">flagComment</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -778,7 +782,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_COMMENT</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_COMMENT</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">unflagComment</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -792,7 +796,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_COMMENT</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_COMMENT</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">tagNote</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -807,7 +811,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">tag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_NOTE</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">tag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_NOTE</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">untagNote</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -822,7 +826,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">untag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_NOTE</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">untag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_NOTE</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">likeNote</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -836,7 +840,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">like</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_NOTE</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">like</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_NOTE</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">unlikeNote</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -850,7 +854,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">unlike</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_NOTE</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">unlike</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_NOTE</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">flagNote</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -864,7 +868,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_NOTE</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_NOTE</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">unflagNote</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -878,7 +882,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_NOTE</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_NOTE</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
         <span class="p">,</span><span class="nx">tagStatus</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -893,7 +897,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">tag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_STATUS</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">tag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_STATUS</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">untagStatus</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -908,7 +912,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">untag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_STATUS</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">untag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_STATUS</span><span class="p">},</span><span class="nx">tag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">likeStatus</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -922,7 +926,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">like</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_STATUS</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">like</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_STATUS</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">unlikeStatus</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -936,7 +940,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">unlike</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_STATUS</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">unlike</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_STATUS</span><span class="p">},</span><span class="nx">like</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">flagStatus</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -950,7 +954,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_STATUS</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_STATUS</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">unflagStatus</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>
@@ -964,7 +968,7 @@
 <span class="cm">         * @param {object} user User submitting the update</span>
 <span class="cm">         * @param {function} callback callback called after submission</span>
 <span class="cm">         */</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">TYPE_STATUS</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">flag</span><span class="p">({</span><span class="nx">id</span><span class="o">:</span><span class="nx">target</span><span class="p">,</span><span class="nx">type</span><span class="o">:</span><span class="nx">cons</span><span class="p">.</span><span class="nx">TYPE_STATUS</span><span class="p">},</span><span class="nx">flag</span><span class="p">,</span><span class="nx">user</span><span class="p">,</span><span class="nx">callback</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">});</span>
 

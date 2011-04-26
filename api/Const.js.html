@@ -13,6 +13,8 @@
     API: echo
     
     
+      &rarr; Const.js (file)
+    
   </title>
 
   <link rel="stylesheet" type="text/css" href="css/960fluid.min.css">
@@ -76,6 +78,8 @@
         <a href="./index.html" title="node-echo">node-echo</a>
           &rarr; module <a href="./module_echo.html" title="echo">echo</a>
           
+          
+            &rarr; file Const.js
           
       </div>
     </div> <!--! end of #sub-hd -->
@@ -160,7 +164,7 @@
                   <li >
                     <a href="Class.js.html">Class.js</a>
                   </li>
-                  <li >
+                  <li  class="selected" >
                     <a href="Const.js.html">Const.js</a>
                   </li>
                   <li >
@@ -209,79 +213,57 @@
       
 
 
-        <h2>
-          module <strong>echo</strong>
-        
+        <!--! source code view -->
+        <div id="srcout">
+          <h2>
+            file <strong>Const.js</strong>
+          </h2>
 
-        </h2>
+          <div class="highlight"><pre><span class="c1">// A set of constant related to node. For easy update in case the API changes.</span>
 
-        <div class="summary description">
-          Echo module for nodejs.
+<span class="cm">/**</span>
+<span class="cm"> * Define constants used in the module. For easy access and update when the API changes.</span>
+<span class="cm"> * Exposes : &lt;ul&gt;</span>
+<span class="cm"> *     &lt;li&gt;TYPE_ARTICLE: http://activitystrea.ms/schema/1.0/article&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;TYPE_COMMENT: http://activitystrea.ms/schema/1.0/comment&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;TYPE_NOTE: http://activitystrea.ms/schema/1.0/note&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;TYPE_STATUS: http://activitystrea.ms/schema/1.0/status&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;TYPE_TAG: http://activitystrea.ms/schema/1.0/tag&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;TYPE_LIKE: http://activitystrea.ms/schema/1.0/like&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;TYPE_FLAG: http://activitystrea.ms/schema/1.0/flag&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;VERB_POST: http://activitystrea.ms/schema/1.0/post&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;VERB_TAG: http://activitystrea.ms/schema/1.0/tag&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;VERB_LIKE: http://activitystrea.ms/schema/1.0/like&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;VERB_FLAG: http://activitystrea.ms/schema/1.0/flag&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;VERB_UPDATE: http://activitystrea.ms/schema/1.0/update&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;VERB_UNTAG: http://js-kit.com/spec/e2/v1/untag&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;VERB_UNLIKE: http://js-kit.com/spec/e2/v1/unlike&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;VERB_UNFLAG: http://js-kit.com/spec/e2/v1/unflag&lt;/li&gt;</span>
+<span class="cm"> *     &lt;li&gt;API_HOST: api.echoenabled.com&lt;/li&gt;</span>
+<span class="cm"> * &lt;/ul&gt;</span>
+<span class="cm"> * @class Const</span>
+<span class="cm"> */</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">TYPE_ARTICLE</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/article&quot;</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">TYPE_COMMENT</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/comment&quot;</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">TYPE_NOTE</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/note&quot;</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">TYPE_STATUS</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/status&quot;</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">TYPE_TAG</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/tag&quot;</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">TYPE_LIKE</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/like&quot;</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">TYPE_FLAG</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/flag&quot;</span><span class="p">;</span>
 
-          
+<span class="nx">exports</span><span class="p">.</span><span class="nx">VERB_POST</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/post&quot;</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">VERB_TAG</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/tag&quot;</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">VERB_LIKE</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/like&quot;</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">VERB_FLAG</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/flag&quot;</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">VERB_UPDATE</span> <span class="o">=</span> <span class="s2">&quot;http://activitystrea.ms/schema/1.0/update&quot;</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">VERB_UNTAG</span> <span class="o">=</span> <span class="s2">&quot;http://js-kit.com/spec/e2/v1/untag&quot;</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">VERB_UNLIKE</span> <span class="o">=</span> <span class="s2">&quot;http://js-kit.com/spec/e2/v1/unlike&quot;</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">VERB_UNFLAG</span> <span class="o">=</span> <span class="s2">&quot;http://js-kit.com/spec/e2/v1/unflag&quot;</span><span class="p">;</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">API_HOST</span> <span class="o">=</span> <span class="s1">&#39;api.echoenabled.com&#39;</span><span class="p">;</span>
+</pre></div>
+
         </div>
-        
-        
-      
-          <div class="section">
-
-              <div class="containedclasses grid_8 alpha" resource="#containedclasses">
-                <h3>Contained Classes</h3>
-                <ul>
-                    <li>
-                      <a href="ActivityObject.html" title="ActivityObject">ActivityObject</a>
-                    </li>
-                    <li>
-                      <a href="Article.html" title="Article">Article</a>
-                    </li>
-                    <li>
-                      <a href="Comment.html" title="Comment">Comment</a>
-                    </li>
-                    <li>
-                      <a href="Const.html" title="Const">Const</a>
-                    </li>
-                    <li>
-                      <a href="FeedsAPI.html" title="FeedsAPI">FeedsAPI</a>
-                    </li>
-                    <li>
-                      <a href="Flag.html" title="Flag">Flag</a>
-                    </li>
-                    <li>
-                      <a href="ItemsAPI.html" title="ItemsAPI">ItemsAPI</a>
-                    </li>
-                    <li>
-                      <a href="ItemsAPICore.html" title="ItemsAPICore">ItemsAPICore</a>
-                    </li>
-                    <li>
-                      <a href="KvsAPI.html" title="KvsAPI">KvsAPI</a>
-                    </li>
-                    <li>
-                      <a href="Like.html" title="Like">Like</a>
-                    </li>
-                    <li>
-                      <a href="Note.html" title="Note">Note</a>
-                    </li>
-                    <li>
-                      <a href="req.html" title="req">req</a>
-                    </li>
-                    <li>
-                      <a href="Status.html" title="Status">Status</a>
-                    </li>
-                    <li>
-                      <a href="Tag.html" title="Tag">Tag</a>
-                    </li>
-                    <li>
-                      <a href="TBind.html" title="TBind">TBind</a>
-                    </li>
-                    <li>
-                      <a href="UsersAPI.html" title="UsersAPI">UsersAPI</a>
-                    </li>
-                </ul>
-              </div>
-
-
-
-          </div>
 
     </div>
 
