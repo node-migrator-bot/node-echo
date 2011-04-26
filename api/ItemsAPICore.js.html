@@ -105,46 +105,16 @@
               <h4>Classes</h4>
               <ul>
                   <li >
-                    <a href="Article.html">Article</a>
-                  </li>
-                  <li >
-                    <a href="Comment.html">Comment</a>
-                  </li>
-                  <li >
                     <a href="Const.html">Const</a>
                   </li>
                   <li >
                     <a href="FeedsAPI.html">FeedsAPI</a>
                   </li>
                   <li >
-                    <a href="Flag.html">Flag</a>
-                  </li>
-                  <li >
                     <a href="ItemsAPI.html">ItemsAPI</a>
                   </li>
                   <li >
-                    <a href="ItemsAPICore.html">ItemsAPICore</a>
-                  </li>
-                  <li >
                     <a href="KvsAPI.html">KvsAPI</a>
-                  </li>
-                  <li >
-                    <a href="Like.html">Like</a>
-                  </li>
-                  <li >
-                    <a href="Note.html">Note</a>
-                  </li>
-                  <li >
-                    <a href="req.html">req</a>
-                  </li>
-                  <li >
-                    <a href="Status.html">Status</a>
-                  </li>
-                  <li >
-                    <a href="Tag.html">Tag</a>
-                  </li>
-                  <li >
-                    <a href="TBind.html">TBind</a>
                   </li>
                   <li >
                     <a href="UsersAPI.html">UsersAPI</a>
@@ -218,7 +188,7 @@
 
           <div class="highlight"><pre><span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">Class</span> <span class="o">===</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="nx">Class</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;./Class.js&#39;</span><span class="p">).</span><span class="nx">Class</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./req.js&quot;</span><span class="p">).</span><span class="nx">req</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">cons</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./Cons.js&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">cons</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./Const.js&quot;</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">ItemsAPICore</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="nx">parameters</span><span class="o">:</span><span class="p">{</span>
@@ -235,7 +205,7 @@
 <span class="cm">         *     &lt;li&gt;parameters.authMethod : optional, in [&#39;oauth&#39;,&#39;basic&#39;]. Default &#39;oauth&#39;</span>
 <span class="cm">         * &lt;/ul&gt;</span>
 <span class="cm">         * @constructor</span>
-<span class="cm">         * @for ItemsAPI</span>
+<span class="cm">         * @private</span>
 <span class="cm">         */</span>
       <span class="c1">//Get required options</span>
         <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">consumerKey</span> <span class="o">||</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">consumerSecret</span><span class="p">)</span> <span class="k">throw</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Options not set exception&quot;</span><span class="p">,</span> <span class="nx">message</span><span class="o">:</span> <span class="s2">&quot;ItemsAPICore requires a consumerKey and a consumerSecret option to be defined&quot;</span> <span class="p">};</span>

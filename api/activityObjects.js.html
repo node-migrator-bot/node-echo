@@ -105,46 +105,16 @@
               <h4>Classes</h4>
               <ul>
                   <li >
-                    <a href="Article.html">Article</a>
-                  </li>
-                  <li >
-                    <a href="Comment.html">Comment</a>
-                  </li>
-                  <li >
                     <a href="Const.html">Const</a>
                   </li>
                   <li >
                     <a href="FeedsAPI.html">FeedsAPI</a>
                   </li>
                   <li >
-                    <a href="Flag.html">Flag</a>
-                  </li>
-                  <li >
                     <a href="ItemsAPI.html">ItemsAPI</a>
                   </li>
                   <li >
-                    <a href="ItemsAPICore.html">ItemsAPICore</a>
-                  </li>
-                  <li >
                     <a href="KvsAPI.html">KvsAPI</a>
-                  </li>
-                  <li >
-                    <a href="Like.html">Like</a>
-                  </li>
-                  <li >
-                    <a href="Note.html">Note</a>
-                  </li>
-                  <li >
-                    <a href="req.html">req</a>
-                  </li>
-                  <li >
-                    <a href="Status.html">Status</a>
-                  </li>
-                  <li >
-                    <a href="Tag.html">Tag</a>
-                  </li>
-                  <li >
-                    <a href="TBind.html">TBind</a>
                   </li>
                   <li >
                     <a href="UsersAPI.html">UsersAPI</a>
@@ -335,6 +305,7 @@
 <span class="cm">     * Article.</span>
 <span class="cm">     * @class Article</span>
 <span class="cm">     * @extends ActivityObject</span>
+<span class="cm">     * @private</span>
 <span class="cm">     * @param {object} properties Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.item.content : the article. Need to specify:</span>
@@ -391,6 +362,7 @@
 <span class="cm">     * Comment.</span>
 <span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @class Comment</span>
+<span class="cm">     * @private</span>
 <span class="cm">     * @param {object} properties Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.item.content : the comment. Need to specify:</span>
@@ -437,6 +409,7 @@
 <span class="kd">var</span> <span class="nx">Note</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
 <span class="cm">     * Note.</span>
+<span class="cm">     * @private</span>
 <span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @param {object} properties Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
@@ -485,6 +458,7 @@
     <span class="cm">/**</span>
 <span class="cm">     * Status.</span>
 <span class="cm">     * @class Status</span>
+<span class="cm">     * @private</span>
 <span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @param {object} properties Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
@@ -531,6 +505,7 @@
     <span class="cm">/**</span>
 <span class="cm">     * Tag/Untag.</span>
 <span class="cm">     * @extends ActivityObject</span>
+<span class="cm">     * @private</span>
 <span class="cm">     * @class Tag</span>
 <span class="cm">     * @param {object} properties Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
@@ -570,6 +545,7 @@
 <span class="cm">     * Like/Unlike.</span>
 <span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @class Like</span>
+<span class="cm">     * @private</span>
 <span class="cm">     * @param {object} properties Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.item.content : the like. Need to specify:</span>
@@ -606,6 +582,7 @@
     <span class="cm">/**</span>
 <span class="cm">     * Flag/Unflag.</span>
 <span class="cm">     * @class Flag</span>
+<span class="cm">     * @private</span>
 <span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @param {object} properties Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
