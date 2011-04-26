@@ -117,6 +117,9 @@
                     <a href="FeedsAPI.html">FeedsAPI</a>
                   </li>
                   <li >
+                    <a href="Flag.html">Flag</a>
+                  </li>
+                  <li >
                     <a href="ItemsAPI.html">ItemsAPI</a>
                   </li>
                   <li >
@@ -218,7 +221,7 @@
 <span class="kd">var</span> <span class="nx">ActivityObject</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
 <span class="cm">     * Parent class to define all the Activity Objects Echo deals with, and their method for XML rendering according to their verb..</span>
-<span class="cm">     * http://wiki.aboutecho.com/w/page/24780107/How%20To%20-%20Getting%20us%20your%20Firehose#Supportedactivityobjecttypes</span>
+<span class="cm">     * &lt;a href=&quot;http://wiki.aboutecho.com/w/page/24780107/How%20To%20-%20Getting%20us%20your%20Firehose#Supportedactivityobjecttypes&quot;&gt;See Echo documentation&lt;/a&gt;</span>
 <span class="cm">     * </span>
 <span class="cm">     * @class ActivityObject</span>
 <span class="cm">     * @constructor</span>
@@ -234,7 +237,7 @@
      <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
         <span class="cm">/**</span>
 <span class="cm">         * Initialised the ActivityObject. Meta data Check.</span>
-<span class="cm">         * Needs to be extended by Child classes (for content checking)</span>
+<span class="cm">         * Needs to be extended by Child classes (for content checking).</span>
 <span class="cm">         * Is automatically called at object spawning.</span>
 <span class="cm">         * @method init</span>
 <span class="cm">         */</span>
@@ -592,8 +595,7 @@
 <span class="kd">var</span> <span class="nx">Flag</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
 <span class="cm">     * Flag/Unflag</span>
-<span class="cm">     * @extends ActivityObject</span>
-<span class="cm">     * @class Like</span>
+<span class="cm">     * @class Flag</span>
 <span class="cm">     * @param {object} properties. Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.item.content : the flag. Need to specify:</span>
@@ -609,6 +611,7 @@
 <span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb for this item (post) -- set it to properly to flag or unflag&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>
