@@ -216,9 +216,6 @@
 
           class <strong>Like</strong>
           
-            <span class="extends">
-              <span class="class">class</span> extends <a href="ActivityObject.html">ActivityObject</a>
-            </span>
         </h2>
 
         <!-- class tree goes here -->
@@ -226,7 +223,7 @@
 
 
         <div class="summary description">
-          Like/Unlike
+          Like/Unlike. Extends ActivityObject
         </div>
         
 
@@ -235,128 +232,72 @@
         <div class="clear"></div>
 
 
-
-
-          <div class="section properties" resource="#properties">
-
-              <div class="inherited-properties">
-                  <h4>
-                    Properties inherited from
-                    <a href="ActivityObject.html" title="ActivityObject">ActivityObject</a>
-                  </h4>
-
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>
-                          Properties
-                        </th>
-                        <th>
-                          Notes
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                      
-
-                        <tr class="" resource="ActivityObject.html#property_item">
-
-                          <td class="names">
+          <div class="section constructor" resource="#constructor">
+            <h3>Constructor</h3>
+            
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    Constructor
+                  </th>
+                  <th>
+                    Parameters
+                  </th>
+                  <th>
+                    Returns
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  
+                  <td class="names">
+                    <code>
+                      <span>Like</span>(
+                      properties
+                      )
+                    </code>
+                  </td>
+                  
+                  <td class="parameters">
+                      <p>Parameters:</p>
+                      <ul>
+                          <li>
                             <code>
-                              <a href="ActivityObject.html#property_item" title="item">item</a>
+                              properties.
+                              &lt;object&gt;
                             </code>
-                          </td>
-
-                          <td class="description">
-                            <div>
-                              <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-                            </div>
-                          </td>
-
-                        </tr>
-
-                    </tbody>
-                  </table>
-
-              </div>
+                             Specify:
+<ul>
+<li>properties.item.content : the like. Need to specify:
+<ul>
+<li>properties.item.content.id : id of the like.</li>
+</ul></li>
+<li>properties.item.user : user posting that item.</li>
+<li>properties.item.target : a mandatory target for the like. Specify
+<ul>
+<li>properties.item.target.id : the permalink of the target</li>
+<li>properties.item.type : the type of the target</li>
+</ul></li>
+<li>properties.item.feed : the feed this item is posted to.</li>
+<li>properties.item.verb : (optional) overwrite default verb for this item (post) -- set it to properly to like or unlike</li>
+</ul>
+                          </li>
+                      </ul>
+                  </td>
+                  
+                  <td class="returns">
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
           </div>
 
 
-          <div class="section methods" resource="#methods">
-
-              <div class="inherited-methods">
-                  <h4 resource="ActivityObject.html">
-                    Methods inherited from
-                    <a href="ActivityObject.html" title="ActivityObject">ActivityObject</a>
-                  </h4>
-
-                  <table>
-                    <thead>
-                      <tr>
-                        <th>
-                          Methods
-                        </th>
-                        <th>
-                          Notes
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
 
 
-                        <tr class="" resource="ActivityObject.html#method_init">
-
-                          <td class="names">
-                            <code>
-                              <a class="" href="ActivityObject.html#method_init" title="init">init</a>
-                            </code>
-                          </td>
-
-                          <td class="description">
-                            <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-                          </td>
-
-                        </tr>
-
-                        <tr class="" resource="ActivityObject.html#method_renderItem">
-
-                          <td class="names">
-                            <code>
-                              <a class="" href="ActivityObject.html#method_renderItem" title="renderItem">renderItem</a>
-                            </code>
-                          </td>
-
-                          <td class="description">
-                            <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-                          </td>
-
-                        </tr>
-
-                        <tr class="" resource="ActivityObject.html#method_renderPost">
-
-                          <td class="names">
-                            <code>
-                              <a class="" href="ActivityObject.html#method_renderPost" title="renderPost">renderPost</a>
-                            </code>
-                          </td>
-
-                          <td class="description">
-                            <a href="#top" class="top" title="Jump back to the top">↑</a>
-
-                          </td>
-
-                        </tr>
-
-                    </tbody>
-                  </table>
-
-              </div>
-
-          </div>
 
 
 

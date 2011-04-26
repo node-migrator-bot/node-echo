@@ -226,7 +226,7 @@
 
 
         <div class="summary description">
-          Flag/Unflag
+          Flag/Unflag. Extends ActivityObject
         </div>
         
 
@@ -235,6 +235,68 @@
         <div class="clear"></div>
 
 
+          <div class="section constructor" resource="#constructor">
+            <h3>Constructor</h3>
+            
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    Constructor
+                  </th>
+                  <th>
+                    Parameters
+                  </th>
+                  <th>
+                    Returns
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  
+                  <td class="names">
+                    <code>
+                      <span>Flag</span>(
+                      properties
+                      )
+                    </code>
+                  </td>
+                  
+                  <td class="parameters">
+                      <p>Parameters:</p>
+                      <ul>
+                          <li>
+                            <code>
+                              properties.
+                              &lt;object&gt;
+                            </code>
+                             Specify:
+<ul>
+<li>properties.item.content : the flag. Need to specify:
+<ul>
+<li>properties.item.content.id : id of the flag.</li>
+</ul></li>
+<li>properties.item.user : user posting that item.</li>
+<li>properties.item.target : a mandatory target for the flag. Specify
+<ul>
+<li>properties.item.target.id : the permalink of the target</li>
+<li>properties.item.type : the type of the target</li>
+</ul></li>
+<li>properties.item.feed : the feed this item is posted to.</li>
+<li>properties.item.verb : (optional) overwrite default verb for this item (post) -- set it to properly to flag or unflag</li>
+</ul>
+                          </li>
+                      </ul>
+                  </td>
+                  
+                  <td class="returns">
+                  </td>
+                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
 
           <div class="section properties" resource="#properties">

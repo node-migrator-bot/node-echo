@@ -327,8 +327,7 @@
 
 <span class="kd">var</span> <span class="nx">Article</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
-<span class="cm">     * Article.</span>
-<span class="cm">     * @extends ActivityObject</span>
+<span class="cm">     * Article. Extends ActivityObject</span>
 <span class="cm">     * @class Article</span>
 <span class="cm">     * @param {object} properties. Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
@@ -348,7 +347,7 @@
 <span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb (post) for this item&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
-<span class="cm">     *</span>
+<span class="cm">     * @constructor</span>
 <span class="cm">     *</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
@@ -383,8 +382,7 @@
 
 <span class="kd">var</span> <span class="nx">Comment</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
-<span class="cm">     * Comment</span>
-<span class="cm">     * @extends ActivityObject</span>
+<span class="cm">     * Comment. Extends ActivityObject</span>
 <span class="cm">     * @class Comment</span>
 <span class="cm">     * @param {object} properties. Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
@@ -403,6 +401,7 @@
 <span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb (post) for this item&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @constructor</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
         <span class="c1">// Call parent init</span>
@@ -430,8 +429,7 @@
 
 <span class="kd">var</span> <span class="nx">Note</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
-<span class="cm">     * Note</span>
-<span class="cm">     * @extends ActivityObject</span>
+<span class="cm">     * Note. Extends ActivityObject</span>
 <span class="cm">     * @param {object} properties. Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.item.content : the note. Need to specify:</span>
@@ -449,6 +447,7 @@
 <span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb (post) for this item&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
 <span class="cm">     * @class Note</span>
+<span class="cm">     * @constructor</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
         <span class="c1">// Call parent init</span>
@@ -476,8 +475,7 @@
 <span class="c1">// Interestingly, a &quot;Status&quot; is strictly equivalent to a &quot;Note&quot;. But it&#39;s worth separating both objects.</span>
 <span class="kd">var</span> <span class="nx">Status</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
-<span class="cm">     * Status</span>
-<span class="cm">     * @extends ActivityObject</span>
+<span class="cm">     * Status. Extends ActivityObject</span>
 <span class="cm">     * @class Status</span>
 <span class="cm">     * @param {object} properties. Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
@@ -495,6 +493,7 @@
 <span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb (post) for this item&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @constructor</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
         <span class="c1">// Call parent init</span>
@@ -521,8 +520,7 @@
 
 <span class="kd">var</span> <span class="nx">Tag</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
-<span class="cm">     * Tag/Untag</span>
-<span class="cm">     * @extends ActivityObject</span>
+<span class="cm">     * Tag/Untag. Extends ActivityObject</span>
 <span class="cm">     * @class Tag</span>
 <span class="cm">     * @param {object} properties. Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
@@ -540,6 +538,7 @@
 <span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb for this item (post) -- set it to properly to tag or untag&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @constructor</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>
@@ -558,8 +557,7 @@
 
 <span class="kd">var</span> <span class="nx">Like</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
-<span class="cm">     * Like/Unlike</span>
-<span class="cm">     * @extends ActivityObject</span>
+<span class="cm">     * Like/Unlike. Extends ActivityObject</span>
 <span class="cm">     * @class Like</span>
 <span class="cm">     * @param {object} properties. Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
@@ -576,6 +574,7 @@
 <span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb for this item (post) -- set it to properly to like or unlike&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
+<span class="cm">     * @constructor</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>
@@ -594,8 +593,9 @@
 
 <span class="kd">var</span> <span class="nx">Flag</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
     <span class="cm">/**</span>
-<span class="cm">     * Flag/Unflag</span>
+<span class="cm">     * Flag/Unflag. Extends ActivityObject</span>
 <span class="cm">     * @class Flag</span>
+<span class="cm">     * @extends ActivityObject</span>
 <span class="cm">     * @param {object} properties. Specify:</span>
 <span class="cm">     * &lt;ul&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.item.content : the flag. Need to specify:</span>
@@ -611,7 +611,7 @@
 <span class="cm">     *     &lt;li&gt;properties.item.feed : the feed this item is posted to.&lt;/li&gt;</span>
 <span class="cm">     *     &lt;li&gt;properties.item.verb : (optional) overwrite default verb for this item (post) -- set it to properly to flag or unflag&lt;/li&gt;</span>
 <span class="cm">     * &lt;/ul&gt;</span>
-<span class="cm">     * @extends ActivityObject</span>
+<span class="cm">     * @constructor</span>
 <span class="cm">     */</span>
     <span class="nx">init</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">_super</span><span class="p">();</span>
@@ -625,6 +625,8 @@
     <span class="p">}</span>
 <span class="p">});</span>
 
+
+<span class="c1">// Expose everything</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">Article</span> <span class="o">=</span> <span class="nx">Article</span><span class="p">;</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">Comment</span> <span class="o">=</span> <span class="nx">Comment</span><span class="p">;</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">Note</span> <span class="o">=</span> <span class="nx">Note</span><span class="p">;</span>
@@ -634,7 +636,7 @@
 <span class="nx">exports</span><span class="p">.</span><span class="nx">Flag</span> <span class="o">=</span> <span class="nx">Flag</span><span class="p">;</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">Like</span> <span class="o">=</span> <span class="nx">Like</span><span class="p">;</span>
 
-<span class="c1">// For test only, end-user don&#39;t need that</span>
+<span class="c1">// For test only, end-user shouldn&#39;t need that</span>
 <span class="nx">exports</span><span class="p">.</span><span class="nx">ActivityObject</span> <span class="o">=</span> <span class="nx">ActivityObject</span><span class="p">;</span>
 </pre></div>
 
