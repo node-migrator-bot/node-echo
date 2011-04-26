@@ -23,7 +23,7 @@ describe("req",function(){
         });
         describe("invalid authentication",function(){
             it("should throw an exception",function(){
-                expect(function(){req.post({authMethod:"illegal_auth"},"url","data",callback)}).toThrow({name:'Illegal auth handler exception',error:'auth Handler illegal_auth not valid'})
+                expect(function(){req.post({authMethod:"illegal_auth"},"url","data",callback)}).toThrow({name:'Illegal auth method exception',error:'auth method illegal_auth not valid'})
             })
         })
     });
@@ -49,7 +49,7 @@ describe("req",function(){
         })
         describe("invalid authentication",function(){
             it("should throw an exception",function(){
-                expect(function(){req.get({authMethod:"illegal_auth"},"url","data",callback)}).toThrow({name:'Illegal auth handler exception',error:'auth Handler illegal_auth not valid'})
+                expect(function(){req.get({authMethod:"illegal_auth"},"url","data",callback)}).toThrow({name:'Illegal auth method exception',error:'auth method illegal_auth not valid'})
             })
         })
 

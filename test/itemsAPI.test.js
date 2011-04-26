@@ -51,7 +51,7 @@ describe("itemsAPI",function(){
         describe("tag",function(){
             beforeEach(function(){
                 MockItem = activityObjects.Tag.spawn(                  {
-                     item:{content:{title:"title",permalink:"permalink"}
+                     item:{content:{title:"title",id:"permalink"}
                     ,user:{id:"bob42",name:"Robert Paulson",avatarURL:"http://myavatar.com"}
                     ,feed:"http://monfeed.com",target:{id:"id",type:"blabla"}}});
                 spyOn(MockItem,"renderPost");
@@ -80,7 +80,7 @@ describe("itemsAPI",function(){
         describe("untag",function(){
             beforeEach(function(){
                 MockItem = activityObjects.Tag.spawn(                  {
-                     item:{content:{title:"title",permalink:"permalink"}
+                     item:{content:{title:"title",id:"permalink"}
                     ,user:{id:"bob42",name:"Robert Paulson",avatarURL:"http://myavatar.com"}
                     ,feed:"http://monfeed.com",target:{id:"id",type:"blabla"}}});
                 spyOn(MockItem,"renderPost");
@@ -109,7 +109,7 @@ describe("itemsAPI",function(){
         describe("like",function(){
             beforeEach(function(){
                 MockItem = activityObjects.Like.spawn({
-                     item:{content:{permalink:"permalink"}
+                     item:{content:{id:"permalink"}
                     ,user:{id:"bob42",name:"Robert Paulson",avatarURL:"http://myavatar.com"}
                     ,feed:"http://monfeed.com",target:{id:"id",type:"blabla"}}});
                 spyOn(MockItem,"renderPost");
@@ -138,7 +138,7 @@ describe("itemsAPI",function(){
         describe("unlike",function(){
             beforeEach(function(){
                 MockItem = activityObjects.Like.spawn({
-                     item:{content:{permalink:"permalink"}
+                     item:{content:{id:"permalink"}
                     ,user:{id:"bob42",name:"Robert Paulson",avatarURL:"http://myavatar.com"}
                     ,feed:"http://monfeed.com",target:{id:"id",type:"blabla"}}});
                 spyOn(MockItem,"renderPost");
@@ -167,7 +167,7 @@ describe("itemsAPI",function(){
         describe("flag",function(){
             beforeEach(function(){
                 MockItem = activityObjects.Flag.spawn({
-                     item:{content:{permalink:"permalink"}
+                     item:{content:{id:"permalink"}
                     ,user:{id:"bob42",name:"Robert Paulson",avatarURL:"http://myavatar.com"}
                     ,feed:"http://monfeed.com",target:{id:"id",type:"blabla"}}});
                 spyOn(MockItem,"renderPost");
@@ -195,7 +195,7 @@ describe("itemsAPI",function(){
         describe("unflag",function(){
             beforeEach(function(){
                 MockItem = activityObjects.Flag.spawn({
-                     item:{content:{permalink:"permalink"}
+                     item:{content:{id:"permalink"}
                     ,user:{id:"bob42",name:"Robert Paulson",avatarURL:"http://myavatar.com"}
                     ,feed:"http://monfeed.com",target:{id:"id",type:"blabla"}}});
                 spyOn(MockItem,"renderPost");

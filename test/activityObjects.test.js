@@ -254,12 +254,12 @@ describe("class Tag",function(){
             beforeEach(function(){
                 myTag = require("activityObjects.js").Tag.spawn(
                 {
-                     item:{content:{title:"title",permalink:"permalink"}
+                     item:{content:{title:"title",id:"permalink"}
                     ,user:{id:"bob42",name:"Robert Paulson",avatarURL:"http://myavatar.com"}
                     ,feed:"http://monfeed.com",target:{id:"id",type:"blabla"}}});
             });
             it("should be properly initialised",function(){
-                expect(myTag.item.content.permalink).toEqual("permalink");
+                expect(myTag.item.content.id).toEqual("permalink");
                 expect(myTag.item.content.title).toEqual("title");
                 expect(myTag.item.type).toEqual("http://activitystrea.ms/schema/1.0/tag");
             });
@@ -293,12 +293,12 @@ describe("class Like",function(){
             beforeEach(function(){
                 myLike = require("activityObjects.js").Like.spawn(
                 {
-                     item:{content:{permalink:"permalink"}
+                     item:{content:{id:"permalink"}
                     ,user:{id:"bob42",name:"Robert Paulson",avatarURL:"http://myavatar.com"}
                     ,feed:"http://monfeed.com",target:{id:"id",type:"blabla"}}});
             });
             it("should be properly initialised",function(){
-                expect(myLike.item.content.permalink).toEqual("permalink");
+                expect(myLike.item.content.id).toEqual("permalink");
                 expect(myLike.item.type).toEqual("http://activitystrea.ms/schema/1.0/like");
             });
             describe("renderItem",function(){
@@ -331,12 +331,12 @@ describe("class Flag",function(){
             beforeEach(function(){
                 myFlag = require("activityObjects.js").Flag.spawn(
                 {
-                     item:{content:{permalink:"permalink"}
+                     item:{content:{id:"permalink"}
                     ,user:{id:"bob42",name:"Robert Paulson",avatarURL:"http://myavatar.com"}
                     ,feed:"http://monfeed.com",target:{id:"id",type:"blabla"}}});
             });
             it("should be properly initialised",function(){
-                expect(myFlag.item.content.permalink).toEqual("permalink");
+                expect(myFlag.item.content.id).toEqual("permalink");
                 expect(myFlag.item.type).toEqual("http://activitystrea.ms/schema/1.0/flag");
             });
             describe("renderItem",function(){
