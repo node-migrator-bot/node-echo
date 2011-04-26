@@ -105,9 +105,6 @@
               <h4>Classes</h4>
               <ul>
                   <li >
-                    <a href="ActivityObject.html">ActivityObject</a>
-                  </li>
-                  <li >
                     <a href="Article.html">Article</a>
                   </li>
                   <li >
@@ -220,6 +217,7 @@
           </h2>
 
           <div class="highlight"><pre><span class="kd">var</span> <span class="nx">req</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./req.js&quot;</span><span class="p">).</span><span class="nx">req</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">cons</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;./Cons.js&quot;</span><span class="p">);</span>
 
 <span class="kd">var</span> <span class="nx">UsersAPI</span> <span class="o">=</span> <span class="nx">Class</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
      <span class="nx">parameters</span><span class="o">:</span><span class="p">{</span>
@@ -245,7 +243,7 @@
             <span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">authMethod</span> <span class="o">=</span> <span class="s2">&quot;oauth&quot;</span><span class="p">;</span>
         <span class="p">}</span>
         <span class="c1">//Set defaults</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">=</span> <span class="s1">&#39;api.echoenabled.com&#39;</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">parameters</span><span class="p">.</span><span class="nx">apiHost</span> <span class="o">=</span> <span class="nx">cons</span><span class="p">.</span><span class="nx">API_HOST</span><span class="p">;</span>
     <span class="p">}</span>
     <span class="p">,</span><span class="nx">get</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span><span class="nx">callback</span><span class="p">){</span>
         <span class="cm">/**</span>

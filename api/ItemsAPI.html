@@ -105,9 +105,6 @@
               <h4>Classes</h4>
               <ul>
                   <li >
-                    <a href="ActivityObject.html">ActivityObject</a>
-                  </li>
-                  <li >
                     <a href="Article.html">Article</a>
                   </li>
                   <li >
@@ -284,6 +281,18 @@
                   </li>
                   <li class=" ">
                     <a href="#method_unflagStatus">unflagStatus</a>
+                  </li>
+                  <li class=" ">
+                    <a href="#method_unlikeArticle">unlikeArticle</a>
+                  </li>
+                  <li class=" ">
+                    <a href="#method_unlikeComment">unlikeComment</a>
+                  </li>
+                  <li class=" ">
+                    <a href="#method_unlikeNote">unlikeNote</a>
+                  </li>
+                  <li class=" ">
+                    <a href="#method_unlikeStatus">unlikeStatus</a>
                   </li>
                   <li class=" ">
                     <a href="#method_untag">untag</a>
@@ -2148,6 +2157,266 @@
                                  flag object. Specify
 <ul>
 <li>flag.id : id for that "flag"</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  user
+                                  &lt;object&gt;
+                                </code>
+                                 User submitting the update
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback called after submission
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_unlikeArticle">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_unlikeArticle">unlikeArticle</a>(
+                          target, like, user, callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Allow a user to "like" an article
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the article
+                              </li>
+                              <li>
+                                <code>
+                                  like
+                                  &lt;object&gt;
+                                </code>
+                                 like object. Specify
+<ul>
+<li>tag.id : id for that "like"</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  user
+                                  &lt;object&gt;
+                                </code>
+                                 User submitting the update
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback called after submission
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_unlikeComment">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_unlikeComment">unlikeComment</a>(
+                          target, like, user, callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Allow a user to "like" an comment
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the comment
+                              </li>
+                              <li>
+                                <code>
+                                  like
+                                  &lt;object&gt;
+                                </code>
+                                 like object. Specify
+<ul>
+<li>tag.id : id for that "like"</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  user
+                                  &lt;object&gt;
+                                </code>
+                                 User submitting the update
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback called after submission
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_unlikeNote">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_unlikeNote">unlikeNote</a>(
+                          target, like, user, callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Allow a user to "like" an note
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the note
+                              </li>
+                              <li>
+                                <code>
+                                  like
+                                  &lt;object&gt;
+                                </code>
+                                 like object. Specify
+<ul>
+<li>tag.id : id for that "like"</li>
+</ul>
+                              </li>
+                              <li>
+                                <code>
+                                  user
+                                  &lt;object&gt;
+                                </code>
+                                 User submitting the update
+                              </li>
+                              <li>
+                                <code>
+                                  callback
+                                  &lt;function&gt;
+                                </code>
+                                 callback called after submission
+                              </li>
+                          <ul>
+
+
+                      </td>
+
+                    </tr>
+                    <tr class=" " resource="#method_unlikeStatus">
+
+                      <td class="names">
+                        <code>
+                          <a name="method_unlikeStatus">unlikeStatus</a>(
+                          target, like, user, callback
+                          )
+                        </code>
+                      </td>
+
+                      <td class="returns">
+                        <code>
+                          void
+                        </code>
+
+                        
+                        
+                        
+                      </td>
+
+                      <td class="description">
+                        <a href="#top" class="top" title="Jump back to the top">↑</a>
+
+
+                        Allow a user to "like" an status
+
+                          <p>Parameters:</p>
+                          <ul>
+                              <li>
+                                <code>
+                                  target
+                                  &lt;string&gt;
+                                </code>
+                                 Id of the status
+                              </li>
+                              <li>
+                                <code>
+                                  like
+                                  &lt;object&gt;
+                                </code>
+                                 like object. Specify
+<ul>
+<li>tag.id : id for that "like"</li>
 </ul>
                               </li>
                               <li>
