@@ -29,5 +29,9 @@ task :clean_and_clobber => [:clean, :clobber] do
   puts "Finished and cleaned."
 end
 
+
 #Actual tasks for this project used by teamcity
-#none
+desc "Unit tests"
+task :unit_test do
+     puts `node specs.js`
+end
